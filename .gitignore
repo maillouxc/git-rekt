@@ -1,0 +1,20 @@
+# General binaries #
+
+bin/
+
+# Java build artifacts #
+
+*.class
+
+# Packaged Java files #
+
+*.jar
+
+# Netbeans specific files #
+
+/nbproject/private
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
