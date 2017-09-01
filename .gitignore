@@ -6,6 +6,11 @@ bin/
 
 *.class
 
+# Gradle related files #
+
+.gradle
+/build/
+
 # Packaged Java files #
 
 *.jar
@@ -18,3 +23,8 @@ bin/
 /dist/
 /nbdist/
 /.nb-gradle/
+
+# Eclipse related files #
+
+.classpath
+.project

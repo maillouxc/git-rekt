@@ -1,4 +1,4 @@
-package git.rekt;
+package com.gitrekt.resort;
 
 import java.net.URL;
 import java.util.ResourceBundle;
