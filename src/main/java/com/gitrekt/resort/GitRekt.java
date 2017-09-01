@@ -1,4 +1,4 @@
-package git.rekt;
+package com.gitrekt.resort;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,7 @@ public class GitRekt extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(
-                getClass().getResource("FXMLDocument.fxml")
+                getClass().getResource("/fxml/FXMLDocument.fxml")
         );
         
         Scene scene = new Scene(root);
