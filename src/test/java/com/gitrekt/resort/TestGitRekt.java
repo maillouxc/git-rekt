@@ -2,7 +2,6 @@ package com.gitrekt.resort;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Ignore; //not sure if this is still needed as jUnit 5 uses jupiter for all api calls
 import org.junit.Test;
 import org.junit.jupiter.api; //package for jUnit 5 jupiter api
 
