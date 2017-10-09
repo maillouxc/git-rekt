@@ -2,8 +2,8 @@ package com.gitrekt.resort;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.jupiter.api; //package for jUnit 5 jupiter api
 
 /**
  * This class is here just to test the basic functionality of JUnit in our 
@@ -17,13 +17,13 @@ public class TestGitRekt {
     @Test
     public void testJUnitWorking() {
         int i = 1;
-        assertNotNull("Something is very, very wrong.", i);
+        assertNotNull(i, "Something is very, very wrong.");
     }
     
-    @Ignore
+    @Disabled
     @Test
     public void testJUnitTestFailure() {
         int i = 1;
-        assertNotEquals("JUnit test is failing properly", i, 1);
+        assertNotEquals(i, 1, "JUnit test is failing properly");
     }
 }
