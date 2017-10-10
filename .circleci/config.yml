@@ -6,6 +6,11 @@
 version: 2
 jobs:
     build:
+    
+        machine:
+            java:
+                version: 8
+    
         steps:
             - checkout
             - run: ./gradlew build
