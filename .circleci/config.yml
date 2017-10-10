@@ -11,15 +11,15 @@ jobs:
                 version: 8
         steps:
             - checkout
-            - run: gradle build
-            - run: gradle test
+            - run: ./gradlew build
+            - run: ./gradlew test
     test:
         machine:
             java:
                 version: 8
         steps:
             - checkout
-            - run gradle test
+            - run ./gradlew test
             
 workflows:
     version: 2
