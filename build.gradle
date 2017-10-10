@@ -16,6 +16,7 @@ version = '0.1'
 buildScan {
     licenseAgreementUrl = 'https://gradle.com/terms-of-service'
     licenseAgree = 'yes'
+    publishAlwaysIf(System.getenv('CI'))
 }
 
 mainClassName = 'com.gitrekt.resort.GitRekt'
@@ -48,10 +49,6 @@ jar {
 // gradle is not installed on the machine at all.
 task wrapper(type: Wrapper) {
     gradleVersion = '1.4'
-}
-
-buildScan {
-    publishAlwaysIf(System.getenv('CI'))
 }
 
 gradle.buildFinished { buildResult ->
