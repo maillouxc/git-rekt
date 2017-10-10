@@ -6,8 +6,6 @@
 version: 2
 jobs:
     build:
-        docker:
-            - image circleci/java:8
         steps:
             - checkout
             - run: ./gradlew build
