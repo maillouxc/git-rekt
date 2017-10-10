@@ -16,6 +16,9 @@ version = '0.1'
 buildScan {
     licenseAgreementUrl = 'https://gradle.com/terms-of-service'
     licenseAgree = 'yes'
+    if (System.getenv('CI')) {
+        publishAlways()
+    }
 }
 
 mainClassName = 'com.gitrekt.resort.GitRekt'
