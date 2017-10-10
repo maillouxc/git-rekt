@@ -1,0 +1,27 @@
+# Java Gradle CircleCI 2.0 configuration file.
+
+# This file will configure CircleCI based continuous intergration for our github repository.
+# It will automatically run a build and run all of our tests any time code is pushed to the repo.
+
+version:2
+
+# Note that CircleCI declares a system environment variable CI to TRUE so that the build
+# knows it is running in a CI environment.
+
+jobs:
+    build:
+        steps:
+        -checkout
+        
+        - v1-dependencies-{{ checksum "build.gradle" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+        
+        -run: gradle dependencies
+        
+        -save_cache:
+            paths:
+                ~/.gradle/caches/modules-2/files-2.1/
+            key: v1-dependencies-{{ checksum "build.gradle" }}
+        
+        -run: gradle test
