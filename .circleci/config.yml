@@ -13,13 +13,6 @@ jobs:
             - checkout
             - run: ./gradlew build
             - run: ./gradlew test
-    test:
-        machine:
-            java:
-                version: 8
-        steps:
-            - checkout
-            - run ./gradlew test
             
 workflows:
     version: 2
