@@ -1,5 +1,22 @@
-apply plugin: 'java'
-apply plugin: 'application'
+plugins {
+    // Standard java plugin for gradle.
+    id 'java'
+    // Needed to use attribute mainClassName. Pretty standard.
+    id 'application'
+    // Add the gradle build-scan plugin to let us use a fancy UI to view build
+    // results and information in a web browser.
+    id 'com.gradle.build-scan' version '1.9'
+}
+
+version = '0.1'
+
+// This is the coolest way I have ever not read the terms of service.
+// To view the build scan when you build the project, open the command prompt
+// and run ./gradlew build --scan and follow the presented instructions.
+buildScan {
+    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+    licenseAgree = 'yes'
+}
 
 mainClassName = 'com.gitrekt.resort.GitRekt'
 
@@ -8,9 +25,38 @@ repositories {
 }
 
 dependencies {
-    testCompile 'junit:junit:5.0.1'
+    testCompile 'junit:junit:4.12'
 }
 
+// This task builds a jar that will make our project distributable.
+// The built jar will go in /build/libs
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'git-rekt Resort Software',
+            'Implementation-Version': version,
+            'Main-Class': 'com.gitrekt.resort.GitRekt'
+    }
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+// This generates a gradle wrapper file to allow a gradle build to be run
+// regardless of what version of gradle is installed on a machine, or even if 
+// gradle is not installed on the machine at all.
 task wrapper(type: Wrapper) {
     gradleVersion = '1.4'
+}
+
+gradle.buildFinished { buildResult ->
+    if (buildResult.failure) {
+        println ''
+        println 'Thou shalt NOT push broken code.'
+        println 'Violaters will be fed to the garbage collector.'
+    } else {
+        println ''
+        println 'Please make sure you have tested your code before pushing.'
+    }
 }
