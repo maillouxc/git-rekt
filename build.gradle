@@ -50,6 +50,10 @@ task wrapper(type: Wrapper) {
     gradleVersion = '1.4'
 }
 
+buildScan {
+    publishAlwaysIf(System.getenv('CI'))
+}
+
 gradle.buildFinished { buildResult ->
     if (buildResult.failure) {
         println ''
