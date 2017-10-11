@@ -1,0 +1,5 @@
+/* The FX-CSS file for the application home screen. */
+
+.button {
+    -fx-pref-width: 100px;
+}
