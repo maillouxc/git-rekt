@@ -1,0 +1,15 @@
+# Java Gradle CircleCI 2.0 configuration file.
+
+# This file will configure CircleCI based continuous intergration for our github repository.
+# It will automatically run a build and run all of our tests any time code is pushed to the repo.
+
+version: 2
+jobs:
+    build:
+        machine:
+            java:
+                version: 8
+        steps:
+            - checkout
+            - run: ./gradlew build
+            - run: ./gradlew test
