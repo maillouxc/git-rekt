@@ -1,0 +1,5 @@
+/* CSS File to test FX-CSS styling of JavaFX components */
+
+.root {
+    -fx-background-color: bisque;
+}

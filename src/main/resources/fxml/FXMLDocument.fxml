@@ -11,7 +11,8 @@
     prefHeight="200" 
     prefWidth="320" 
     xmlns:fx="http://javafx.com/fxml/1" 
-    fx:controller="com.gitrekt.resort.FXMLDocumentController">
+    fx:controller="com.gitrekt.resort.FXMLDocumentController"
+    stylesheets="fxcss/Test.css">
     
     <children>
         
