@@ -13,13 +13,15 @@ public class GitRekt extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(
-                getClass().getResource("/fxml/FXMLDocument.fxml")
+        
+        Parent homeScreenRoot = FXMLLoader.load(
+                getClass().getResource("/fxml/HomeScreen.fxml")
         );
         
-        Scene scene = new Scene(root);
+        Scene homeScreen = new Scene(homeScreenRoot);
         
-        stage.setScene(scene);
+        stage.setMaximized(true);
+        stage.setScene(homeScreen);
         stage.show();
     }
 

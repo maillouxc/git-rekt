@@ -1,0 +1,13 @@
+/*
+ * This is the master FX-CSS stylesheet for the application.
+ *
+ * All FXML files in the application should declare this stylesheet before 
+ * any others. This can be easily done is the Scene Builder.
+ */
+
+/* Someone please change this godawful background to something better at some
+ * point. I just put it there as a temporary measure to show how this works.
+ */
+.root {
+    -fx-background-color: bisque;
+}
