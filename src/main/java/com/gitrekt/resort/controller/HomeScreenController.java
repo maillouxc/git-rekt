@@ -25,6 +25,9 @@ public class HomeScreenController implements Initializable {
         // TODO: Implement
     }
     
+    /**
+     * Trigger the pop-up dialog 
+     */
     @FXML
     protected void onStaffModeButtonClicked() {
         // TODO: Implement.
