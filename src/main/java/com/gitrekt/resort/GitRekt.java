@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -22,6 +23,11 @@ public class GitRekt extends Application {
         
         stage.setMaximized(true);
         stage.setScene(homeScreen);
+        
+        Image appLogo = new Image("images/Git-Rekt-Logo.png");
+        stage.getIcons().add(appLogo);
+        stage.setTitle("Git-Rektsort Booking Software");
+        
         stage.show();
     }
 
