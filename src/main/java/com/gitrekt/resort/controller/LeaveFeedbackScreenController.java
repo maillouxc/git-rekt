@@ -6,14 +6,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
+import javafx.scene.control.button
 
 /**
  * FXML Controller class for the leave feedback screen.
  */
 public class LeaveFeedbackScreenController implements Initializable {
      
-     @FXML 
-     private javafx.scene.control.Button submitButton;
+    @FXML 
+    private Button submitButton;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
