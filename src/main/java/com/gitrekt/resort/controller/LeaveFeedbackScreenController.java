@@ -27,9 +27,9 @@ public class LeaveFeedbackScreenController implements Initializable {
      */  
     @FXML
     private void onSubmitButtonClicked(ActionEvent event) {
-          Stage stage = (Stage) submitButton.getScene().getWindow();
-          //TODO Add feedback to database
-          stage.close();
+        Stage stage = (Stage) submitButton.getScene().getWindow();
+        //TODO Add feedback to database
+        stage.close();
     }
 }
     
