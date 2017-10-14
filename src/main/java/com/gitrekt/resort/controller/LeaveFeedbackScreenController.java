@@ -32,10 +32,3 @@ public class LeaveFeedbackScreenController implements Initializable {
         stage.close();
     }
 }
-    
-
-    
-    
-
-
-    
