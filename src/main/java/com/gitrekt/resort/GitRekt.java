@@ -20,8 +20,7 @@ public class GitRekt extends Application {
         );
         
         Scene homeScreen = new Scene(homeScreenRoot);
-        
-        stage.setMaximized(true);
+
         stage.setScene(homeScreen);
         
         Image appLogo = new Image("images/Git-Rekt-Logo.png");
