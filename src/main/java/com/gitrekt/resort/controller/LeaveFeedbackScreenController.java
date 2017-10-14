@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
-import javafx.scene.control.Button
+import javafx.scene.control.Button;
 
 /**
  * FXML Controller class for the leave feedback screen.
