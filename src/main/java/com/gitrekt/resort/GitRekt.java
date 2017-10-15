@@ -24,7 +24,7 @@ public class GitRekt extends Application {
         stage.setMaximized(true);
         stage.setScene(homeScreen);
         
-        Image appLogo = new Image("images/Git-Rekt-Logo.png");
+        Image appLogo = new Image("images/Logo.png");
         stage.getIcons().add(appLogo);
         stage.setTitle("Git-Rektsort Booking Software");
         
