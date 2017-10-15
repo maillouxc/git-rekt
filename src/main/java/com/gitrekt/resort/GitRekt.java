@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -13,13 +14,19 @@ public class GitRekt extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(
-                getClass().getResource("/fxml/FXMLDocument.fxml")
+        
+        Parent homeScreenRoot = FXMLLoader.load(
+                getClass().getResource("/fxml/HomeScreen.fxml")
         );
         
-        Scene scene = new Scene(root);
+        Scene homeScreen = new Scene(homeScreenRoot);
+
+        stage.setScene(homeScreen);
         
-        stage.setScene(scene);
+        Image appLogo = new Image("images/Logo.png");
+        stage.getIcons().add(appLogo);
+        stage.setTitle("Git-Rektsort Booking Software");
+        
         stage.show();
     }
 

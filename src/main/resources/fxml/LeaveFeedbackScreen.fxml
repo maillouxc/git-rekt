@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="441.0" prefWidth="608.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="164.0" layoutY="68.0" prefHeight="36.0" prefWidth="286.0" text="Thanks for visiting our resort.">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextArea layoutX="163.0" layoutY="120.0" prefHeight="200.0" prefWidth="286.0" promptText="Please tell us about your experience." />
+      <Label layoutX="164.0" layoutY="331.0" text="Email:" />
+      <TextField layoutX="200.0" layoutY="327.0" prefHeight="25.0" prefWidth="251.0" />
+      <Button layoutX="274.0" layoutY="361.0" mnemonicParsing="false" text="Submit" />
+      <Label layoutX="256.0" layoutY="20.0" text="Feedback">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
