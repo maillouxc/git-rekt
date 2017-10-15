@@ -5,6 +5,12 @@ package com.gitrekt.resort.model;
  */
 public class Room {
     
+    private String roomNumber;
+    
     // TODO: Implement.
+    
+    public String getRoomNumber() {
+        return roomNumber;
+    }
     
 }
