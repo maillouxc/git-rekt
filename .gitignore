@@ -28,3 +28,7 @@ bin/
 
 .classpath
 .project
+
+# Fix Jeffrey's nonsense #
+
+private/
