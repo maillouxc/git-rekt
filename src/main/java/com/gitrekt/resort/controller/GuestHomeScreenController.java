@@ -3,12 +3,14 @@ package com.gitrekt.resort.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -26,7 +28,38 @@ public class GuestHomeScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //Allows this button to activate when user hits enter
+         leaveFeedbackButton.setOnKeyPressed(new EventHandler<KeyEvent>(){
+           @Override
+           public void handle(KeyEvent event) {
+               switch(event.getCode()){
+                   case ENTER:
+                        try{
+               onLeaveFeedbackButtonClicked();
+           }
+       catch(IOException i){
+           
+       }
+               }
+               
+           }
+       });
+         //Allows this button to activate when user hits enter
+         browseRoomsButton.setOnKeyPressed(new EventHandler<KeyEvent>(){
+           @Override
+           public void handle(KeyEvent event) {
+               switch(event.getCode()){
+                   case ENTER:
+                        try{
+               onBrowseRoomsButtonClicked();
+           }
+       catch(IOException i){
+           
+       }
+               }
+               
+           }
+       });
     }
     
     /**
