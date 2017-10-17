@@ -12,7 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 /**
- * TODO: Document.
+ * This class controls the list items in the browse rooms screen room search
+ * results list. Due to the weird way that lists are updated in JavaFX,
+ * this class actually loads the FXML and then assigns itself as the controller
+ * for the screen; things are typically done the other way around in JavaFX.
  */
 public class BrowseRoomsListItemController implements Initializable {
     
@@ -43,12 +46,12 @@ public class BrowseRoomsListItemController implements Initializable {
             fxmlLoader.load();
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            // TODO
         }
     }
     
     /**
-     * Initializes the controller class.
+     * Handles any needed initialization logic for the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -56,10 +59,7 @@ public class BrowseRoomsListItemController implements Initializable {
     }
     
     public void setData(RoomSearchResult roomData) {
-        // TODO: Remove
-        System.out.println("here");
-        
-        //roomCategoryLabel.setText(roomData.getRoomCategory().getName());
+        roomCategoryLabel.setText(roomData.getRoomCategory().getName());
         roomThumbnailView.setImage(roomData.getRoomCategory().getImage());
     
         // TODO: We should handle currency more flexibly at some point.

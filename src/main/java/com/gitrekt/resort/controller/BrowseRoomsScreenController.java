@@ -55,6 +55,12 @@ public class BrowseRoomsScreenController implements Initializable {
 
     }
     
+    /**
+     * Adds this RoomSearchResult to the list of search results, if it is not
+     * already in the list.
+     * 
+     * @param result The RoomSearchResult to add.
+     */
     public void addResult(RoomSearchResult result) {
         if(!roomSearchResults.contains(result)) {
             roomSearchResults.add(result);
@@ -62,6 +68,11 @@ public class BrowseRoomsScreenController implements Initializable {
         }
     }
     
+    /**
+     * Removes this roomSearchResult item from the list of results.
+     * 
+     * @param result The RoomSearchResult to remove.
+     */
     public void removeResult(RoomSearchResult result) {
         roomSearchResults.remove(result);
     }
@@ -89,12 +100,12 @@ public class BrowseRoomsScreenController implements Initializable {
         Scene guestHomeScreen = new Scene(guestHomeScreenRoot);
         
         mainStage.setScene(guestHomeScreen);
+        mainStage.centerOnScreen();
     }
     
+    // TODO: Remove test code.
     @FXML
     protected void onFindAvailableRoomsButtonClicked() {
-        System.out.println("here");
-        
         Image i = new Image("/images/temporary_hotel_room_image_placeholder.jpg");
         RoomSearchResult r4 = new RoomSearchResult("512", new BigDecimal("2419"), 
             new RoomCategory(
@@ -104,7 +115,6 @@ public class BrowseRoomsScreenController implements Initializable {
                 "2 King, 2 Twin"
             )
         );
-        
         this.addResult(r4);
     }
     
