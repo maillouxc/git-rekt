@@ -33,6 +33,9 @@ public class BrowseRoomsScreenController implements Initializable {
     @FXML
     private Button findAvailableRoomsButton;
     
+    @FXML
+    private Button nextButton;
+    
     private ObservableList<RoomSearchResult> roomSearchResults;
     
     public BrowseRoomsScreenController() {
@@ -116,6 +119,11 @@ public class BrowseRoomsScreenController implements Initializable {
             )
         );
         this.addResult(r4);
+    }
+    
+    @FXML
+    protected void onNextButtonClicked() {
+        // TODO
     }
     
 }
