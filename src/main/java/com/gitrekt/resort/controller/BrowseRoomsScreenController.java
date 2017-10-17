@@ -3,6 +3,7 @@ package com.gitrekt.resort.controller;
 import com.gitrekt.resort.model.RoomCategory;
 import com.gitrekt.resort.model.RoomSearchResult;
 import com.gitrekt.resort.view.AvailableRoomListItem;
+import com.gitrekt.resort.view.DeletableListItem;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -22,7 +23,8 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class for the browse rooms screen.
  */
-public class BrowseRoomsScreenController implements Initializable {
+public class BrowseRoomsScreenController implements Initializable,
+        DeletableListItemDeletionListener {
 
     @FXML
     private Button backButton;
@@ -37,6 +39,8 @@ public class BrowseRoomsScreenController implements Initializable {
     private Button nextButton;
     
     private ObservableList<RoomSearchResult> roomSearchResults;
+    
+    private ObservableList<RoomSearchResult> currentlySelectedRooms;
     
     public BrowseRoomsScreenController() {
         roomSearchResults = FXCollections.observableArrayList();
@@ -124,6 +128,14 @@ public class BrowseRoomsScreenController implements Initializable {
     @FXML
     protected void onNextButtonClicked() {
         // TODO
+    }
+    
+    /**
+     * Handles item deletion events for deletable list items.
+     */
+    @Override
+    public void onItemDeleted(DeletableListItem item) {
+        // TODO implement
     }
     
 }
