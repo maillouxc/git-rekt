@@ -19,6 +19,8 @@ public class GuestHomeScreenController implements Initializable {
     @FXML
     private Button browseRoomsButton;
     
+    @FXML
+    private Button leaveFeedbackButton;
     /**
      * Initializes the controller class.
      */
@@ -39,6 +41,21 @@ public class GuestHomeScreenController implements Initializable {
         );
         Scene browseRoomsScreen = new Scene(browseRoomsScreenRoot);
         mainStage.setScene(browseRoomsScreen);
+        mainStage.centerOnScreen();
+    }
+    
+    /**
+     * Displays the leave feedback screen.
+     * 
+     * @throws IOException 
+     */
+     public void onLeaveFeedbackButtonClicked() throws IOException {
+        Stage mainStage = (Stage) leaveFeedbackButton.getScene().getWindow();
+        Parent leaveFeedbackScreenRoot = FXMLLoader.load(
+                getClass().getResource("/fxml/LeaveFeedbackScreen.fxml")
+        );
+        Scene leaveFeedbackScreen = new Scene(leaveFeedbackScreenRoot);
+        mainStage.setScene(leaveFeedbackScreen);
         mainStage.centerOnScreen();
     }
 }
