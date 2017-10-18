@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BrowseRoomsListItemController">
    <children>
       <ImageView fx:id="roomThumbnailView" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onRoomThumbnailClicked" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -38,16 +38,7 @@ public class BrowseRoomsListItemController implements Initializable {
     private Label roomDescriptionLabel;
     
     public BrowseRoomsListItemController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/fxml/BrowseRoomsListItem.fxml")
-        );
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        }
-        catch (IOException e) {
-            // TODO
-        }
+        // TODO
     }
     
     /**
@@ -61,6 +52,7 @@ public class BrowseRoomsListItemController implements Initializable {
     public void setData(RoomSearchResult roomData) {
         roomCategoryLabel.setText(roomData.getRoomCategory().getName());
         roomThumbnailView.setImage(roomData.getRoomCategory().getImage());
+        bedsInfoLabel.setText(roomData.getRoomCategory().getBedsInfo());
     
         // TODO: We should handle currency more flexibly at some point.
         String priceString = "$" + roomData.getRoomPrice() + " / night";
@@ -69,7 +61,6 @@ public class BrowseRoomsListItemController implements Initializable {
         roomDescriptionLabel.setText(
             roomData.getRoomCategory().getDescription()
         );
-        bedsInfoLabel.setText(roomData.getRoomCategory().getBedsInfo());
     }
     
     public Node getView() {
@@ -78,7 +69,7 @@ public class BrowseRoomsListItemController implements Initializable {
     
     @FXML
     protected void onAddToBookingButtonClicked() {
-        // TODO
+        // TODO implement program logic
     }
     
     @FXML

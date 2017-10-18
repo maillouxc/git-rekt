@@ -1,47 +1,66 @@
 package com.gitrekt.resort.view;
 
+import com.gitrekt.resort.controller.DeletableListItemDeletionListener;
+import com.gitrekt.resort.model.RoomSearchResult;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 
 /**
- * TODO
+ * TODO: Document
+ * 
+ * Everything about this class is a giant mess. It was only really written to 
+ * test the UI. It needs to be redesigned from the ground up.
+ * 
+ * Please, please, do not use this class in the final program.
  */
-public class DeletableListItem extends ListCell<String> {
+public class DeletableListItem extends ListCell<RoomSearchResult> {
 
     private HBox root = new HBox();
-    private Label label = new Label("");
-    private Pane pane = new Pane();
-    private Button button = new Button();
+    private Label listItemText = new Label("");
+    private Button deleteButton = new Button();
+    private ImageView deleteButtonIcon;
     
-    ///private DeletableListItemDeletionListener listener;
+    //private DeletableListItemController controller;
     
-    public DeletableListItem() {
+    private DeletableListItemDeletionListener listener;
+    
+    public DeletableListItem(DeletableListItemDeletionListener listener) {
         super();
         
-        root.getChildren().addAll(button, pane, label);
-        HBox.setHgrow(pane, Priority.ALWAYS);
-        button.setOnAction(event -> onXClicked());
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        try {
+            root = fxmlLoader.load(
+                    getClass().getResource("/fxml/DeletableListItem.fxml")
+            );
+           //fxmlLoader.setController(controller);
+        } catch (IOException ex) {
+            // TODO
+        }
+        
+        this.listener = listener;
+        deleteButton.setOnAction(event -> onXClicked());
     }
     
     @Override
-    protected void updateItem(String text, boolean empty) {
-        super.updateItem(text, empty);
+    protected void updateItem(RoomSearchResult roomData, boolean empty) {
+        super.updateItem(roomData, empty);
         
-        if(empty || text == null) {
+        if(empty || roomData == null) {
             setItem(null);
             setGraphic(null);
         } else {
-            label.setText(text);
+            listItemText.setText(roomData.getRoomCategory().getName());
             setGraphic(root);
         }
     }
     
     private void onXClicked() {
-        //listener.onItemDeleted();
+        listener.onItemDeleted(this);
         
         // Remove the item from the list
         getListView().getItems().remove((getItem()));
