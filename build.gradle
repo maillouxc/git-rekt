@@ -60,6 +60,6 @@ gradle.buildFinished { buildResult ->
         println 'Violaters will be fed to the garbage collector.'
     } else {
         println ''
-        println 'Please make sure you have tested your code before pushing.'
+        println 'Ask yourself: Would Jesus commit this code?'
     }
 }
