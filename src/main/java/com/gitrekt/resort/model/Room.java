@@ -7,10 +7,14 @@ public class Room {
     
     private String roomNumber;
     
-    // TODO: Implement.
+    private RoomCategory roomCategory;
     
     public String getRoomNumber() {
         return roomNumber;
+    }
+    
+    public RoomCategory getRoomCategory() {
+        return roomCategory;
     }
     
 }
