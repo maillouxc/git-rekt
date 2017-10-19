@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.LeaveFeedbackScreenController">
+<VBox xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane id="AnchorPane" prefHeight="441.0" prefWidth="608.0">
          <children>
@@ -25,7 +24,7 @@
             <Button layoutX="274.0" layoutY="361.0" mnemonicParsing="false" text="Submit" />
             <ToolBar prefHeight="40.0" prefWidth="608.0">
               <items>
-                <Button fx:id ="backButton" onAction="#onBackButtonClicked" mnemonicParsing="false" text="Back" />
+                <Button fx:id="backButton" mnemonicParsing="false" text="Back" />
                   <Label text="                                Feedback">
                      <font>
                         <Font size="24.0" />
