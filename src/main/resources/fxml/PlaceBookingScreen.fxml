@@ -99,7 +99,7 @@
                   <TextField fx:id="addressLine2Field" prefHeight="25.0" prefWidth="350.0" promptText="Enter street address line 2 (optional)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Country:" GridPane.columnIndex="2" />
                   <Label text="State:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="countryPicker" prefHeight="25.0" prefWidth="150.0" promptText="Select Country" GridPane.columnIndex="3" />
+                  <ComboBox fx:id="countryPicker" onAction="#onCountryPicked" prefHeight="25.0" prefWidth="150.0" promptText="Select Country" GridPane.columnIndex="3" />
                   <ComboBox fx:id="statePicker" prefWidth="150.0" promptText="Select State" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <Label text="City:" GridPane.rowIndex="2" />
                   <TextField fx:id="cityField" prefHeight="25.0" prefWidth="250.0" promptText="Enter city" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -147,8 +147,8 @@
             <Separator prefWidth="200.0" />
             <HBox alignment="TOP_CENTER" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" prefWidth="75.0" text="Back" />
-                  <Button fx:id="nextButton" mnemonicParsing="false" prefWidth="75.0" text="Finish" />
+                  <Button fx:id="onBackButtonClicked" mnemonicParsing="false" onAction="#onBackButtonClicked" prefWidth="75.0" text="Back" />
+                  <Button fx:id="finishButton" mnemonicParsing="false" onAction="#onFinishButtonClicked" prefWidth="75.0" text="Finish" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
