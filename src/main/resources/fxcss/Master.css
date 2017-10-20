@@ -9,5 +9,18 @@
  * point. I just put it there as a temporary measure to show how this works.
  */
 .root {
-    -fx-background-color: bisque;
+    -fx-background-color: linear-gradient( rgb(204, 228, 252), rgb(3, 67, 131));
+    -fx-font-family: "Georgia";
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Georgia";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(rgba(3, 120, 89, 1), rgba(3, 120, 89, 0.5));
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(rgba(3, 120, 89, 0.5), rgba(3, 120, 89, 1));
 }
