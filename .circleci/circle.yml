@@ -1,5 +1,0 @@
-# CircleCI continuous integration configuration file
-
-general:
-    artifacts:
-        - "build/libs"
