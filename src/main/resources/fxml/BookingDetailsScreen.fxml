@@ -14,10 +14,10 @@
       <URL value="@/fxcss/BookingDetailsScreen.css" />
    </stylesheets>
    <children>
-      <ToolBar prefHeight="46.0" prefWidth="612.0">
+      <ToolBar prefHeight="46.0" prefWidth="708.0">
          <items>
-            <Button fx:id="backButton" onAction="#onBackButtonClicked" mnemonicParsing="false" text="Back" />
-            <Label text="                          Booking Details">
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" />
+            <Label text="                                 Booking Details">
                <font>
                   <Font size="24.0" />
                </font>
@@ -34,9 +34,9 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ScrollPane layoutY="103.0" prefHeight="501.0" prefWidth="612.0">
+      <ScrollPane layoutY="103.0" prefHeight="502.0" prefWidth="708.0">
          <content>
-            <ListView fx:id="guestBookingList" prefHeight="498.0" prefWidth="607.0" />
+            <ListView fx:id="guestBookingList" prefHeight="498.0" prefWidth="708.0" />
          </content>
       </ScrollPane>
    </children>
