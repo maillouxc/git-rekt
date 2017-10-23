@@ -21,6 +21,10 @@ public class GuestHomeScreenController implements Initializable {
     
     @FXML
     private Button leaveFeedbackButton;
+    
+    @FXML
+    private Button viewBookingButton;
+    
     /**
      * Initializes the controller class.
      */
@@ -58,4 +62,8 @@ public class GuestHomeScreenController implements Initializable {
         mainStage.setScene(leaveFeedbackScreen);
         mainStage.centerOnScreen();
     }
+     
+     protected void onViewBookingButtonClicked() {
+         // TODO
+     }
 }
