@@ -1,3 +1,4 @@
+
 package com.gitrekt.resort;
 
 import javafx.application.Application;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 /**
  * The main application class shell.
  */
+
 public class GitRekt extends Application {
     
     @Override

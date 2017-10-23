@@ -13,3 +13,7 @@ jobs:
             - checkout
             - run: ./gradlew build
             - run: ./gradlew test
+            - store_artifacts:
+                path: build/reports/tests
+            - store_artifacts:
+                path: build/libs
