@@ -16,6 +16,8 @@ public class LeaveFeedbackScreenController implements Initializable {
     @FXML 
     private Button submitButton;
     
+    @FXML
+    private Button cancelButton;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
