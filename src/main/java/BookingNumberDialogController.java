@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  */
-public class BookingNmberDialogController implements Initializable {
+public class BookingNumberDialogController implements Initializable {
 
     @FXML
     private Button viewBookingButton;
