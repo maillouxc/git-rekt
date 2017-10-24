@@ -1,15 +1,23 @@
 package com.gitrekt.resort.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class for the staff home screen.
  */
 public class StaffHomeScreenController implements Initializable {
+    
+    @FXML
+    private Button backButton;
 
     @FXML
     private Button registryButton;
@@ -45,5 +53,19 @@ public class StaffHomeScreenController implements Initializable {
     
     public void onManageStaffAccountsButtonClicked() {
         // TODO
+    }
+    
+    /**
+     * Back button when click will take you to home screen
+     * @throws IOException 
+     */
+    public void onBackButtonClicked() throws IOException {
+        Stage mainStage = (Stage) backButton.getScene().getWindow();
+        Parent HomeScreenRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/HomeScreen.fxml")
+        );
+        Scene HomeScreen = new Scene(HomeScreenRoot);
+        mainStage.centerOnScreen();
+        mainStage.setScene(HomeScreen);
     }
 }
