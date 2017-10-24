@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -56,7 +57,7 @@ public class GuestHomeScreenController implements Initializable {
      * 
      * @throws IOException 
      */
-     public void onLeaveFeedbackButtonClicked() throws IOException {
+    public void onLeaveFeedbackButtonClicked() throws IOException {
         Stage mainStage = (Stage) leaveFeedbackButton.getScene().getWindow();
         Parent leaveFeedbackScreenRoot = FXMLLoader.load(
                 getClass().getResource("/fxml/LeaveFeedbackScreen.fxml")
@@ -65,10 +66,6 @@ public class GuestHomeScreenController implements Initializable {
         mainStage.setScene(leaveFeedbackScreen);
         mainStage.centerOnScreen();
     }
-     
-     protected void onViewBookingButtonClicked() {
-         // TODO
-     }
      
      /**
      * Back button when click will take you to home screen
@@ -82,5 +79,24 @@ public class GuestHomeScreenController implements Initializable {
         Scene HomeScreen = new Scene(HomeScreenRoot);
         mainStage.centerOnScreen();
         mainStage.setScene(HomeScreen);
+    }
+      
+    public void onViewBookingButtonClicked() throws IOException {
+        Stage bookingNumberDialogStage = new Stage();
+        Parent bookingNumberDialogRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/BookingNumberDialog.fxml")
+        );
+        Scene bookingNumberDialog = new Scene(bookingNumberDialogRoot);
+        
+        bookingNumberDialogStage.setScene(bookingNumberDialog);
+        bookingNumberDialogStage.initModality(Modality.APPLICATION_MODAL);
+        bookingNumberDialogStage.initOwner(
+            viewBookingButton.getScene().getWindow()
+        );
+        bookingNumberDialogStage.setResizable(false);
+        bookingNumberDialogStage.setTitle("Find Booking");
+        bookingNumberDialogStage.centerOnScreen();
+        
+        bookingNumberDialogStage.show();
     }
 }

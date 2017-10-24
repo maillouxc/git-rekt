@@ -30,7 +30,7 @@ public class StaffHomeScreenController implements Initializable {
     
     @FXML
     private Button manageStaffAccountsButton;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -43,8 +43,13 @@ public class StaffHomeScreenController implements Initializable {
         // TODO
     }
     
-    public void onViewReportsButtonClicked() {
-        // TODO
+    public void onViewReportsButtonClicked() throws IOException {
+        Stage mainStage = (Stage) viewReportsButton.getScene().getWindow();
+        Parent viewReportsScreenRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/ReportsHomeScreen.fxml")
+        );
+        Scene viewReportsScreen = new Scene(viewReportsScreenRoot);
+        mainStage.setScene(viewReportsScreen);
     }
     
     public void onEditPricesButtonClicked() {
