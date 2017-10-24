@@ -99,7 +99,7 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button fx:id="cancelBookingButton" mnemonicParsing="false" onAction="#onCancelBookingClicked" prefWidth="120.0" text="Cancel Booking" />
+                  <Button fx:id="cancelBookingButton" mnemonicParsing="false" onAction="#onCancelBookingButtonClicked" prefWidth="120.0" text="Cancel Booking" />
                   <Button fx:id="viewBillButton" mnemonicParsing="false" onAction="#onViewBillButtonClicked" prefWidth="120.0" text="View Bill" />
                </children>
                <VBox.margin>
