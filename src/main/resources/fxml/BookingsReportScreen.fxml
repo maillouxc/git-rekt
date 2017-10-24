@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox alignment="TOP_CENTER" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" />
+        </items>
+      </ToolBar>
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0">
+         <children>
+            <StackedBarChart fx:id="barChart" categoryGap="5.0" prefHeight="700.0" title="Bookings">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis autoRanging="false" label="Percentage" minorTickCount="2" side="LEFT" />
+              </yAxis>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </StackedBarChart>
+            <Label fx:id="monthYearLabel" text="October, 2017">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" spacing="15.0">
+               <children>
+                  <Button fx:id="previousMonthButton" mnemonicParsing="false" onAction="#onPreviousMonthButtonClicked" prefWidth="100.0" text="Previous Month" />
+                  <Separator orientation="VERTICAL" />
+                  <Button fx:id="selectMonthButton" mnemonicParsing="false" onAction="#onSelectMonthButtonClicked" prefWidth="100.0" text="Select Month" />
+                  <Separator orientation="VERTICAL" />
+                  <Button fx:id="nextMonthButton" mnemonicParsing="false" onAction="#onNextMonthButtonClicked" prefWidth="100.0" text="Next Month" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
