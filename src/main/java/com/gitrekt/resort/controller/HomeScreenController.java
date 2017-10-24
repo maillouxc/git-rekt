@@ -69,7 +69,7 @@ public class HomeScreenController implements Initializable {
         );
         
         Scene guestHomeScreen = new Scene(guestHomeScreenRoot);
-        mainStage.setScene(guestHomeScreen);
         mainStage.centerOnScreen();
+        mainStage.setScene(guestHomeScreen);
     }
 }
