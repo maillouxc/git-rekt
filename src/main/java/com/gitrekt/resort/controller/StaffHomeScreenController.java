@@ -43,7 +43,7 @@ public class StaffHomeScreenController implements Initializable {
     public void onViewReportsButtonClicked() throws IOException {
         Stage mainStage = (Stage) viewReportsButton.getScene().getWindow();
         Parent viewReportsScreenRoot = FXMLLoader.load(
-            getClass().getResource("/fxml/ViewReportsScreenController.fxml")
+            getClass().getResource("/fxml/ReportsHomeScreen.fxml")
         );
         Scene viewReportsScreen = new Scene(viewReportsScreenRoot);
         mainStage.setScene(viewReportsScreen);
