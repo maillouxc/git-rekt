@@ -17,15 +17,28 @@ import javafx.stage.Stage;
 public class StaffHomeScreenController implements Initializable {
 
     @FXML
+    private Button registryButton;
+    
+    @FXML
     private Button viewReportsButton;
     
+    @FXML
+    private Button editPricesButton;
+    
+    @FXML
+    private Button manageStaffAccountsButton;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+    
+    public void onRegistryButtonClicked() {
+        // TODO
+    }
     
     public void onViewReportsButtonClicked() throws IOException {
         Stage mainStage = (Stage) viewReportsButton.getScene().getWindow();
@@ -36,4 +49,11 @@ public class StaffHomeScreenController implements Initializable {
         mainStage.setScene(viewReportsScreen);
     }
     
+    public void onEditPricesButtonClicked() {
+        // TODO
+    }
+    
+    public void onManageStaffAccountsButtonClicked() {
+        // TODO
+    }
 }
