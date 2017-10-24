@@ -33,16 +33,14 @@ public class LeaveFeedbackScreenController implements Initializable {
      * @throws IOException 
      */
     public void onCancelClicked() throws IOException {
-       Stage guestHomeStage = (Stage) cancelButton.getScene().getWindow();
+       Stage mainStage = (Stage) cancelButton.getScene().getWindow();
         Parent guestHomeScreenRoot = FXMLLoader.load(
                 getClass().getResource("/fxml/GuestHomeScreen.fxml")
         );
-        
         Scene guestHomeScreen = new Scene(guestHomeScreenRoot);
         
-        guestHomeStage.setScene(guestHomeScreen);
-        guestHomeStage.centerOnScreen();
-       
+        mainStage.setScene(guestHomeScreen);
+        mainStage.centerOnScreen();
     }
     
     /**
@@ -52,6 +50,5 @@ public class LeaveFeedbackScreenController implements Initializable {
     public void onSubmitClicked() throws IOException {
         Stage stage = (Stage) submitButton.getScene().getWindow();
         //TODO Add feedback to database
-        stage.close();
     }
 }
