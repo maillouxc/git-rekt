@@ -1,10 +1,13 @@
 package com.gitrekt.resort.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
@@ -23,13 +26,30 @@ public class LeaveFeedbackScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-     
+    
     /**
-     * Closes the window and saves the user's feedback to a database
-     * @param event 
-     */  
-    @FXML
-    private void onSubmitButtonClicked(ActionEvent event) {
+     * Action button for when cancel button is clicked
+     * takes you back to the guest home screen.
+     * @throws IOException 
+     */
+    public void onCancelClicked() throws IOException {
+       Stage guestHomeStage = (Stage) cancelButton.getScene().getWindow();
+        Parent guestHomeScreenRoot = FXMLLoader.load(
+                getClass().getResource("/fxml/GuestHomeScreen.fxml")
+        );
+        
+        Scene guestHomeScreen = new Scene(guestHomeScreenRoot);
+        
+        guestHomeStage.setScene(guestHomeScreen);
+        guestHomeStage.centerOnScreen();
+       
+    }
+    
+    /**
+     * Action button for when submit button is clicked.
+     * @throws IOException 
+     */
+    public void onSubmitClicked() throws IOException {
         Stage stage = (Stage) submitButton.getScene().getWindow();
         //TODO Add feedback to database
         stage.close();

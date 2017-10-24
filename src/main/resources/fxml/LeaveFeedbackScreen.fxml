@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.LeaveFeedbackScreenController">
    <children>
       <HBox alignment="TOP_CENTER">
          <children>
@@ -44,7 +44,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT">
                <children>
-                  <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" />
+                  <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="225.0" promptText="Enter email address" />
                </children>
             </VBox>
          </children>
@@ -56,7 +56,7 @@
          <children>
             <VBox alignment="CENTER_LEFT">
                <children>
-                  <Button fx:id="cancelButton" alignment="CENTER" mnemonicParsing="false" onAction="#onCancledClicked" text="Cancel">
+                  <Button fx:id="cancelButton" alignment="CENTER" mnemonicParsing="false" onAction="#onCancelClicked" text="Cancel">
                      <VBox.margin>
                         <Insets right="80.0" />
                      </VBox.margin></Button>
