@@ -15,6 +15,9 @@ import javafx.stage.Stage;
  * FXML Controller class for the staff home screen.
  */
 public class StaffHomeScreenController implements Initializable {
+    
+    @FXML
+    private Button backButton;
 
     @FXML
     private Button registryButton;
@@ -55,5 +58,19 @@ public class StaffHomeScreenController implements Initializable {
     
     public void onManageStaffAccountsButtonClicked() {
         // TODO
+    }
+    
+    /**
+     * Back button when click will take you to home screen
+     * @throws IOException 
+     */
+    public void onBackButtonClicked() throws IOException {
+        Stage mainStage = (Stage) backButton.getScene().getWindow();
+        Parent HomeScreenRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/HomeScreen.fxml")
+        );
+        Scene HomeScreen = new Scene(HomeScreenRoot);
+        mainStage.centerOnScreen();
+        mainStage.setScene(HomeScreen);
     }
 }
