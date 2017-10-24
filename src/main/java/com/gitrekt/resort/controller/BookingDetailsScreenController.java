@@ -1,12 +1,17 @@
 package com.gitrekt.resort.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class for the booking details screen.
@@ -47,8 +52,8 @@ public class BookingDetailsScreenController implements Initializable {
         // TODO
     }
     
-    public void onBackButtonClicked() {
-        // TODO
+    public void onBackButtonClicked() throws IOException {
+        switchToGuestHomeScreen();
     }
     
     public void onViewBillButtonClicked() {
@@ -57,6 +62,15 @@ public class BookingDetailsScreenController implements Initializable {
     
     public void onCancelBookingButtonClicked() {
         // TODO
+    }
+    
+    private void switchToGuestHomeScreen() throws IOException {
+        Stage mainStage = (Stage) backButton.getScene().getWindow();
+        Parent guestHomeScreenRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/GuestHomeScreen.fxml")
+        );
+        Scene guestHomeScreen = new Scene(guestHomeScreenRoot);
+        mainStage.setScene(guestHomeScreen);
     }
     
 }
