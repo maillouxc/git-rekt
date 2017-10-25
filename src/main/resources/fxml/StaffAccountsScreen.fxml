@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="com.gitrekt.resort.controller.StaffAccountsScreenController">
-    <stylesheets>
-        <URL value="@/styles/Master.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../fxcss/Master.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="com.gitrekt.resort.controller.StaffAccountsScreenController">
+   <children>
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+   </children>
 </AnchorPane>
