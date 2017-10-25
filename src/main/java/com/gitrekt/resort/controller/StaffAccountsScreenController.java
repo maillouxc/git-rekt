@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -49,8 +50,22 @@ public class StaffAccountsScreenController implements Initializable {
         // TODO
     }
     
-    public void onResetEmployeePasswordButtonClicked() {
-        // TODO
+    public void onResetEmployeePasswordButtonClicked() throws IOException {
+        Stage dialogStage = new Stage();
+        Parent dialogRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/ResetEmployeePasswordDialog.fxml")
+        );
+        Scene resetPasswordDialog = new Scene(dialogRoot);
+        dialogStage.setScene(resetPasswordDialog);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.initOwner(
+            resetEmployeePasswordButton.getScene().getWindow()
+        );
+        dialogStage.setResizable(false);
+        dialogStage.setTitle("Authentication Required");
+        dialogStage.centerOnScreen();
+        
+        dialogStage.show();
     }
     
     public void onAddNewEmployeeButtonClicked() {
