@@ -56,8 +56,14 @@ public class StaffHomeScreenController implements Initializable {
         // TODO
     }
     
-    public void onManageStaffAccountsButtonClicked() {
-        // TODO
+    public void onManageStaffAccountsButtonClicked() throws IOException {
+        Stage mainStage = 
+            (Stage) manageStaffAccountsButton.getScene().getWindow();
+        Parent staffAccountsScreenRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/StaffAccountsScreen.fxml")
+        );
+        Scene manageStaffAccountsScreen = new Scene(staffAccountsScreenRoot);
+        mainStage.setScene(manageStaffAccountsScreen);
     }
     
     /**
