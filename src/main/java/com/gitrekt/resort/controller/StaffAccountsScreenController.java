@@ -19,6 +19,15 @@ public class StaffAccountsScreenController implements Initializable {
     @FXML
     private Button backButton;
     
+    @FXML
+    private Button removeEmployeeButton;
+    
+    @FXML
+    private Button resetEmployeePasswordButton;
+    
+    @FXML
+    private Button addNewEmployeeButton;
+    
     /**
      * Initializes the controller class.
      */
@@ -34,6 +43,18 @@ public class StaffAccountsScreenController implements Initializable {
         );
         Scene staffHomeScreen = new Scene(staffHomeScreenRoot);
         mainStage.setScene(staffHomeScreen);
+    }
+    
+    public void onRemoveEmployeeButtonClicked() {
+        // TODO
+    }
+    
+    public void onResetEmployeePasswordButtonClicked() {
+        // TODO
+    }
+    
+    public void onAddNewEmployeeButtonClicked() {
+        // TODO
     }
     
 }

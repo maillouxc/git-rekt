@@ -10,9 +10,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" styleClass="mainFxmlClass" stylesheets="@../fxcss/Master.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="com.gitrekt.resort.controller.StaffAccountsScreenController">
+<AnchorPane id="AnchorPane" styleClass="mainFxmlClass" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.StaffAccountsScreenController">
    <children>
-      <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -50,5 +49,6 @@
             </HBox>
          </children>
       </VBox>
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
    </children>
 </AnchorPane>
