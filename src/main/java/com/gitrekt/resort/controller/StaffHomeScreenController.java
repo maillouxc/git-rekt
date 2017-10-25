@@ -39,8 +39,14 @@ public class StaffHomeScreenController implements Initializable {
         // TODO
     }
     
-    public void onRegistryButtonClicked() {
-        // TODO
+    public void onRegistryButtonClicked() throws IOException {
+        Stage mainStage = (Stage) registryButton.getScene().getWindow();
+        Parent registryScreenRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/GuestRegistryScreen.fxml")
+        );
+        Scene registryScreen = new Scene(registryScreenRoot);
+        mainStage.setScene(registryScreen);
+        mainStage.centerOnScreen();
     }
     
     public void onViewReportsButtonClicked() throws IOException {
