@@ -170,8 +170,16 @@ public class BrowseRoomsScreenController implements Initializable,
     }
     
     @FXML
-    protected void onNextButtonClicked() {
-        // TODO
+    protected void onNextButtonClicked() throws IOException {
+        // TODO replace with the packages screen first - this is temporary
+        
+        Stage mainStage = (Stage) nextButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(
+            getClass().getResource("/fxml/PlaceBookingScreen.fxml")
+        );
+        Scene placeBookingScreen = new Scene(root);
+        mainStage.setScene(placeBookingScreen);
+        mainStage.centerOnScreen();
     }
     
     /**

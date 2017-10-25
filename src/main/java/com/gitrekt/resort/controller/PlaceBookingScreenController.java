@@ -1,10 +1,8 @@
 package com.gitrekt.resort.controller;
 
 import java.net.URL;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,6 +58,8 @@ public class PlaceBookingScreenController implements Initializable {
     @FXML
     private Button backButton;
     
+    private ObservableList<String> countries;
+    
     /**
      * Initializes the controller class.
      */
@@ -68,24 +68,20 @@ public class PlaceBookingScreenController implements Initializable {
 
         // Hide the state picker until we know if the user is from the US
         statePicker.setVisible(false);
+        initializeCountryPicker();
+        
     }
-
-    
-    @FXML
-    protected void onBackButtonClicked() {
+  
+    public void onBackButtonClicked() {
         // TODO
     }
     
-    @FXML
-    protected void onFinishButtonClicked() {
+    public void onFinishButtonClicked() {
         // TODO
     }
     
-    @FXML
-    protected void onCountryPicked() {
-        // TODO: If country is US, show state picker.
-        ObservableList<String> countries = FXCollections.observableArrayList();
-        //ComboBox<String> countryPicker = new ComboBox<>(countries);
+    public void initializeCountryPicker() {
+        countries = FXCollections.observableArrayList();
         Locale[] locales = Locale.getAvailableLocales();
         for(Locale locale : locales){
             String name = locale.getDisplayCountry();
@@ -93,6 +89,11 @@ public class PlaceBookingScreenController implements Initializable {
                 countries.add(name);
             }
         }
+        FXCollections.sort(countries);
         countryPicker.setItems(countries);
+    }
+    
+    public void onCountryPicked() {
+        // TODO: If country is US, show state picker (and it's associated label)
     }
 }
