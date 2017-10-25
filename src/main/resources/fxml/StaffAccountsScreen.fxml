@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" styleClass="mainFxmlClass" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.StaffAccountsScreenController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Label styleClass="screenHeader" text="Manage Staff Accounts">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Separator>
+            <TableView fx:id="staffAccountsTableView" maxWidth="-Infinity" prefHeight="300.0" prefWidth="800.0">
+              <columns>
+                <TableColumn fx:id="employeeIdColumn" editable="false" prefWidth="100.0" resizable="false" text="Id #" />
+                <TableColumn fx:id="employeeNameColumn" editable="false" prefWidth="580.0" resizable="false" text="Name (Last, First)" />
+                  <TableColumn fx:id="isManagerColumn" minWidth="100.0" prefWidth="120.0" resizable="false" text="Manager?" />
+              </columns>
+            </TableView>
+            <HBox alignment="CENTER" spacing="20.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <children>
+                  <Button fx:id="removeEmployeeButton" mnemonicParsing="false" onAction="#onRemoveEmployeeButtonClicked" prefWidth="180.0" text="Remove Employee" />
+                  <Button fx:id="resetEmployeePasswordButton" mnemonicParsing="false" onAction="#onResetEmployeePasswordButtonClicked" prefWidth="180.0" text="Reset Employee Password" />
+                  <Button fx:id="addNewEmployeeButton" mnemonicParsing="false" onAction="#onAddNewEmployeeButtonClicked" prefWidth="180.0" text="Add New Employee" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+   </children>
+</AnchorPane>

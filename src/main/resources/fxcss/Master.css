@@ -2,16 +2,18 @@
  * This is the master FX-CSS stylesheet for the application.
  *
  * All FXML files in the application should declare this stylesheet before 
- * any others. This can be easily done is the Scene Builder.
+ * any others. This can be easily done in the Scene Builder.
  */
 
-/* Someone please change this godawful background to something better at some
- * point. I just put it there as a temporary measure to show how this works.
- */
 .root {
     -fx-background-color: linear-gradient( rgb(204, 228, 252), rgb(3, 67, 131));
     -fx-font-family: "Sans Serif";
     
+}
+
+.screenHeader {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
 }
 
 .button {
