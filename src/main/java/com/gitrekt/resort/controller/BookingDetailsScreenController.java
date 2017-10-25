@@ -56,8 +56,14 @@ public class BookingDetailsScreenController implements Initializable {
         switchToGuestHomeScreen();
     }
     
-    public void onViewBillButtonClicked() {
-        // TODO
+    public void onViewBillButtonClicked() throws IOException {
+        Stage mainStage = (Stage) backButton.getScene().getWindow();
+        Parent customerBillScreenRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/CustomerBillScreen.fxml")
+        );
+        Scene customerBillScreen = new Scene(customerBillScreenRoot);
+        mainStage.setScene(customerBillScreen);
+        mainStage.centerOnScreen();
     }
     
     public void onCancelBookingButtonClicked() {
