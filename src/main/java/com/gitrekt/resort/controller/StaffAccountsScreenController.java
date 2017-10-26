@@ -68,8 +68,15 @@ public class StaffAccountsScreenController implements Initializable {
         dialogStage.show();
     }
     
-    public void onAddNewEmployeeButtonClicked() {
-        // TODO
+    public void onAddNewEmployeeButtonClicked() throws IOException {
+        Stage dialogStage = new Stage();
+        Parent dialogRoot = FXMLLoader.load(
+                getClass().getResource("/fxml/CreateStaffAccountDialog.fxml"));
+        Scene createStaffAccountDialog = new Scene(dialogRoot);
+        dialogStage.setScene(createStaffAccountDialog);
+        dialogStage.setTitle("Create New Staff Account");
+        dialogStage.centerOnScreen();
+        dialogStage.show();
     }
     
 }
