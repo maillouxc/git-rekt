@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 /**
  * Handles the functionality of FeedbackReportItemScreen.fxml
  */
-public class FeedbackReportItemScreenController implements Initializable {
+public class FeedbackScreenItemController implements Initializable {
 
     /**
      * Initializes the controller class.
