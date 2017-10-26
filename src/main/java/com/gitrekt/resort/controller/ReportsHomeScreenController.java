@@ -23,9 +23,6 @@ public class ReportsHomeScreenController implements Initializable {
     private Button bookingPercentagesReportButton;
     
     @FXML
-    private Button incomeReportButton;
-    
-    @FXML
     private Button feedbackReportButton;
     
     /**
@@ -42,16 +39,21 @@ public class ReportsHomeScreenController implements Initializable {
             getClass().getResource("/fxml/StaffHomeScreen.fxml")
         );
         Scene staffHomeScreen = new Scene(staffHomeScreenRoot);
-        mainStage.centerOnScreen();
         mainStage.setScene(staffHomeScreen);
+        mainStage.centerOnScreen();
+        mainStage.setMaximized(true);
     }
     
-    public void onIncomeReportButtonClicked() {
-        // TODO
-    }
-    
-    public void onBookingPercentagesReportButtonClicked() {
-        // TODO
+    public void onBookingPercentagesReportButtonClicked() throws IOException {
+        Stage mainStage = 
+            (Stage) bookingPercentagesReportButton.getScene().getWindow();
+        Parent newRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/BookingsReportScreen.fxml")
+        );
+        Scene bookingPercentagesReportScreen = new Scene(newRoot);
+        mainStage.setScene(bookingPercentagesReportScreen);
+        mainStage.centerOnScreen();
+        mainStage.setMaximized(true);
     }
     
     //Opens FeedbackReportScreen.fxml when button Feedback Report button is clicked
