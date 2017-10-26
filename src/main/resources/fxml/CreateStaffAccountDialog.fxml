@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
@@ -12,31 +13,32 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" spacing="10.0" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.ResetEmployeePasswordDialogController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="550.0" spacing="10.0" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.CreateStaffAccountDialogController">
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
    <children>
-      <Label styleClass="screenHeader" text="Reset Employee Password">
+      <Label styleClass="screenHeader" text="Create a new Staff Account">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
       </Label>
       <Separator prefWidth="200.0" />
       <GridPane hgap="10.0" vgap="10.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="338.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+         <columnConstraints>
+            <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="43.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="75.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <TextField fx:id="authorizingManagerIdField" promptText="Enter authorizing manager employee ID" GridPane.columnIndex="1" />
-            <PasswordField fx:id="authorizingManagerPasswordField" promptText="Enter authorizing manager password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Manager ID:" />
-            <Label text="Manager Password:" GridPane.rowIndex="1" />
+            <TextField fx:id="firstNameField" promptText="Enter Employee Name" GridPane.columnIndex="1" />
+            <TextField fx:id="lastNameField" promptText="Enter Employee Last Name" GridPane.columnIndex="3" />
+            <Label text="Name:" />
+            <Label text="Last Name:" GridPane.columnIndex="2" />
          </children>
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -45,7 +47,21 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <Separator prefWidth="200.0" />
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <Label text="Employee ID Number:" />
+            <TextField fx:id="employeeIdField" prefHeight="25.0" prefWidth="200.0" promptText="Enter Employee ID Number" />
+            <CheckBox fx:id="managerCheckBox" mnemonicParsing="false" text="Manager">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </CheckBox>
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      <Separator layoutX="15.0" layoutY="63.0" prefWidth="200.0" />
       <Label text="Passwords Must Meet the Following Requirements" textFill="WHITE" underline="true" />
       <Label fx:id="passwordLengthRequirementLabel" text="More than 8 characters long" textFill="WHITE" />
       <Label fx:id="passwordCharactersRequirementLabel" text="Contain at least 1 number or special character" textFill="WHITE" />
@@ -58,15 +74,12 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Confirm Employee ID:" />
-            <TextField fx:id="confirmEmployeeIdField" promptText="Confirm employee ID to change password for" GridPane.columnIndex="1" />
-            <PasswordField fx:id="newPasswordField" onAction="#onNewPasswordFieldUpdated" promptText="Enter new password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <PasswordField fx:id="confirmPasswordField" onAction="#onConfirmPasswordFieldUpdated" promptText="Confirm new password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="New Password:" GridPane.rowIndex="1" />
-            <Label text="Confirm New Password:" GridPane.rowIndex="2" />
+            <PasswordField fx:id="passwordField" promptText="Enter password" GridPane.columnIndex="1" />
+            <PasswordField fx:id="confirmPasswordField" promptText="Confirm password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Create Password:" />
+            <Label text="Confirm Password:" GridPane.rowIndex="1" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
