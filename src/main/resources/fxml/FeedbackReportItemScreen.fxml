@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.FeedbackReportItemScreenController" />
+<HBox prefHeight="150.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.FeedbackReportItemScreenController">
+   <children>
+      <TableView prefHeight="150.0" prefWidth="700.0">
+        <columns>
+          <TableColumn prefWidth="100.0" text="Name" />
+          <TableColumn prefWidth="200.0" text="Email" />
+            <TableColumn prefWidth="100.0" text="Date" />
+            <TableColumn minWidth="300.0" prefWidth="75.0" text="Feeback" />
+        </columns>
+      </TableView>
+   </children>
+</HBox>
