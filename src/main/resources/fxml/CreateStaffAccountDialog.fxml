@@ -2,19 +2,18 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="550.0" spacing="10.0" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.CreateStaffAccountDialogController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="550.0" spacing="10.0" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.CreateStaffAccountDialogController">
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
@@ -27,26 +26,6 @@
       <Separator prefWidth="200.0" />
       <GridPane hgap="10.0" vgap="10.0">
          <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="338.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <TextField fx:id="authorizingManagerIdField" promptText="Enter authorizing manager employee ID" GridPane.columnIndex="1" />
-            <PasswordField fx:id="authorizingManagerPasswordField" promptText="Enter authorizing manager password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Manager ID:" />
-            <Label text="Manager Password:" GridPane.rowIndex="1" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </GridPane>
-      <Separator prefWidth="200.0" />
-      <GridPane hgap="10.0" vgap="10.0">
-         <columnConstraints>
             <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="43.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="75.0" />
@@ -56,8 +35,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="employeeNameField" promptText="Enter Employee Name" GridPane.columnIndex="1" />
-            <TextField promptText="Enter Employee Last Name" GridPane.columnIndex="3" />
+            <TextField fx:id="firstNameField" promptText="Enter Employee Name" GridPane.columnIndex="1" />
+            <TextField fx:id="lastNameField" promptText="Enter Employee Last Name" GridPane.columnIndex="3" />
             <Label text="Name:" />
             <Label text="Last Name:" GridPane.columnIndex="2" />
          </children>
@@ -68,48 +47,20 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <GridPane hgap="10.0" layoutX="15.0" layoutY="131.0" vgap="10.0">
-         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label prefHeight="18.0" prefWidth="208.0" text="Is Employee a Staff Member:" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
-               <children>
-                  <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="58.0" text="Yes">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="StaffMember" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="62.0" text="No" toggleGroup="$StaffMember" />
-               </children>
-            </HBox>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </GridPane>
-      <Label text="Employee ID Number is not generated by our System" textFill="WHITE" underline="true" />
-      <GridPane hgap="10.0" layoutX="20.0" layoutY="303.0" vgap="10.0">
-         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="160.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="-Infinity" prefWidth="150.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
             <Label text="Employee ID Number:" />
-            <TextField fx:id="employeeIDField" promptText="Enter Employee ID Number" GridPane.columnIndex="1" />
+            <TextField fx:id="employeeIdField" prefHeight="25.0" prefWidth="200.0" promptText="Enter Employee ID Number" />
+            <CheckBox fx:id="managerCheckBox" mnemonicParsing="false" text="Manager">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </CheckBox>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </GridPane>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
       <Separator layoutX="15.0" layoutY="63.0" prefWidth="200.0" />
       <Label text="Passwords Must Meet the Following Requirements" textFill="WHITE" underline="true" />
       <Label fx:id="passwordLengthRequirementLabel" text="More than 8 characters long" textFill="WHITE" />
@@ -125,8 +76,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <PasswordField fx:id="passwordField" onAction="#onPasswordField" promptText="Enter password" GridPane.columnIndex="1" />
-            <PasswordField fx:id="confirmPasswordField" onAction="#onConfirmPasswordField" promptText="Confirm password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="passwordField" promptText="Enter password" GridPane.columnIndex="1" />
+            <PasswordField fx:id="confirmPasswordField" promptText="Confirm password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Create Password:" />
             <Label text="Confirm Password:" GridPane.rowIndex="1" />
          </children>

@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,33 +21,22 @@ public class CreateStaffAccountDialogController implements Initializable {
     private Button confirmButton;
     
     @FXML
-    private TextField authorizingManagerIdField;
-    
-    @FXML
-    private TextField authorizingManagerPasswordField;
-    
-    @FXML
-    private TextField name;
+    private TextField firstNameField;
     
     @FXML 
-    private TextField lastName;
+    private TextField lastNameField;
     
     @FXML
-    private RadioButton staffMemberYes;
-    
-    @FXML 
-    private RadioButton staffMemberNo;
+    private CheckBox managerCheckBox;
     
     @FXML
-    private TextField employeeIdNumber;
+    private TextField employeeIdField;
     
     @FXML
-    private TextField passWordField;
+    private TextField passwordField;
     
     @FXML
     private TextField confirmPasswordField;
-    
-    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,18 +48,8 @@ public class CreateStaffAccountDialogController implements Initializable {
         dialogStage.close();
     }
     
-    public void onPasswordField() {
-        //TODO
-    }
-    
-    public void onConfirmPasswordField() {
-        //TODO
-    }
-    
     public void onConfirmButtonClicked() {
         //TODO
     }
-
-    
     
 }
