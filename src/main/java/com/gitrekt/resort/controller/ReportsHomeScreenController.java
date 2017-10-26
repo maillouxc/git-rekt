@@ -25,6 +25,9 @@ public class ReportsHomeScreenController implements Initializable {
     @FXML
     private Button incomeReportButton;
     
+    @FXML
+    private Button feedbackReportButton;
+    
     /**
      * Initializes the controller class.
      */
@@ -51,4 +54,14 @@ public class ReportsHomeScreenController implements Initializable {
         // TODO
     }
     
+    //Opens FeedbackReportScreen.fxml when button Feedback Report button is clicked
+     public void onFeedbackReportButtonClicked() throws IOException{
+        Stage mainStage = (Stage) feedbackReportButton.getScene().getWindow();
+        Parent staffHomeScreenRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/FeedbackReportScreen.fxml")
+        );
+        Scene staffHomeScreen = new Scene(staffHomeScreenRoot);
+        mainStage.centerOnScreen();
+        mainStage.setScene(staffHomeScreen);
+    }
 }
