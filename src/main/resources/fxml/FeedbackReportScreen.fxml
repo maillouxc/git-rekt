@@ -13,7 +13,7 @@
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
          <items>
-            <Button mnemonicParsing="false" text="&lt;" />
+            <Button fx:id="backButton" onAction="#onBackButtonClicked" mnemonicParsing="false" text="&lt;" />
             <HBox alignment="CENTER">
                <children>
                   <Label text="                              Feedback Report" HBox.hgrow="ALWAYS">
