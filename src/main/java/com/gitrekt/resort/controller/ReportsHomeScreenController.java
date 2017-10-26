@@ -61,7 +61,8 @@ public class ReportsHomeScreenController implements Initializable {
             getClass().getResource("/fxml/FeedbackReportScreen.fxml")
         );
         Scene staffHomeScreen = new Scene(staffHomeScreenRoot);
-        mainStage.centerOnScreen();
         mainStage.setScene(staffHomeScreen);
+        mainStage.centerOnScreen();
+        mainStage.setMaximized(true);
     }
 }

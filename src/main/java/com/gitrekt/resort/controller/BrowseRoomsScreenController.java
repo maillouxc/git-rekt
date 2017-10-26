@@ -91,15 +91,7 @@ public class BrowseRoomsScreenController implements Initializable,
         currentlySelectedRooms.add(r4);
         currentlySelectedRooms.add(r4);
         currentlySelectedRooms.add(r4);
-        currentlySelectedRooms.add(r4);
-        currentlySelectedRooms.add(r4);
-        currentlySelectedRooms.add(r4);
-        currentlySelectedRooms.add(r4);
-        currentlySelectedRooms.add(r4);
-        currentlySelectedRooms.add(r4);
-        currentlySelectedRooms.add(r4);
-        currentlySelectedRooms.add(r4);
-        currentlySelectedRooms.add(r4);
+
     }
     
     /**
