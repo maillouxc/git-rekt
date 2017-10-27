@@ -36,7 +36,7 @@ public class ReportsHomeScreenController implements Initializable {
     
     public void onBookingPercentagesReportButtonClicked() {
         ScreenManager.getInstance().switchToScreen(
-            "/fxml/BookingReportScreen.fxml"
+            "/fxml/BookingsReportScreen.fxml"
         );
     }
     
