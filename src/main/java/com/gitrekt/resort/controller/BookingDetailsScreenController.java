@@ -1,17 +1,12 @@
 package com.gitrekt.resort.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class for the booking details screen.
@@ -52,31 +47,20 @@ public class BookingDetailsScreenController implements Initializable {
         // TODO
     }
     
-    public void onBackButtonClicked() throws IOException {
-        switchToGuestHomeScreen();
+    public void onBackButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/GuestHomeScreen.fxml"
+        );
     }
     
-    public void onViewBillButtonClicked() throws IOException {
-        Stage mainStage = (Stage) backButton.getScene().getWindow();
-        Parent customerBillScreenRoot = FXMLLoader.load(
-            getClass().getResource("/fxml/CustomerBillScreen.fxml")
+    public void onViewBillButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/CustomerBillScreen.fxml"
         );
-        Scene customerBillScreen = new Scene(customerBillScreenRoot);
-        mainStage.setScene(customerBillScreen);
-        mainStage.centerOnScreen();
     }
     
     public void onCancelBookingButtonClicked() {
         // TODO
-    }
-    
-    private void switchToGuestHomeScreen() throws IOException {
-        Stage mainStage = (Stage) backButton.getScene().getWindow();
-        Parent guestHomeScreenRoot = FXMLLoader.load(
-            getClass().getResource("/fxml/GuestHomeScreen.fxml")
-        );
-        Scene guestHomeScreen = new Scene(guestHomeScreenRoot);
-        mainStage.setScene(guestHomeScreen);
     }
     
 }

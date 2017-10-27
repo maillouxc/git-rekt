@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -27,8 +26,6 @@ public class HomeScreenController implements Initializable {
     @FXML 
     private Button staffModeButton;
     
-    private final Image appLogo = new Image("images/Logo.png");
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO: Implement
@@ -41,9 +38,8 @@ public class HomeScreenController implements Initializable {
      * @throws IOException
      */
     @FXML
-    protected void onStaffModeButtonClicked() throws IOException {
+    public void onStaffModeButtonClicked() throws IOException {
         Stage staffLoginDialogStage = new Stage();
-        staffLoginDialogStage.getIcons().add(appLogo);
         Parent staffLoginDialogRoot = FXMLLoader.load(
                 getClass().getResource("/fxml/StaffLoginDialog.fxml")
         );
@@ -59,21 +55,9 @@ public class HomeScreenController implements Initializable {
         staffLoginDialogStage.show();
     }
     
-    /**
-     * Displays the guest home screen containing the various main use-case
-     * type actions that guests can perform within the software.
-     * 
-     * @throws IOException 
-     */
-    @FXML
-    protected void onGuestModeButtonClicked() throws IOException {
-        Stage mainStage = (Stage) guestModeButton.getScene().getWindow();
-        Parent guestHomeScreenRoot = FXMLLoader.load(
-                getClass().getResource("/fxml/GuestHomeScreen.fxml")
+    public void onGuestModeButtonClicked() {        
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/GuestHomeScreen.fxml"
         );
-        
-        Scene guestHomeScreen = new Scene(guestHomeScreenRoot);
-        mainStage.centerOnScreen();
-        mainStage.setScene(guestHomeScreen);
     }
 }

@@ -4,7 +4,6 @@ import com.gitrekt.resort.model.RoomCategory;
 import com.gitrekt.resort.model.RoomSearchResult;
 import com.gitrekt.resort.view.BrowseRoomsListItem;
 import com.gitrekt.resort.view.DeletableListItem;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Random;
@@ -12,14 +11,10 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-import javafx.stage.Stage;
 
 // TODO: Clean up this mess of a class; major refactoring needed.
 
@@ -123,28 +118,14 @@ public class BrowseRoomsScreenController implements Initializable,
         );
     }
     
-    /**
-     * Closes the browse-rooms screen and returns the application to the guest
-     * home screen.
-     * 
-     * @throws IOException
-     */
-    @FXML
-    protected void onBackButtonClicked() throws IOException {
-        Stage mainStage = (Stage) backButton.getScene().getWindow();
-        Parent guestHomeScreenRoot = FXMLLoader.load(
-                getClass().getResource("/fxml/GuestHomeScreen.fxml")
+    public void onBackButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/GuestHomeScreen.fxml"
         );
-        
-        Scene guestHomeScreen = new Scene(guestHomeScreenRoot);
-        
-        mainStage.setScene(guestHomeScreen);
-        mainStage.centerOnScreen();
     }
     
     // TODO: Implement real program logic, Remove test code.
-    @FXML
-    protected void onFindAvailableRoomsButtonClicked() {
+    public void onFindAvailableRoomsButtonClicked() {
         Random random = new Random();
         int randInt = random.nextInt(999);
         BigDecimal bd = new BigDecimal(randInt);
@@ -161,17 +142,12 @@ public class BrowseRoomsScreenController implements Initializable,
         this.addResult(r4);
     }
     
-    @FXML
-    protected void onNextButtonClicked() throws IOException {
+    public void onNextButtonClicked() {
         // TODO replace with the packages screen first - this is temporary
         
-        Stage mainStage = (Stage) nextButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(
-            getClass().getResource("/fxml/PlaceBookingScreen.fxml")
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/PlaceBookingScreen.fxml"
         );
-        Scene placeBookingScreen = new Scene(root);
-        mainStage.setScene(placeBookingScreen);
-        mainStage.centerOnScreen();
     }
     
     /**

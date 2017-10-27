@@ -8,16 +8,12 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 
 /**
- * Handles the functionality of FeesbackReportScreen.fxml
+ * Handles the functionality of FeedbackReportScreen.fxml
  */
 public class FeedbackReportScreenController implements Initializable {
     
@@ -46,13 +42,9 @@ public class FeedbackReportScreenController implements Initializable {
     }
     
     public void onBackButtonClicked() throws IOException {
-        Stage mainStage = (Stage) backButton.getScene().getWindow();
-        Parent staffHomeScreenRoot = FXMLLoader.load(
-            getClass().getResource("/fxml/ReportsHomeScreen.fxml")
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/ReportsHomeScreen.fxml"
         );
-        Scene staffHomeScreen = new Scene(staffHomeScreenRoot);
-        mainStage.centerOnScreen();
-        mainStage.setScene(staffHomeScreen);
     }
     
     private void testCodePleaseDeleteLater() {

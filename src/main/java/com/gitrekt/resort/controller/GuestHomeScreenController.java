@@ -29,56 +29,27 @@ public class GuestHomeScreenController implements Initializable {
     @FXML
     private Button viewBookingButton;
     
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
     
-    /**
-     * Displays the browse rooms screen.
-     * 
-     * @throws IOException 
-     */
-    public void onBrowseRoomsButtonClicked() throws IOException {
-        Stage mainStage = (Stage) browseRoomsButton.getScene().getWindow();
-        Parent browseRoomsScreenRoot = FXMLLoader.load(
-                getClass().getResource("/fxml/BrowseRoomsScreen.fxml")
+    public void onBrowseRoomsButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/BrowseRoomsScreen.fxml"
         );
-        Scene browseRoomsScreen = new Scene(browseRoomsScreenRoot);
-        mainStage.setScene(browseRoomsScreen);
-        mainStage.centerOnScreen();
     }
     
-    /**
-     * Displays the leave feedback screen.
-     * 
-     * @throws IOException 
-     */
-    public void onLeaveFeedbackButtonClicked() throws IOException {
-        Stage mainStage = (Stage) leaveFeedbackButton.getScene().getWindow();
-        Parent leaveFeedbackScreenRoot = FXMLLoader.load(
-                getClass().getResource("/fxml/LeaveFeedbackScreen.fxml")
+    public void onLeaveFeedbackButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/LeaveFeedbackScreen.fxml"
         );
-        Scene leaveFeedbackScreen = new Scene(leaveFeedbackScreenRoot);
-        mainStage.setScene(leaveFeedbackScreen);
-        mainStage.centerOnScreen();
     }
      
-     /**
-     * Back button when click will take you to home screen
-     * @throws IOException 
-     */
-    public void onBackButtonClicked() throws IOException {
-        Stage mainStage = (Stage) backButton.getScene().getWindow();
-        Parent HomeScreenRoot = FXMLLoader.load(
-            getClass().getResource("/fxml/HomeScreen.fxml")
+    public void onBackButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/HomeScreen.fxml"
         );
-        Scene HomeScreen = new Scene(HomeScreenRoot);
-        mainStage.centerOnScreen();
-        mainStage.setScene(HomeScreen);
     }
       
     public void onViewBookingButtonClicked() throws IOException {

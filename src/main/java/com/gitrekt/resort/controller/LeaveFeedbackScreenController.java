@@ -27,20 +27,10 @@ public class LeaveFeedbackScreenController implements Initializable {
         // TODO
     }
     
-    /**
-     * Action button for when cancel button is clicked
-     * takes you back to the guest home screen.
-     * @throws IOException 
-     */
-    public void onCancelClicked() throws IOException {
-       Stage mainStage = (Stage) cancelButton.getScene().getWindow();
-        Parent guestHomeScreenRoot = FXMLLoader.load(
-                getClass().getResource("/fxml/GuestHomeScreen.fxml")
+    public void onCancelClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/GuestHomeScreen.fxml"
         );
-        Scene guestHomeScreen = new Scene(guestHomeScreenRoot);
-        
-        mainStage.setScene(guestHomeScreen);
-        mainStage.centerOnScreen();
     }
     
     /**

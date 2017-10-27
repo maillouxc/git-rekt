@@ -1,6 +1,8 @@
 
 package com.gitrekt.resort;
 
+import com.gitrekt.resort.controller.ScreenManager;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,21 +17,20 @@ import javafx.stage.Stage;
 public class GitRekt extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage mainStage) throws IOException {
+        ScreenManager screenManager = ScreenManager.getInstance();
+        screenManager.initialize(mainStage);
         
-        Parent homeScreenRoot = FXMLLoader.load(
-                getClass().getResource("/fxml/HomeScreen.fxml")
-        );
-        
-        Scene homeScreen = new Scene(homeScreenRoot);
-
-        stage.setScene(homeScreen);
+        Parent root = 
+            FXMLLoader.load(getClass().getResource("/fxml/HomeScreen.fxml"));
+        Scene mainScene = new Scene(root);
+        mainStage.setScene(mainScene);
         
         Image appLogo = new Image("images/Logo.png");
-        stage.getIcons().add(appLogo);
-        stage.setTitle("Git-Rektsort Booking Software");
+        mainStage.getIcons().add(appLogo);
+        mainStage.setTitle("Git-Rektsort Booking Software");
         
-        stage.show();
+        mainStage.show();
     }
 
     /**
