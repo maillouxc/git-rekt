@@ -20,7 +20,7 @@
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <items>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClicked" text="&lt;" />
             <Separator orientation="VERTICAL" />
             <ImageView fitHeight="41.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
