@@ -1,17 +1,12 @@
 package com.gitrekt.resort.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 /**
  * TODO
@@ -59,14 +54,10 @@ public class GuestRegistryScreenController implements Initializable {
         // TODO
     }
     
-    public void onBackButtonClicked() throws IOException {
-        Stage mainStage = (Stage) backButton.getScene().getWindow();
-        Parent staffHomeScreenRoot = FXMLLoader.load(
-            getClass().getResource("/fxml/StaffHomeScreen.fxml")
+    public void onBackButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/StaffHomeScreen.fxml"
         );
-        Scene staffHomeScreen = new Scene(staffHomeScreenRoot);
-        mainStage.setScene(staffHomeScreen);
-        mainStage.centerOnScreen();
     }
     
 }

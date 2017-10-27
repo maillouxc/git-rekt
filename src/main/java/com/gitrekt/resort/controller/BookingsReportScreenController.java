@@ -1,21 +1,16 @@
 package com.gitrekt.resort.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class for the management bookings report screen.
@@ -68,15 +63,10 @@ public class BookingsReportScreenController implements Initializable {
         // TODO
     }
     
-    public void onBackButtonClicked() throws IOException {
-        Stage mainStage = (Stage) backButton.getScene().getWindow();
-        Parent newRoot = FXMLLoader.load(
-            getClass().getResource("/fxml/ReportsHomeScreen.fxml")
+    public void onBackButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/ReportsHomeScreen.fxml"
         );
-        Scene reportsScreen = new Scene(newRoot);
-        mainStage.setScene(reportsScreen);
-        mainStage.centerOnScreen();
-        mainStage.setMaximized(true);
     }
     
     public void onSelectMonthButtonClicked() {

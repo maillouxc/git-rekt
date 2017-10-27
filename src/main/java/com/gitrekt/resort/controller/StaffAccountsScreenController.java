@@ -40,13 +40,10 @@ public class StaffAccountsScreenController implements Initializable {
         // TODO
     }    
     
-    public void onBackButtonClicked() throws IOException {
-        Stage mainStage = (Stage) backButton.getScene().getWindow();
-        Parent staffHomeScreenRoot = FXMLLoader.load(
-            getClass().getResource("/fxml/StaffHomeScreen.fxml")
+    public void onBackButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/StaffHomeScreen.fxml"
         );
-        Scene staffHomeScreen = new Scene(staffHomeScreenRoot);
-        mainStage.setScene(staffHomeScreen);
     }
     
     public void onRemoveEmployeeButtonClicked() {
