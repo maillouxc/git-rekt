@@ -73,7 +73,9 @@ public class PlaceBookingScreenController implements Initializable {
     }
   
     public void onBackButtonClicked() {
-        // TODO
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/BrowseRoomsScreen.fxml"
+        );
     }
     
     public void onFinishButtonClicked() {
