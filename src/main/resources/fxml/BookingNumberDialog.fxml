@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BookingNumberDialogController">
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <children>
+      <Label text="Please enter your booking number">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="30.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </Separator>
+      <HBox alignment="CENTER" spacing="20.0">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+         <children>
+            <Label text="Booking number:" />
+            <TextField fx:id="bookingNumberField" prefWidth="300.0" promptText="Enter booking number">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <Button fx:id="viewBookingButton" mnemonicParsing="false" onAction="#onViewBookingButtonClicked" text="View Booking">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="20.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>

@@ -9,53 +9,65 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class for the guest home screen.
  */
 public class GuestHomeScreenController implements Initializable {
-
+    
+    @FXML
+    private Button backButton;
+    
     @FXML
     private Button browseRoomsButton;
     
     @FXML
     private Button leaveFeedbackButton;
-    /**
-     * Initializes the controller class.
-     */
+    
+    @FXML
+    private Button viewBookingButton;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
     
-    /**
-     * Displays the browse rooms screen.
-     * 
-     * @throws IOException 
-     */
-    public void onBrowseRoomsButtonClicked() throws IOException {
-        Stage mainStage = (Stage) browseRoomsButton.getScene().getWindow();
-        Parent browseRoomsScreenRoot = FXMLLoader.load(
-                getClass().getResource("/fxml/BrowseRoomsScreen.fxml")
+    public void onBrowseRoomsButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/BrowseRoomsScreen.fxml"
         );
-        Scene browseRoomsScreen = new Scene(browseRoomsScreenRoot);
-        mainStage.setScene(browseRoomsScreen);
-        mainStage.centerOnScreen();
     }
     
-    /**
-     * Displays the leave feedback screen.
-     * 
-     * @throws IOException 
-     */
-     public void onLeaveFeedbackButtonClicked() throws IOException {
-        Stage mainStage = (Stage) leaveFeedbackButton.getScene().getWindow();
-        Parent leaveFeedbackScreenRoot = FXMLLoader.load(
-                getClass().getResource("/fxml/LeaveFeedbackScreen.fxml")
+    public void onLeaveFeedbackButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/LeaveFeedbackScreen.fxml"
         );
-        Scene leaveFeedbackScreen = new Scene(leaveFeedbackScreenRoot);
-        mainStage.setScene(leaveFeedbackScreen);
-        mainStage.centerOnScreen();
+    }
+     
+    public void onBackButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/HomeScreen.fxml"
+        );
+    }
+      
+    public void onViewBookingButtonClicked() throws IOException {
+        Stage bookingNumberDialogStage = new Stage();
+        Parent bookingNumberDialogRoot = FXMLLoader.load(
+            getClass().getResource("/fxml/BookingNumberDialog.fxml")
+        );
+        Scene bookingNumberDialog = new Scene(bookingNumberDialogRoot);
+        
+        bookingNumberDialogStage.setScene(bookingNumberDialog);
+        bookingNumberDialogStage.initModality(Modality.APPLICATION_MODAL);
+        bookingNumberDialogStage.initOwner(
+            viewBookingButton.getScene().getWindow()
+        );
+        bookingNumberDialogStage.setResizable(false);
+        bookingNumberDialogStage.setTitle("Find Booking");
+        bookingNumberDialogStage.centerOnScreen();
+        
+        bookingNumberDialogStage.show();
     }
 }

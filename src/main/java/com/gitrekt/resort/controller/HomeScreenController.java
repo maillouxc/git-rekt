@@ -38,7 +38,7 @@ public class HomeScreenController implements Initializable {
      * @throws IOException
      */
     @FXML
-    protected void onStaffModeButtonClicked() throws IOException {
+    public void onStaffModeButtonClicked() throws IOException {
         Stage staffLoginDialogStage = new Stage();
         Parent staffLoginDialogRoot = FXMLLoader.load(
                 getClass().getResource("/fxml/StaffLoginDialog.fxml")
@@ -55,21 +55,9 @@ public class HomeScreenController implements Initializable {
         staffLoginDialogStage.show();
     }
     
-    /**
-     * Displays the guest home screen containing the various main use-case
-     * type actions that guests can perform within the software.
-     * 
-     * @throws IOException 
-     */
-    @FXML
-    protected void onGuestModeButtonClicked() throws IOException {
-        Stage mainStage = (Stage) guestModeButton.getScene().getWindow();
-        Parent guestHomeScreenRoot = FXMLLoader.load(
-                getClass().getResource("/fxml/GuestHomeScreen.fxml")
+    public void onGuestModeButtonClicked() {        
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/GuestHomeScreen.fxml"
         );
-        
-        Scene guestHomeScreen = new Scene(guestHomeScreenRoot);
-        mainStage.setScene(guestHomeScreen);
-        mainStage.centerOnScreen();
     }
 }
