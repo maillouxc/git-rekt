@@ -48,9 +48,9 @@ dependencies {
     compile group: 'org.hibernate', 
         name: 'hibernate-core', 
         version: '5.2.12.Final'
-    compile group: 'postgresql', 
-        name: 'postgresql', 
-        version: '9.0-801.jdbc4'
+    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+    compile group: 'javax.mail', name: 'mail', version: '1.5.0-b01'
+    compile group: 'javax.activation', name: 'activation', version: '1.1.1'
 }
 
 // This task builds a jar that will make our project distributable.
