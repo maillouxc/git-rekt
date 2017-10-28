@@ -1,6 +1,6 @@
 package com.gitrekt.resort.controller;
 
-import com.gitrekt.resort.model.GuestFeedback;
+import com.gitrekt.resort.model.entities.GuestFeedback;
 import com.gitrekt.resort.view.GuestFeedbackListItem;
 import java.io.IOException;
 import java.net.URL;
@@ -35,8 +35,6 @@ public class FeedbackReportScreenController implements Initializable {
         guestFeedbackListView.setCellFactory( 
             param -> new GuestFeedbackListItem()
         );
-                
-        testCodePleaseDeleteLater();
         
         // TODO: initialize arraylist from db
     }
@@ -46,12 +44,4 @@ public class FeedbackReportScreenController implements Initializable {
             "/fxml/ReportsHomeScreen.fxml"
         );
     }
-    
-    private void testCodePleaseDeleteLater() {
-        guestFeedbackList.add(new GuestFeedback());
-        guestFeedbackList.add(new GuestFeedback());
-        guestFeedbackList.add(new GuestFeedback());
-        guestFeedbackList.add(new GuestFeedback());
-    }
-    
 }

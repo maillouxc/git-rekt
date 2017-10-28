@@ -1,7 +1,7 @@
 package com.gitrekt.resort.view;
 
 import com.gitrekt.resort.controller.GuestFeedbackListItemController;
-import com.gitrekt.resort.model.GuestFeedback;
+import com.gitrekt.resort.model.entities.GuestFeedback;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
