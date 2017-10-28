@@ -6,44 +6,38 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * FXML controller class for the customer bill view screen.
+ * FXML Controller class for the booking details screen.
  */
-public class CustomerBillScreenController implements Initializable {
+public class BookingDetailsScreenController implements Initializable {
 
     @FXML
     private Button backButton;
     
     @FXML
-    private Label billTotalText;
+    private Button cancelBookingButton;
     
     @FXML
-    private Label customerNameText;
+    private Button viewBillButton;
+    
+    // TODO fix rawtype
+    @FXML
+    private TableView bookedRoomsTableView;
+    
+    // TODO fix rawtype
+    @FXML
+    private TableView bookedPackagesTableView;
     
     @FXML
-    private Label billingPeriodText;
+    private Label guestNameLabel;
     
     @FXML
-    private Label bookingNumberText;
+    private Label checkInDateLabel;
     
-    // TODO: Fix rawtype
     @FXML
-    private TableView billTable;
-    
-    // TODO: Fix rawtype
-    @FXML
-    private TableColumn itemNameColumn;
-    
-    // TODO: Fix rawtype
-    @FXML
-    private TableColumn qtyColumn;
-    
-    // TODO: Fix rawtype
-    @FXML
-    private TableColumn priceColumn;
+    private Label checkOutDateLabel;
     
     /**
      * Initializes the controller class.
@@ -51,15 +45,21 @@ public class CustomerBillScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
     
     public void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen(
-            "/fxml/BookingDetailsScreen.fxml"
+            "/fxml/GuestHomeScreen.fxml"
         );
     }
     
-    public void onPrintBillButtonClicked() {
+    public void onViewBillButtonClicked() {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/CustomerBillScreen.fxml"
+        );
+    }
+    
+    public void onCancelBookingButtonClicked() {
         // TODO
     }
     

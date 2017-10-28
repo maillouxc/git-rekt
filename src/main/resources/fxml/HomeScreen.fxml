@@ -18,9 +18,6 @@
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
          <children>
             <Button fx:id="guestModeButton" mnemonicParsing="false" onAction="#onGuestModeButtonClicked" text="Guest" textAlignment="CENTER">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -29,9 +26,6 @@
                </HBox.margin>
             </Button>
             <Button fx:id="staffModeButton" mnemonicParsing="false" onAction="#onStaffModeButtonClicked" text="Staff" textAlignment="CENTER">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
