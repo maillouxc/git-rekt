@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence 
+    xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0">
+    
+    <persistence-unit name="com.gitrekt.resort">
+        
+        <!-- TODO - Change persistence unit name, and write real code. -->
+
+            <!-- Our JPA implementation is Hibernate -->        
+            <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+            
+            <class>com.gitrekt.resort.model.entities.GuestFeedback</class>
+            
+        <properties>
+            <!-- Configure the DB connection -->
+            <!-- Let's all pretend that this isn't a obnoxious security risk -->
+        
+            <property name="javax.persistence.jdbc.url"
+            value = "jdbc:postgresql://ec2-50-19-105-113.compute-1.amazonaws.com:5432/d2gr8k0rr432kv?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
+            <property name="javax.persistence.jdbc.user"
+            value="nvxbcbqkobbbrg"/>
+            <property name="javax.persistence.jdbc.password"
+            value="0f7e4387f0b8b2bfa71abddd45b2d2323284320e4c7e9ab949460a2ae4fdfcbf"/>
+            <property name="javax.persistence.jdbc.driver"
+            value = "org.postgresql.Driver"/>
+        
+            <!-- Configure some Hibernate specific properties -->
+        
+            <!-- This shows SQL statements executed by Hibernate in the logs -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        
+            <!-- This checks to make sure the actual db tables match our entities-->
+            <!-- We should set value to validate at some point -->
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            
+            <property name="hibernate.connection.pool_size" value="1"/>
+        
+        </properties>
+        
+    </persistence-unit>
+    
+</persistence>

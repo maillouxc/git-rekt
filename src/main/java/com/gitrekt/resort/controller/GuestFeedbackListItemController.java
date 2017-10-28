@@ -1,6 +1,6 @@
 package com.gitrekt.resort.controller;
 
-import com.gitrekt.resort.model.GuestFeedback;
+import com.gitrekt.resort.model.entities.GuestFeedback;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
