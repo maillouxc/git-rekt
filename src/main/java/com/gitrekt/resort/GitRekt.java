@@ -2,6 +2,8 @@
 package com.gitrekt.resort;
 
 import com.gitrekt.resort.controller.ScreenManager;
+import com.gitrekt.resort.hibernate.HibernateUtil;
+import com.gitrekt.resort.model.entities.GuestFeedback;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 
 /**
  * The main application class shell.
@@ -31,6 +35,8 @@ public class GitRekt extends Application {
         mainStage.setTitle("Git-Rektsort Booking Software");
         
         mainStage.show();
+        
+        testHibernate();
     }
 
     /**
@@ -38,6 +44,25 @@ public class GitRekt extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    // TODO: Remove
+    private void testHibernate() {
+        // This method just stores an entity in the database really quick to
+        // demonstrate Hibernate and verify that it is working and properly
+        // configured. This should be removed later.
+        
+        GuestFeedback feedback = new GuestFeedback("This place sucks.", "mailloux.cl@gmail.com");
+        
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(feedback);
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException e) {
+            // If shit hits the fan, rewind it to prevent database problems.
+            entityManager.getTransaction().rollback();
+        }
     }
     
 }

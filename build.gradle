@@ -8,7 +8,7 @@ plugins {
     id 'com.gradle.build-scan' version '1.9'
 }
 
-version = '0.3'
+version = '0.4'
 
 // This is the coolest way I have ever not read the terms of service.
 // To view the build scan when you build the project, open the command prompt
@@ -45,6 +45,12 @@ repositories {
 
 dependencies {
     testCompile 'junit:junit:4.12'
+    compile group: 'org.hibernate', 
+        name: 'hibernate-core', 
+        version: '5.2.12.Final'
+    compile group: 'postgresql', 
+        name: 'postgresql', 
+        version: '9.0-801.jdbc4'
 }
 
 // This task builds a jar that will make our project distributable.
