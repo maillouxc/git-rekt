@@ -4,13 +4,17 @@ package com.gitrekt.resort;
 import com.gitrekt.resort.controller.ScreenManager;
 import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.entities.GuestFeedback;
+import com.gitrekt.resort.model.services.EmailService;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
@@ -37,6 +41,7 @@ public class GitRekt extends Application {
         mainStage.show();
         
         testHibernate();
+        testEmailService();
     }
 
     /**
@@ -62,6 +67,21 @@ public class GitRekt extends Application {
         } catch (PersistenceException e) {
             // If shit hits the fan, rewind it to prevent database problems.
             entityManager.getTransaction().rollback();
+        }
+    }
+    
+    // TODO: Remove
+    private void testEmailService() {
+        EmailService emailService = new EmailService();
+        String messageText = "This is a test email.";
+        try {
+            emailService.sendTestEmail(
+                    "mailloux.cl@gmail.com",
+                    "Testing email service",
+                    messageText
+            );
+        } catch (MessagingException ex) {
+            ex.printStackTrace();
         }
     }
     
