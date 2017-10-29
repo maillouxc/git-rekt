@@ -30,7 +30,6 @@ public class Package {
         return name;
     }
     
-    //Returns the price rate per person for the package
     public double getPricePerPerson(){
         return pricePerPerson;
     }
