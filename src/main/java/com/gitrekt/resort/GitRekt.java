@@ -41,7 +41,7 @@ public class GitRekt extends Application {
         mainStage.show();
         
         testHibernate();
-        testEmailService();
+        //testEmailService();
     }
 
     /**
