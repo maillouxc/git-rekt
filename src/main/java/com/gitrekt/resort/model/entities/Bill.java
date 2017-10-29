@@ -1,14 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.gitrekt.resort.model.entities;
 
-/**
- *
- * @author jeffr
- */
+import java.util.List;
+
 public class Bill {
     
+    private List<BillItem> charges;
+    
+    public Bill() {
+        // TODO
+    }
+    
+    public List<BillItem> getCharges() {
+        return charges;
+    }
 }
