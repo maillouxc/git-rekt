@@ -8,9 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "resort.guest_packages")
-
-//Class for a guest's package
+@Table(name = "resort.packages")
 public class Package {
     
     @Id
@@ -23,13 +21,11 @@ public class Package {
     @Column(name = "price_per_person")
     private double pricePerPerson;
     
-    //The constructor for this class
     public Package(String name, double pricePerPerson){
         this.name = name;
         this.pricePerPerson = pricePerPerson;
     }
     
-    //Returns the name assocociated with the package
     public String getName(){
         return name;
     }
