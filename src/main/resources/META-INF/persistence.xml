@@ -14,6 +14,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
             
             <class>com.gitrekt.resort.model.entities.GuestFeedback</class>
+            <class>com.gitrekt.resort.model.entities.Package</class>
             
         <properties>
             <!-- Configure the DB connection -->
