@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "resort.guest_feedback")
+@Table(name = "guest_feedback")
 public class GuestFeedback {
     
     @Id
