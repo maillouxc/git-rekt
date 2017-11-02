@@ -47,6 +47,8 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <property name="hibernate.temp.use_jdbc_metadata_defaults" 
                       value="false"/>
             
+            <property name="hibernate.default_schema" value="resort"/>
+            
         </properties>
         
     </persistence-unit>
