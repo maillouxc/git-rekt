@@ -21,6 +21,13 @@ public class Package {
     @Column(name = "price_per_person")
     private double pricePerPerson;
     
+    /**
+     * DO NOT CALL THIS CONSTRUCTOR. IT IS MEANT FOR USE ONLY BY HIBERNATE
+     */
+    Package() {
+        // REQUIRED BY HIBERNATE
+    }
+    
     public Package(String name, double pricePerPerson){
         this.name = name;
         this.pricePerPerson = pricePerPerson;

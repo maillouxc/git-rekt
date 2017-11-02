@@ -33,6 +33,13 @@ public class GuestFeedback {
     @Column(name = "created_date")
     private Date createdDate;
     
+    /**
+     * DO NOT CALL THIS CONSTRUCTOR - IT IS INTEDED FOR USE ONLY BY HIBERNATE.
+     */
+    GuestFeedback() {
+        // REQUIRED BY HIBERNATE
+    }
+    
     public GuestFeedback(String feedback, String guestEmailAddress) {
         this.feedback = feedback;
         this.guestEmail = guestEmailAddress;
