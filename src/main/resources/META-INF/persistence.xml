@@ -40,7 +40,13 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <property name="hibernate.hbm2ddl.auto" value="create"/>
             
             <property name="hibernate.connection.pool_size" value="1"/>
-        
+            
+            <property name="hibernate.dialect" 
+                      value="org.hibernate.dialect.PostgreSQLDialect"/>
+            
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" 
+                      value="false"/>
+            
         </properties>
         
     </persistence-unit>
