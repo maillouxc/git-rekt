@@ -1,6 +1,7 @@
 
 package com.gitrekt.resort.model.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,10 +25,18 @@ public class Bill {
     private List<BillItem> charges;
     
     public Bill() {
-        // TODO
+        this.charges = new ArrayList<>();
     }
     
     public List<BillItem> getCharges() {
         return charges;
+    }
+
+    public double getTotal() {
+        double total = 0.00;
+        for(BillItem item : charges) {
+            total += item.getPrice() * item.getQuantity();
+        }
+        return total;
     }
 }
