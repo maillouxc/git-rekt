@@ -1,5 +1,9 @@
 package com.gitrekt.resort.controller;
 
+import com.gitrekt.resort.model.entities.Bill;
+import com.gitrekt.resort.model.services.BillService;
+import java.awt.print.PrinterException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -59,8 +63,11 @@ public class CustomerBillScreenController implements Initializable {
         );
     }
     
-    public void onPrintBillButtonClicked() {
-        // TODO
+    public void onPrintBillButtonClicked() 
+            throws IOException, PrinterException {
+        // TODO: Replace with an actual bill, not an empty one.
+        BillService billService = new BillService();
+        billService.printBill(new Bill());
     }
     
 }
