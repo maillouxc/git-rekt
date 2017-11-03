@@ -3,11 +3,12 @@ package com.gitrekt.resort;
 
 import com.gitrekt.resort.controller.ScreenManager;
 import com.gitrekt.resort.hibernate.HibernateUtil;
+import com.gitrekt.resort.model.entities.Bill;
 import com.gitrekt.resort.model.entities.GuestFeedback;
+import com.gitrekt.resort.model.services.BillService;
 import com.gitrekt.resort.model.services.EmailService;
+import java.awt.print.PrinterException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +26,7 @@ import javax.persistence.PersistenceException;
 public class GitRekt extends Application {
     
     @Override
-    public void start(Stage mainStage) throws IOException {
+    public void start(Stage mainStage) throws IOException, PrinterException {
         ScreenManager screenManager = ScreenManager.getInstance();
         screenManager.initialize(mainStage);
         
@@ -41,7 +42,11 @@ public class GitRekt extends Application {
         mainStage.show();
         
         testHibernate();
+        
         //testEmailService();
+        
+        // Uncomment this line test printing a customer bill
+        //testBillService();
     }
 
     /**
@@ -49,6 +54,11 @@ public class GitRekt extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    private void testBillService() throws IOException, PrinterException {
+        BillService billService = new BillService();
+        billService.printBill(new Bill());
     }
     
     // TODO: Remove
