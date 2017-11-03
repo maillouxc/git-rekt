@@ -19,7 +19,7 @@ public class BillItem {
     private String name;
     
     @Column(name = "price")
-    private Long price;
+    private double price;
     
     @Column(name = "quantity")
     private int quantity;
@@ -28,13 +28,10 @@ public class BillItem {
      * DO NOT CALL THIS CONSTRUCTOR. IT IS INTENDED FOR USE BY HIBERNATE ONLY.
      */
     protected BillItem() {
-        // Empty pacakage-visible no-arg contructor required for Hibernate.
-        name = null; // Prevent compile errors.
-        price = null; // Prevent compile errors.
-        id = null;
+        // REQUIRED BY HIBERNATE
     }
     
-    public BillItem(String name, Long price, int quantity) {
+    public BillItem(String name, double price, int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -44,7 +41,7 @@ public class BillItem {
         return name;
     }
     
-    public Long getPrice() {
+    public double getPrice() {
         return price;
     }
     
