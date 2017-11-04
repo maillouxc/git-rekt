@@ -26,7 +26,7 @@ public class Guest {
     @Column (name = "email_address")
     private String emailAddress;
     
-    @Column (name = "phone_numbets")
+    @Column (name = "phone_numbers")
     private String phoneNumber;
 
     @Column (name = "mailing_address")
