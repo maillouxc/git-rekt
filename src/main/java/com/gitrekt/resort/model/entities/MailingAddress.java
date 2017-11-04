@@ -17,10 +17,10 @@ public class MailingAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column (name = "address_line1")
+    @Column (name = "address_line_1")
     private String addressLine1;
     
-    @Column (name = "address_line2")
+    @Column (name = "address_line_2")
     private String addressLine2;
     
     @Column (name = "postal_code")
