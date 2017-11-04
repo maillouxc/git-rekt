@@ -1,6 +1,6 @@
 package com.gitrekt.resort.model.entities;
 
-i
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
