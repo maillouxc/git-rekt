@@ -38,16 +38,12 @@ public class GuestService {
         }
     }
 
-    public Guest getGuestByEmailAddress(String emailAddress) {
-        try {
-            String query 
-                = "FROM Guest WHERE emailAddress = :emailAddress";
-            Query q = entityManager.createQuery(query);
-            q.setParameter("emailAddress", emailAddress);
-            return (Guest) q.getSingleResult();
-        } catch (EntityNotFoundException e) {
-            return null;
-        }
+    public Guest getGuestByEmailAddress(String emailAddress) 
+        throws EntityNotFoundException {
+        String query = "FROM Guest WHERE emailAddress = :emailAddress";
+        Query q = entityManager.createQuery(query);
+        q.setParameter("emailAddress", emailAddress);
+        return (Guest) q.getSingleResult();
     }
 
     public void createNewGuest(Guest guest) {
@@ -57,6 +53,8 @@ public class GuestService {
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
+            // TODO: Log rollback or notify user somewhere, possibly in e.
+            throw e;
         }
     }
 
