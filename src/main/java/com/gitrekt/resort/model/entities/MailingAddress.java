@@ -1,36 +1,28 @@
 package com.gitrekt.resort.model.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "mailing_addresses")
 public class MailingAddress {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column (name = "address_line_1")
     private String addressLine1;
     
-    @Column (name = "address_line_2")
     private String addressLine2;
     
-    @Column (name = "postal_code")
     private String postalCode;
     
-    @Column (name = "state")
     @Enumerated(EnumType.STRING)
     private UsState state;
     
-    @Column (name = "country")
     private String country;
 
     public MailingAddress(String addressLine1, String addressLine2,
