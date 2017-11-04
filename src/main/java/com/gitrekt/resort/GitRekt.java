@@ -84,7 +84,7 @@ public class GitRekt extends Application {
         }
         
         GuestService guestService = new GuestService();
-        System.out.println(guestService.getGuestById(1L).toString());
+        System.out.println(guestService.getGuestByEmailAddress("mailloux.cl@gmail.com"));
     }
     
     // TODO: Remove
