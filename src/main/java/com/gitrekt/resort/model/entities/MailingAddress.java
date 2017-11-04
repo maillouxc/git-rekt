@@ -28,13 +28,13 @@ public class MailingAddress {
     
     @Column (name = "state")
     @Enumerated(EnumType.STRING)
-    private USState state;
+    private UsState state;
     
-     @Column (name = "country")
+    @Column (name = "country")
     private String country;
 
     public MailingAddress(String addressLine1, String addressLine2,
-            String postalCode,USState state, String country) {
+            String postalCode,UsState state, String country) {
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.postalCode = postalCode;
@@ -58,7 +58,7 @@ public class MailingAddress {
         return country;
     }
     
-    public USState getState() {
+    public UsState getState() {
         return state;
     }
     
