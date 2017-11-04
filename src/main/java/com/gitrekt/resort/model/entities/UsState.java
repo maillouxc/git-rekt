@@ -1,6 +1,7 @@
 package com.gitrekt.resort.model.entities;
 
-public enum USState {
+public enum UsState {
+    
     ALABAMA("Alabama", "AL"),
     ALASKA("Alaska", "AK"),
     ARIZONA("Arizona", "AZ"),
@@ -54,44 +55,20 @@ public enum USState {
     WYOMING("Wyoming", "WY"),
     PUERTO_RICO("Puerto Rico", "PR");
 
-    String unabbreviated;
+    private String unabbreviated;
 
-    String ANSIabbreviation;
+    private String abbreviation;
 
-    USState(String unabbreviated, String ANSIabbreviation) {
-
+    UsState(String unabbreviated, String abbreviation) {
         this.unabbreviated = unabbreviated;
-
-        this.ANSIabbreviation = ANSIabbreviation;
-
+        this.abbreviation = abbreviation;
     }
 
     public String getUnabbreviated() {
         return this.unabbreviated;
     }
-
+        
     /**
-
-     */
-    public String getANSIAbbreviation() {
-
-        return this.ANSIabbreviation;
-
-    }
-
-    /**
-     *
-     * Parse string input to enum. Accepts unabbreviated and abbreviated forms.
-     *
-     * Case insensitive.
-     *
-     * @param input String to parse
-     *
-     * @return The parsed US state, or null on failure.
-     *
-     */
-    public static USState parse(String input) {
-    /*
      * The abbreviated name of this state, e.g. "NY", or "WY".
      */
     public String getAbbreviation() {
@@ -111,14 +88,8 @@ public enum USState {
         if (null == input) {
             return null;
         }
-
+        
         input = input.trim();
-
-
-        for (USState state : values()) {
-
-            if (state.unabbreviated.equalsIgnoreCase(input)
-                    || state.ANSIabbreviation.equalsIgnoreCase(input)) {
 
         for (UsState state : values()) {
             if (state.unabbreviated.equalsIgnoreCase(input)  ||
