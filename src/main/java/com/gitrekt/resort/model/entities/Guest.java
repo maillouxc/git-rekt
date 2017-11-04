@@ -1,8 +1,5 @@
 package com.gitrekt.resort.model.entities;
 
-/**
- * TODO: Document
- */
 public class Guest {
     
     private String firstName;
@@ -64,6 +61,10 @@ public class Guest {
     
     public void setphoneNUmber(String phoneNumber){
         this.phoneNumber = phoneNumber;
+    }
+    
+    public void detChexkedIn(boolean checkedIn){
+        this.isCheckedIn = checkedIn;
     }
     
     public boolean isCheckedIn(){
