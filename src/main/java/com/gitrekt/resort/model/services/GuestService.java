@@ -25,17 +25,15 @@ public class GuestService {
     }
 
     public List<Guest> getCurrentlyCheckedInGuests() {
-        return null;
+        String query = "FROM Guest WHERE isCheckedIn = :param";
+        Query q = entityManager.createQuery(query);
+        q.setParameter("param", true);
+        return q.getResultList();
     }
 
     public Guest getGuestById(Long id) throws EntityNotFoundException {
-        try {
-            Guest guest = entityManager.getReference(Guest.class,id);
-            return  guest;
-        } catch (EntityNotFoundException e) {
-            System.out.println("entity not found");
-            return null;
-        }
+        Guest guest = entityManager.getReference(Guest.class,id);
+        return  guest;
     }
 
     public Guest getGuestByEmailAddress(String emailAddress) 
