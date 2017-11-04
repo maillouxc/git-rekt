@@ -30,12 +30,10 @@ public class GuestService {
         EntityManager entityManager = HibernateUtil.getEntityManager();
         try {
             entityManager.getTransaction().begin();
-            entityManager.getTransaction().commit();
             entityManager.persist(guest);
-
+            entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
-
         }
         entityManager.close();
     }
