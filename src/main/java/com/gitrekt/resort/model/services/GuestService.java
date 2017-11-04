@@ -1,14 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gitrekt.resort.model.services;
 
-/**
- *
- * @author jeffr
- */
+import com.gitrekt.resort.model.Guest;
+import java.util.List;
+
 public class GuestService {
-    
+
+    public List<Guest> getCurrentlyCheckedInGuests() {
+
+        return null;
+    }
+
+    public Guest getGuestById(Long id) {
+
+        return null;
+    }
+
+    public Guest getGuestByEmailAddress(String emailAddress) {
+
+        return null;
+    }
+
+    public void createNewGuest(Guest guest) {
+
+    }
+
+    public void updateGuest(Guest guest) {
+
+    }
 }

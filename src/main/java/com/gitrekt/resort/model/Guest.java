@@ -10,12 +10,12 @@ public class Guest {
     private String lastName;
     private String emailAddress;
     private String phoneNumber;
-    private String mailingAddress;
+    private MailingAddress mailingAddress;
     private boolean isCheckedIn;
 
     public Guest(Long id, String firstName, String lastName, String lasrName,
             String emailAddress, String phoneNumber,
-            String mailingAddress, boolean isCheckedIn) {
+            MailingAddress mailingAddress, boolean isCheckedIn) {
         this.emailAddress = emailAddress;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,7 +41,7 @@ public class Guest {
         return emailAddress;
     }
     
-    public String getMailingAddress(){
+    public MailingAddress getMailingAddress(){
         return mailingAddress;
     }
     
