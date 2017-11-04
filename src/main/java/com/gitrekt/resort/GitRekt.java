@@ -34,7 +34,7 @@ public class GitRekt extends Application {
         mainStage.show();
         
         GuestService guestService = new GuestService();
-        guestService.getGuestById(1L);
+        guestService.getCurrentlyCheckedInGuests();
     }
 
     /**
