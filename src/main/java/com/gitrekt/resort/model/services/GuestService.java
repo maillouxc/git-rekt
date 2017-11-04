@@ -16,8 +16,9 @@ public class GuestService {
 
     public Guest getGuestById(Long id) {
         EntityManager entityManager = HibernateUtil.getEntityManager();
-
-        return null;
+        Guest guest = entityManager.getReference(Guest.class,id);;
+        entityManager.close();
+        return  guest;
     }
 
     public Guest getGuestByEmailAddress(String emailAddress) {
