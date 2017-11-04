@@ -1,6 +1,5 @@
 package com.gitrekt.resort.model.entities;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,10 +17,10 @@ public class MailingAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column (name = "address_line1")
+    @Column (name = "address_line_1")
     private String addressLine1;
     
-    @Column (name = "address_line2")
+    @Column (name = "address_line_2")
     private String addressLine2;
     
     @Column (name = "postal_code")
@@ -29,15 +28,13 @@ public class MailingAddress {
     
     @Column (name = "state")
     @Enumerated(EnumType.STRING)
-    private USState state;
+    private UsState state;
     
-     @Column (name = "country")
+    @Column (name = "country")
     private String country;
-    
-    //TODO Add state and country fields
 
     public MailingAddress(String addressLine1, String addressLine2,
-            String postalCode,USState state, String country) {
+            String postalCode,UsState state, String country) {
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.postalCode = postalCode;
@@ -61,9 +58,8 @@ public class MailingAddress {
         return country;
     }
     
-    public USState getState() {
+    public UsState getState() {
         return state;
     }
-
-    //TODO Add getters for state and country
+    
 }

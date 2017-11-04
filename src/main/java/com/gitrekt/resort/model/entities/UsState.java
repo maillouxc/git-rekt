@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gitrekt.resort.model.entities;
 
 public enum USState {
@@ -71,21 +66,12 @@ public enum USState {
 
     }
 
-    /**
-     *
-     * The full, unabbreviated name of this state.
-     *
-     */
     public String getUnabbreviated() {
-
         return this.unabbreviated;
-
     }
 
     /**
-     *
-     * The ANSI abbreviated name of this state, e.g. "NY", or "WY".
-     *
+
      */
     public String getANSIAbbreviation() {
 
@@ -105,27 +91,42 @@ public enum USState {
      *
      */
     public static USState parse(String input) {
+    /*
+     * The abbreviated name of this state, e.g. "NY", or "WY".
+     */
+    public String getAbbreviation() {
+        return this.abbreviation;
+    }
 
+    /**
+     * Parse string input to enum. Accepts unabbreviated and abbreviated forms.
+     * Case insensitive.
+     * 
+     * @param input String to parse
+     * 
+     * @return The parsed US state, or null on failure.
+     */
+
+    public static UsState parse(String input) {
         if (null == input) {
-
             return null;
-
         }
 
         input = input.trim();
+
 
         for (USState state : values()) {
 
             if (state.unabbreviated.equalsIgnoreCase(input)
                     || state.ANSIabbreviation.equalsIgnoreCase(input)) {
 
+        for (UsState state : values()) {
+            if (state.unabbreviated.equalsIgnoreCase(input)  ||
+                state.abbreviation.equalsIgnoreCase(input))
+                 {
                 return state;
-
             }
-
         }
-
         return null;
-
     }
 }
