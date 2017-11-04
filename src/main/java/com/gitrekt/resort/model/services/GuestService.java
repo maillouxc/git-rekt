@@ -11,30 +11,39 @@ import javax.persistence.Query;
 public class GuestService {
 
     private final EntityManager entityManager;
-    
+
     public GuestService() {
         this.entityManager = HibernateUtil.getEntityManager();
     }
-    
+
     @Override
     public void finalize() throws Throwable {
         super.finalize();
         this.entityManager.close();
     }
-    
+
     public List<Guest> getCurrentlyCheckedInGuests() {
-        return null;
+        try {
+            String query
+                    = "FROM Guest WHERE Guest.isCheckedIn = :param";
+            Query q = entityManager.createQuery(query);
+            q.setParameter("param", true);
+            return q.getResultList();
+        } catch (EntityNotFoundException e) {
+            return null;
+        }
+
     }
 
     public Guest getGuestById(Long id) {
-        Guest guest = entityManager.getReference(Guest.class,id);
-        return  guest;
+        Guest guest = entityManager.getReference(Guest.class, id);
+        return guest;
     }
 
     public Guest getGuestByEmailAddress(String emailAddress) {
         try {
-            String query 
-                = "FROM Guest WHERE Guest.emailAddress = :emailAddress";
+            String query
+                    = "FROM Guest WHERE Guest.emailAddress = :emailAddress";
             Query q = entityManager.createQuery(query);
             q.setParameter("emailAddress", emailAddress);
             return (Guest) q.getSingleResult();
