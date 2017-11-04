@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,7 +31,9 @@ public class Guest {
     @Column (name = "phone_numbers")
     private String phoneNumber;
 
-    @Column (name = "mailing_address")
+    @JoinTable (
+        name = "guests_mailing_addresses"
+    )
     @OneToOne (cascade = CascadeType.ALL)
     private MailingAddress mailingAddress;
     
