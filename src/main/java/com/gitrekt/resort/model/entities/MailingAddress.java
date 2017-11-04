@@ -1,6 +1,5 @@
 package com.gitrekt.resort.model.entities;
 
-i
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,8 +32,6 @@ public class MailingAddress {
     
      @Column (name = "country")
     private String country;
-    
-    //TODO Add state and country fields
 
     public MailingAddress(String addressLine1, String addressLine2,
             String postalCode,USState state, String country) {
@@ -64,6 +61,5 @@ public class MailingAddress {
     public USState getState() {
         return state;
     }
-
-    //TODO Add getters for state and country
+    
 }
