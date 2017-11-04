@@ -8,27 +8,32 @@ import javax.persistence.PersistenceException;
 
 public class GuestService {
 
+    private final EntityManager entityManager;
+    
+    public GuestService() {
+        this.entityManager = HibernateUtil.getEntityManager();
+    }
+    
+    @Override
+    public void finalize() throws Throwable {
+        super.finalize();
+        this.entityManager.close();
+    }
+    
     public List<Guest> getCurrentlyCheckedInGuests() {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
-
         return null;
     }
 
     public Guest getGuestById(Long id) {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
-        Guest guest = entityManager.getReference(Guest.class,id);;
-        entityManager.close();
+        Guest guest = entityManager.getReference(Guest.class,id);
         return  guest;
     }
 
     public Guest getGuestByEmailAddress(String emailAddress) {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
-
         return null;
     }
 
     public void createNewGuest(Guest guest) {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(guest);
@@ -36,11 +41,9 @@ public class GuestService {
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
         }
-        entityManager.close();
     }
 
     public void updateGuest(Guest guest) {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
-
+        // TODO
     }
 }

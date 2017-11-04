@@ -82,6 +82,9 @@ public class GitRekt extends Application {
             // If shit hits the fan, rewind it to prevent database problems.
             entityManager.getTransaction().rollback();
         }
+        
+        GuestService guestService = new GuestService();
+        System.out.println(guestService.getGuestById(1L).toString());
     }
     
     // TODO: Remove
