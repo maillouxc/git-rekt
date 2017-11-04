@@ -1,5 +1,6 @@
 package com.gitrekt.resort.hibernate;
 
+import com.github.fluent.hibernate.cfg.strategy.StrategyOptions;
 import com.github.fluent.hibernate.cfg.strategy.hibernate5.Hibernate5NamingStrategy;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -22,11 +23,12 @@ public class HibernateUtil {
     public static EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
     }
-    
+    /*
     private static EntityManagerFactory createEntityManagerFactory() {
         Configuration c = new Configuration();
         c.addFile("src/main/resources/META-INF/persistence.xml");
-        c.setImplicitNamingStrategy(new Hibernate5NamingStrategy());
+        Hibernate5NamingStrategy
+        c.setImplicitNamingStrategy(new Hibernate5NamingStrategy().setOptions(new StrategyOptions().setColumnPrefix("")));
         System.out.println(c.getProperties().toString());
         
         Properties properties = c.getProperties();
@@ -40,6 +42,6 @@ public class HibernateUtil {
         return Persistence.createEntityManagerFactory(
             PERSISTENCE_UNIT_NAME, pMap
         );
-    }
+    }*/
     
 }

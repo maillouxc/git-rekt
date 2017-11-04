@@ -55,7 +55,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <property name="hibernate.default_schema" value="resort"/>
             
             <property name="hibernate.implicit_naming_strategy"
-                value="com.github.fluent.hibernate.cfg.strategy.hibernate5.Hibernate5NamingStrategy"/>
+                value="com.gitrekt.resort.hibernate.SnakeCaseNamingStrategy"/>
             
         </properties>
         
