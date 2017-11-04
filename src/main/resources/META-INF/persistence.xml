@@ -15,6 +15,9 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <class>com.gitrekt.resort.model.entities.Package</class>
             <class>com.gitrekt.resort.model.entities.Bill</class>
             <class>com.gitrekt.resort.model.entities.BillItem</class>
+            <class com.gitrekt.resort.model.entities.Guest</class>
+            
+            
             
         <properties>
             <!-- Configure the DB connection -->

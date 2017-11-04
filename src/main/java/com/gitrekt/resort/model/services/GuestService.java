@@ -1,6 +1,6 @@
 package com.gitrekt.resort.model.services;
 
-import com.gitrekt.resort.model.Guest;
+import com.gitrekt.resort.model.entities.Guest;
 import java.util.List;
 
 public class GuestService {
