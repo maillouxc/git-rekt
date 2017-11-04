@@ -9,10 +9,9 @@ public class HibernateUtil {
     private static final String PERSISTENCE_UNIT_NAME = "com.gitrekt.resort";
     
     private static final EntityManagerFactory entityManagerFactory = 
-            Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-    
+        Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+            
     public static EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
     }
-    
 }
