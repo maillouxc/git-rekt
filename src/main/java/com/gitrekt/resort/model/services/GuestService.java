@@ -56,21 +56,15 @@ public class GuestService {
         }
     }
 
-    public void updateGuest(Guest guest, Long id ) {
-        String query = "UPDATE GuestFeedback set firstNmae = :first_name,"
-                + " lastName = :last_name, emailAddress =: email_address,"
-                + " mailinAddress =: mailing_address,"
-                + " phoneNumber =: phone_number, isCheckedIn =: checked_in"
-                + "WHERE id = :guest_id";
-        Query q = entityManager.createQuery(query);
-        q.setParameter("first_name", guest.getFirstName());
-        q.setParameter("last_name", guest.getLastName());
-        q.setParameter("email_address", guest.getEmailAddress());
-        q.setParameter("mailing_address", guest.getMailingAddress());
-        q.setParameter("phone_number", guest.getPhoneNumber());
-        q.setParameter("checked_in", guest.isCheckedIn());
-        q.setParameter("guest_id", id);
-
-        q.executeUpdate();
+    public void updateGuest(Guest guest) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(guest);
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException e) {
+            entityManager.getTransaction().rollback();
+            // TODO: Log rollback or notify user somewhere, possibly in e.
+            throw e;
+        }
     }
 }
