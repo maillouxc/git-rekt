@@ -43,6 +43,14 @@ public class GuestFeedback {
         return feedback;
     }
     
+     public Long getId() {
+        return id;
+    }
+     
+     public Boolean getResobled(){
+         return isResolved;
+     }
+    
     public void setResolved(boolean resolved) {
         this.isResolved = true;
     }

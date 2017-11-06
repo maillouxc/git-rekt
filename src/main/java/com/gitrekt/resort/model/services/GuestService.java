@@ -32,12 +32,12 @@ public class GuestService {
     }
 
     public Guest getGuestById(Long id) throws EntityNotFoundException {
-        Guest guest = entityManager.getReference(Guest.class,id);
-        return  guest;
+        Guest guest = entityManager.getReference(Guest.class, id);
+        return guest;
     }
 
-    public Guest getGuestByEmailAddress(String emailAddress) 
-        throws EntityNotFoundException {
+    public Guest getGuestByEmailAddress(String emailAddress)
+            throws EntityNotFoundException {
         String query = "FROM Guest WHERE emailAddress = :emailAddress";
         Query q = entityManager.createQuery(query);
         q.setParameter("emailAddress", emailAddress);
@@ -56,7 +56,21 @@ public class GuestService {
         }
     }
 
-    public void updateGuest(Guest guest) {
-        // TODO
+    public void updateGuest(Guest guest, Long id ) {
+        String query = "UPDATE GuestFeedback set firstNmae = :first_name,"
+                + " lastName = :last_name, emailAddress =: email_address,"
+                + " mailinAddress =: mailing_address,"
+                + " phoneNumber =: phone_number, isCheckedIn =: checked_in"
+                + "WHERE id = :guest_id";
+        Query q = entityManager.createQuery(query);
+        q.setParameter("first_name", guest.getFirstName());
+        q.setParameter("last_name", guest.getLastName());
+        q.setParameter("email_address", guest.getEmailAddress());
+        q.setParameter("mailing_address", guest.getMailingAddress());
+        q.setParameter("phone_number", guest.getPhoneNumber());
+        q.setParameter("checked_in", guest.isCheckedIn());
+        q.setParameter("guest_id", id);
+
+        q.executeUpdate();
     }
 }
