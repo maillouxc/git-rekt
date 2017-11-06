@@ -84,7 +84,7 @@ public class Guest {
         this.phoneNumber = phoneNumber;
     }
 
-    public void detChexkedIn(boolean checkedIn) {
+    public void getCheckedIn(boolean checkedIn) {
         this.isCheckedIn = checkedIn;
     }
 

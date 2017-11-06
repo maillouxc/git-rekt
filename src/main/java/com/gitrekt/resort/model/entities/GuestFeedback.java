@@ -47,7 +47,7 @@ public class GuestFeedback {
         return id;
     }
      
-     public Boolean getResobled(){
+     public Boolean getResovled(){
          return isResolved;
      }
     
