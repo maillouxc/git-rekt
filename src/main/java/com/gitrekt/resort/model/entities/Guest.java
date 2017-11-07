@@ -76,19 +76,23 @@ public class Guest {
         this.mailingAddress = mailingAddress;
     }
 
-    public String getphoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setphoneNUmber(String phoneNumber) {
+    public void setPhoneNUmber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public void detChexkedIn(boolean checkedIn) {
+    public void getCheckedIn(boolean checkedIn) {
         this.isCheckedIn = checkedIn;
     }
 
     public boolean isCheckedIn() {
         return isCheckedIn;
+    }
+    
+    public Long getId(){
+        return id;
     }
 }
