@@ -16,8 +16,7 @@ import javafx.scene.control.ListView;
 /**
  * Handles the functionality of FeedbackReportScreen.fxml
  */
-public class FeedbackReportScreenController 
-        implements Initializable, Refreshable {
+public class FeedbackReportScreenController implements Initializable {
     
     @FXML
     private Button backButton;
@@ -54,18 +53,4 @@ public class FeedbackReportScreenController
         );
     }
     
-    /**
-     * Polls the database for feedback items again. 
-     * 
-     * Not the best solution, since we shouldn't necessarily have to hit the
-     * database every single time we resolve a feedback item, but for now, we
-     * should be good enough by using this.
-     */
-    @Override
-    public void refresh() {
-        guestFeedbackList.clear();
-        guestFeedbackList.addAll(
-            guestFeedbackService.getUnresolvedGuestFeedback()
-        );
-    }
 }
