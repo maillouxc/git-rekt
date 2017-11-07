@@ -1,6 +1,6 @@
 package com.gitrekt.resort.controller;
 
-import com.gitrekt.resort.model.RoomCategory;
+import com.gitrekt.resort.model.entities.RoomCategory;
 import com.gitrekt.resort.model.RoomSearchResult;
 import com.gitrekt.resort.view.BrowseRoomsListItem;
 import com.gitrekt.resort.view.DeletableListItem;

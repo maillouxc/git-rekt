@@ -1,6 +1,9 @@
-package com.gitrekt.resort.model;
+package com.gitrekt.resort.model.entities;
 
 import javafx.scene.image.Image;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
  * The type of room, containing properties such as the number of beds, 
@@ -18,12 +21,19 @@ import javafx.scene.image.Image;
  * probably also be fetched from S3, instead of stored locally in the DB. These
  * are things that need to be considered for a real implementation.
  */
+@Entity
 public class RoomCategory {
     
+    @Id
     private String name;
     
     private String description;
     
+    // This should not be persisted to the database until we figure out
+    // what out final solution for storing images is. I'm currently thinking
+    // the for the purposes of our prototype we can just store the filepath
+    // string of the image in the database.
+    @Transient
     private Image roomCategoryImage;
     
     // I really don't think our domain model is complicated enough that we need
@@ -31,6 +41,14 @@ public class RoomCategory {
     // For now, we can just store a string. If things change, it won't be hard
     // to added in a concrete type for beds in a room.
     private String bedsInfo;
+    
+    /**
+     * DO NOT CALL THIS CONSTRUCTOR. IT EXISTS ONLY BECAUSE IT IS REQUIRED BY
+     * HIBERNATE.
+     */
+    RoomCategory() {
+        // REQUIRED BY HIBERNATE
+    }
     
     public RoomCategory(String name, String description, 
         Image roomCategoryImage, String bedsInfo) {
