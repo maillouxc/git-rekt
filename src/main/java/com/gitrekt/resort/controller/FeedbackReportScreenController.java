@@ -1,6 +1,7 @@
 package com.gitrekt.resort.controller;
 
 import com.gitrekt.resort.model.entities.GuestFeedback;
+import com.gitrekt.resort.model.services.GuestFeedbackService;
 import com.gitrekt.resort.view.GuestFeedbackListItem;
 import java.io.IOException;
 import java.net.URL;
@@ -15,7 +16,8 @@ import javafx.scene.control.ListView;
 /**
  * Handles the functionality of FeedbackReportScreen.fxml
  */
-public class FeedbackReportScreenController implements Initializable {
+public class FeedbackReportScreenController 
+        implements Initializable, Refreshable {
     
     @FXML
     private Button backButton;
@@ -24,6 +26,8 @@ public class FeedbackReportScreenController implements Initializable {
     private ListView<GuestFeedback> guestFeedbackListView;
     
     private ObservableList<GuestFeedback> guestFeedbackList;
+    
+    private GuestFeedbackService guestFeedbackService;
     
     /**
      * Initializes the controller class.
@@ -36,12 +40,32 @@ public class FeedbackReportScreenController implements Initializable {
             param -> new GuestFeedbackListItem()
         );
         
-        // TODO: initialize arraylist from db
+        this.guestFeedbackService = new GuestFeedbackService();
+        
+        // Load the unresolved guest feedback from the database
+        guestFeedbackList.addAll(
+            guestFeedbackService.getUnresolvedGuestFeedback()
+        );
     }
     
     public void onBackButtonClicked() throws IOException {
         ScreenManager.getInstance().switchToScreen(
             "/fxml/ReportsHomeScreen.fxml"
+        );
+    }
+    
+    /**
+     * Polls the database for feedback items again. 
+     * 
+     * Not the best solution, since we shouldn't necessarily have to hit the
+     * database every single time we resolve a feedback item, but for now, we
+     * should be good enough by using this.
+     */
+    @Override
+    public void refresh() {
+        guestFeedbackList.clear();
+        guestFeedbackList.addAll(
+            guestFeedbackService.getUnresolvedGuestFeedback()
         );
     }
 }

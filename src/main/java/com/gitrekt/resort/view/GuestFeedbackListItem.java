@@ -3,6 +3,7 @@ package com.gitrekt.resort.view;
 import com.gitrekt.resort.controller.GuestFeedbackListItemController;
 import com.gitrekt.resort.model.entities.GuestFeedback;
 import java.io.IOException;
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
@@ -24,6 +25,7 @@ public class GuestFeedbackListItem extends ListCell<GuestFeedback> {
             );
             view = fxmlLoader.load();
             controller = fxmlLoader.getController();
+            controller.setViewReference(this);
         } catch (IOException e) {
             e.printStackTrace();
             throw new IllegalStateException("Failed to load FXML file.", e);
@@ -40,6 +42,10 @@ public class GuestFeedbackListItem extends ListCell<GuestFeedback> {
             controller.setData(feedback);
             setGraphic(view);
         }
+    }
+    
+    public void onMarkedResolved() {
+        setGraphic(null);
     }
     
 }
