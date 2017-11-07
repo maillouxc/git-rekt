@@ -24,6 +24,16 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <!-- Let's all pretend that this isn't a obnoxious security risk -->
         
             <property name="javax.persistence.jdbc.url"
+            value = "jdbc:h2:./data/test"/>
+            <property name="javax.persistence.jdbc.user"
+            value="sa"/>
+            <property name="javax.persistence.jdbc.password"
+            value=""/>
+            <property name="javax.persistence.jdbc.driver"
+            value = "org.h2.Driver"/>
+        
+            <!-- For heroku
+            <property name="javax.persistence.jdbc.url"
             value = "jdbc:postgresql://ec2-50-19-105-113.compute-1.amazonaws.com:5432/d2gr8k0rr432kv?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
             <property name="javax.persistence.jdbc.user"
             value="nvxbcbqkobbbrg"/>
@@ -31,6 +41,8 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             value="0f7e4387f0b8b2bfa71abddd45b2d2323284320e4c7e9ab949460a2ae4fdfcbf"/>
             <property name="javax.persistence.jdbc.driver"
             value = "org.postgresql.Driver"/>
+            -->
+        
         
             <!-- Configure some Hibernate specific properties -->
         
@@ -44,15 +56,24 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             
             <property name="hibernate.connection.pool_size" value="1"/>
             
+            <!-- For heroku
             <property name="hibernate.dialect" 
                       value="org.hibernate.dialect.PostgreSQLDialect"/>
+            -->
+            
+            <!-- For H2 in memory database -->
+            <property name="hibernate.dialect"
+                      value="org.hibernate.dialect.H2Dialect"/>
             
             <!-- This fixes the slow startup times of hibernate -->
             
             <property name="hibernate.temp.use_jdbc_metadata_defaults" 
                       value="false"/>
             
+            <!-- Uncomment to use heroku -->
+            <!--
             <property name="hibernate.default_schema" value="resort"/>
+            -->
             
             <property name="hibernate.implicit_naming_strategy"
                 value="com.gitrekt.resort.hibernate.SnakeCaseNamingStrategy"/>
