@@ -17,14 +17,17 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <class>com.gitrekt.resort.model.entities.BillItem</class>
             <class>com.gitrekt.resort.model.entities.Guest</class>
             <class>com.gitrekt.resort.model.entities.MailingAddress</class>
-
-            
+            <class>com.gitrekt.resort.model.entities.Room</class>
+            <class>com.gitrekt.resort.model.entities.RoomCategory</class>
+    
         <properties>
             <!-- Configure the DB connection -->
             <!-- Let's all pretend that this isn't a obnoxious security risk -->
         
+            <!-- NOTE THAT THIS MEANS THE DATABASE IS NOT STORED IN THE PROJECT
+                 TREE. IT IS STORED IN THE ROOT DIRECTORY OF THE SYSTEM -->
             <property name="javax.persistence.jdbc.url"
-            value = "jdbc:h2:./data/test"/>
+            value = "jdbc:h2:~/h2/data/test/gitrekt"/>
             <property name="javax.persistence.jdbc.user"
             value="sa"/>
             <property name="javax.persistence.jdbc.password"

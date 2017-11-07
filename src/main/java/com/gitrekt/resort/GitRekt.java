@@ -1,7 +1,6 @@
 
 package com.gitrekt.resort;
 
-import com.github.fluent.hibernate.internal.util.InternalUtils.HibernateUtils;
 import com.gitrekt.resort.controller.ScreenManager;
 import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.entities.GuestFeedback;
@@ -42,13 +41,7 @@ public class GitRekt extends Application {
         GuestService guestService = new GuestService();
         guestService.getCurrentlyCheckedInGuests();
         
-        // TEST SOME STUFF TEMPORARILY - REMOVE ASAP
-        GuestFeedbackService s = new GuestFeedbackService();
-        s.createNewGuestFeedback(new GuestFeedback("You suck.", "mailloux.cl@gmail.com"));
-        s.createNewGuestFeedback(new GuestFeedback("You suck a lot.", "mailloux.cl@gmail.com"));
-        s.createNewGuestFeedback(new GuestFeedback("You're the worst programmer ever and this simple feature took you all night to implement.", "mailloux.cl@gmail.com"));
-        s.createNewGuestFeedback(new GuestFeedback("You're bad and you should feel bad.", "mailloux.cl@gmail.com"));
- 
+        DatabaseTestDataLoader.initializeTestData(); 
     }
 
     /**

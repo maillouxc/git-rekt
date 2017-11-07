@@ -1,5 +1,6 @@
 package com.gitrekt.resort.model;
 
+import com.gitrekt.resort.model.entities.RoomCategory;
 import java.math.BigDecimal;
 
 /**
