@@ -1,5 +1,6 @@
 package com.gitrekt.resort.model.entities;
 
+import com.gitrekt.resort.model.UsState;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
