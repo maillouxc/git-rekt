@@ -1,4 +1,4 @@
-package com.gitrekt.resort.model.entities;
+package com.gitrekt.resort.model;
 
 public enum UsState {
     

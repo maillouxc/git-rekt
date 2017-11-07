@@ -2,6 +2,8 @@
 package com.gitrekt.resort;
 
 import com.gitrekt.resort.controller.ScreenManager;
+import com.gitrekt.resort.model.entities.GuestFeedback;
+import com.gitrekt.resort.model.services.GuestFeedbackService;
 import com.gitrekt.resort.model.services.GuestService;
 import java.awt.print.PrinterException;
 import java.io.IOException;
@@ -35,6 +37,13 @@ public class GitRekt extends Application {
         
         GuestService guestService = new GuestService();
         guestService.getCurrentlyCheckedInGuests();
+        
+        // TEST SOME STUFF TEMPORARILY - REMOVE ASAP
+        GuestFeedbackService s = new GuestFeedbackService();
+        s.createNewGuestFeedback(new GuestFeedback("You suck.", "mailloux.cl@gmail.com"));
+        s.createNewGuestFeedback(new GuestFeedback("You suck a lot.", "mailloux.cl@gmail.com"));
+        s.createNewGuestFeedback(new GuestFeedback("You're the worst programmer ever and this simple feature took you all night to implement.", "mailloux.cl@gmail.com"));
+        s.createNewGuestFeedback(new GuestFeedback("You're bad and you should feel bad.", "mailloux.cl@gmail.com"));
     }
 
     /**

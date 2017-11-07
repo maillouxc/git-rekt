@@ -1,20 +1,17 @@
 package com.gitrekt.resort.model.services;
 
 import com.gitrekt.resort.hibernate.HibernateUtil;
-import com.gitrekt.resort.model.entities.Guest;
+import com.gitrekt.resort.model.entities.GuestFeedback;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-public class GuestService {
+public class GuestFeedbackService {
 
-    @PersistenceContext
     private final EntityManager entityManager;
 
-    public GuestService() {
+    public GuestFeedbackService() {
         this.entityManager = HibernateUtil.getEntityManager();
     }
 
@@ -24,30 +21,21 @@ public class GuestService {
         this.entityManager.close();
     }
 
-    public List<Guest> getCurrentlyCheckedInGuests() {
-        String query = "FROM Guest WHERE isCheckedIn = :param";
+    /**
+     * @return All guest feedback reports from the database that are not yet
+     * marked resolved.
+     */
+    public List<GuestFeedback> getUnresolvedGuestFeedback() {
+        String query = "FROM GuestFeedback WHERE isResolved = :param";
         Query q = entityManager.createQuery(query);
-        q.setParameter("param", true);
+        q.setParameter("param", false);
         return q.getResultList();
     }
 
-    public Guest getGuestById(Long id) throws EntityNotFoundException {
-        Guest guest = entityManager.getReference(Guest.class, id);
-        return guest;
-    }
-
-    public Guest getGuestByEmailAddress(String emailAddress)
-            throws EntityNotFoundException {
-        String query = "FROM Guest WHERE emailAddress = :emailAddress";
-        Query q = entityManager.createQuery(query);
-        q.setParameter("emailAddress", emailAddress);
-        return (Guest) q.getSingleResult();
-    }
-
-    public void createNewGuest(Guest guest) {
+    public void createNewGuestFeedback(GuestFeedback feedback) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(guest);
+            entityManager.persist(feedback);
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
@@ -56,10 +44,10 @@ public class GuestService {
         }
     }
 
-    public void updateGuest(Guest guest) {
+    public void updateGuestFeedback(GuestFeedback feedback) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.merge(guest);
+            entityManager.merge(feedback);
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
@@ -67,4 +55,5 @@ public class GuestService {
             throw e;
         }
     }
+
 }

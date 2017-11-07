@@ -5,11 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
+@Table(name = "guest_feedback") // Override the default name for the table
 public class GuestFeedback {
     
     @Id
@@ -43,7 +45,23 @@ public class GuestFeedback {
         return feedback;
     }
     
-    public void setResolved(boolean resolved) {
+    public Long getId() {
+        return id;
+    }
+    
+    public Date getCreationDate() {
+        return createdDate;
+    }
+    
+    public String getGuestEmail() {
+        return guestEmail;
+    }
+    
+    public Boolean isResolved(){
+        return isResolved;
+    }
+    
+    public void setIsResolved(boolean resolved) {
         this.isResolved = true;
     }
     
