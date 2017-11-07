@@ -21,12 +21,15 @@ public class GuestFeedbackService {
         this.entityManager.close();
     }
 
+    /**
+     * @return All guest feedback reports from the database that are not yet
+     * marked resolved.
+     */
     public List<GuestFeedback> getUnresolvedGuestFeedback() {
         String query = "FROM GuestFeedback WHERE isResolved = :param";
         Query q = entityManager.createQuery(query);
         q.setParameter("param", false);
         return q.getResultList();
-
     }
 
     public void createNewGuestFeedback(GuestFeedback feedback) {
