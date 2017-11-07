@@ -16,7 +16,8 @@ import javafx.scene.control.ListView;
 /**
  * Handles the functionality of FeedbackReportScreen.fxml
  */
-public class FeedbackReportScreenController implements Initializable {
+public class FeedbackReportScreenController 
+        implements Initializable {
     
     @FXML
     private Button backButton;
@@ -36,20 +37,40 @@ public class FeedbackReportScreenController implements Initializable {
         guestFeedbackList = FXCollections.observableArrayList();
         guestFeedbackListView.setItems(guestFeedbackList);
         guestFeedbackListView.setCellFactory( 
-            param -> new GuestFeedbackListItem()
+            param -> new GuestFeedbackListItem(this)
         );
         
         this.guestFeedbackService = new GuestFeedbackService();
         
-        // Load the unresolved guest feedback from the database
-        guestFeedbackList.addAll(
-            guestFeedbackService.getUnresolvedGuestFeedback()
+        loadFeedback();
+    }
+    
+    /**
+     * @param item The data item to hide from the screen.
+     */
+    public void hideItem(GuestFeedback item) {
+        guestFeedbackList.remove(item);
+    }
+    
+    @FXML
+    private void onBackButtonClicked() throws IOException {
+        ScreenManager.getInstance().switchToScreen(
+            "/fxml/ReportsHomeScreen.fxml"
         );
     }
     
-    public void onBackButtonClicked() throws IOException {
-        ScreenManager.getInstance().switchToScreen(
-            "/fxml/ReportsHomeScreen.fxml"
+    @FXML
+    private void onRefreshButtonClicked() {
+        loadFeedback();
+    }
+    
+    private void loadFeedback() {
+        // Clear any existing items from the list
+        guestFeedbackList.clear();
+        
+        // Retrieve new items
+        guestFeedbackList.addAll(
+            guestFeedbackService.getUnresolvedGuestFeedback()
         );
     }
     
