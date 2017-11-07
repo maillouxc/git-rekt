@@ -1,7 +1,9 @@
 
 package com.gitrekt.resort;
 
+import com.github.fluent.hibernate.internal.util.InternalUtils.HibernateUtils;
 import com.gitrekt.resort.controller.ScreenManager;
+import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.entities.GuestFeedback;
 import com.gitrekt.resort.model.services.GuestFeedbackService;
 import com.gitrekt.resort.model.services.GuestService;
@@ -29,6 +31,8 @@ public class GitRekt extends Application {
         Scene mainScene = new Scene(root);
         mainStage.setScene(mainScene);
         
+        
+        
         Image appLogo = new Image("images/Logo.png");
         mainStage.getIcons().add(appLogo);
         mainStage.setTitle("Git-Rektsort Booking Software");
@@ -44,6 +48,7 @@ public class GitRekt extends Application {
         s.createNewGuestFeedback(new GuestFeedback("You suck a lot.", "mailloux.cl@gmail.com"));
         s.createNewGuestFeedback(new GuestFeedback("You're the worst programmer ever and this simple feature took you all night to implement.", "mailloux.cl@gmail.com"));
         s.createNewGuestFeedback(new GuestFeedback("You're bad and you should feel bad.", "mailloux.cl@gmail.com"));
+ 
     }
 
     /**
@@ -51,5 +56,8 @@ public class GitRekt extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        
+        // Fix bug where application keeps running after closing
+        HibernateUtil.close();
     }  
 }
