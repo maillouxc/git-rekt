@@ -35,4 +35,4 @@ private/
 
 # H2 embedded database data location #
 
-./data
+data/
