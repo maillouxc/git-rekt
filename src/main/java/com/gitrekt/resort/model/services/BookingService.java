@@ -18,7 +18,6 @@ public class BookingService {
 
     public BookingService() {
         this.entityManager = HibernateUtil.getEntityManager();
-
     }
 
     @Override
@@ -56,7 +55,7 @@ public class BookingService {
         }
     }
     
-    public List<Booking> getBookingBetweenDates(Date startDate, Date endDate) 
+    public List<Booking> getBookingsBetweenDates(Date startDate, Date endDate) 
             throws EntityNotFoundException{
         List<Booking> allBookings;
         List<Booking> bookingResults = new ArrayList<>(200);
@@ -64,6 +63,7 @@ public class BookingService {
         Query q = entityManager.createQuery(query);
         allBookings = q.getResultList();
         for(int i = 0; i < allBookings.size();i++){
+            allBookings.get(i).getCheckInDate().after(endDate);
             boolean isDatesEqualToEnds = allBookings.get(i).getCheckInDate()
                     .equals(startDate) && allBookings.get(i).getCheckOutDate()
                             .equals(endDate) ;

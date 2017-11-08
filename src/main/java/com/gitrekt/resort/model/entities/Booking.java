@@ -3,15 +3,17 @@ package com.gitrekt.resort.model.entities;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.CreationTimestamp;
 
+@Entity
 public class Booking {
 
     @Id
@@ -21,15 +23,15 @@ public class Booking {
     @ManyToOne(cascade = CascadeType.ALL)
     private Guest guest;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
+    
+    @Temporal(TemporalType.DATE)
     private Date checkInDate;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
+    
+    @Temporal(TemporalType.DATE)
     private Date checkOutDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Bill bill;
 
     private String confirmationNumber;
@@ -87,7 +89,7 @@ public class Booking {
         return packages;
     }
 
-    public List<Room> getBoodedRooms() {
+    public List<Room> getBookedRooms() {
         return bookedRooms;
     }
 
