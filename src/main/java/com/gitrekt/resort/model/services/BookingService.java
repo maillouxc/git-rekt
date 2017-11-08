@@ -59,7 +59,7 @@ public class BookingService {
     public List<Booking> getBookingBetweenDates(Date startDate, Date endDate) 
             throws EntityNotFoundException{
         List<Booking> allBookings;
-        List<Booking> bookingResults = new ArrayList<Booking>(200);
+        List<Booking> bookingResults = new ArrayList<>(200);
          String query = "FROM Booking WHERE guest is not null";
         Query q = entityManager.createQuery(query);
         allBookings = q.getResultList();
