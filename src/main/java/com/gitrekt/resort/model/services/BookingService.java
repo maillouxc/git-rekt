@@ -2,6 +2,7 @@ package com.gitrekt.resort.model.services;
 
 import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.entities.Booking;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -57,10 +58,22 @@ public class BookingService {
     
     public List<Booking> getBookingBetweenDates(Date startDate, Date endDate) 
             throws EntityNotFoundException{
-         String query = "FROM Booking WHERE isCheckedIn = :param";
+        List<Booking> allBookings;
+        List<Booking> bookingResults = new ArrayList<Booking>(200);
+         String query = "FROM Booking WHERE guest is not null";
         Query q = entityManager.createQuery(query);
-        q.setParameter("param", true);
-        return q.getResultList();
-        
+        allBookings = q.getResultList();
+        for(int i = 0; i < allBookings.size();i++){
+            boolean isDatesEqualToEnds = allBookings.get(i).getCheckInDate()
+                    .equals(startDate) && allBookings.get(i).getCheckOutDate()
+                            .equals(endDate) ;
+            boolean isDatesInRange = allBookings.get(i).getCheckInDate()
+                    .after(startDate) && allBookings.get(i).getCheckOutDate()
+                            .before(endDate);
+            if( (isDatesEqualToEnds || isDatesInRange) == true ){
+                bookingResults.add(allBookings.get(i));
+            }
+        }
+        return bookingResults;
     }
 }
