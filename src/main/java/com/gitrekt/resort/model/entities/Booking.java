@@ -1,14 +1,94 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gitrekt.resort.model.entities;
 
-/**
- *
- * @author jeffr
- */
+import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
+
 public class Booking {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Guest guest;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date checkInDate;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date checkOutDate;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Bill bill;
+
+    private String confirmationNumber;
+
+    private String specialInstructions;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Package> packages;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Room> bookedRooms;
+
+    /**
+     * DO NOT CALL THIS CONSTRUCTOR. IT IS INTENDED FOR USE BY HIBERNATE ONLY.
+     */
+    protected Booking() {
+        // REQUIRED BY HIBERNATE
+    }
+
+    public Booking(Guest guest, Date checkInDate, Date checkOutDate, Bill bill,
+            String confirmationNumber, String specialInstructions,
+            List<Package> packages, List<Room> bookedRooms) {
+
+        this.guest = guest;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.bill = bill;
+        this.confirmationNumber = confirmationNumber;
+        this.specialInstructions = specialInstructions;
+        this.packages = packages;
+        this.bookedRooms = bookedRooms;
+    }
+
+    public Date getCheckInDate() {
+        return checkInDate;
+    }
+
+    public Date getCheckOutDate() {
+        return checkOutDate;
+    }
+
+    public String getConfirmationNumbet() {
+        return confirmationNumber;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public String getSpecialInstructions() {
+        return specialInstructions;
+    }
+
+    public List<Package> getPackages() {
+        return packages;
+    }
+
+    public List<Room> getBoodedRooms() {
+        return bookedRooms;
+    }
+
 }
