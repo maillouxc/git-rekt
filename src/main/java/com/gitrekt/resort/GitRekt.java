@@ -3,11 +3,13 @@ package com.gitrekt.resort;
 
 import com.gitrekt.resort.controller.ScreenManager;
 import com.gitrekt.resort.hibernate.HibernateUtil;
-import com.gitrekt.resort.model.entities.GuestFeedback;
-import com.gitrekt.resort.model.services.GuestFeedbackService;
+import com.gitrekt.resort.model.services.BookingService;
 import com.gitrekt.resort.model.services.GuestService;
 import java.awt.print.PrinterException;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,7 +43,7 @@ public class GitRekt extends Application {
         GuestService guestService = new GuestService();
         guestService.getCurrentlyCheckedInGuests();
         
-        DatabaseTestDataLoader.initializeTestData(); 
+        DatabaseTestDataLoader.initializeTestData();
     }
 
     /**
