@@ -5,6 +5,7 @@ import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.entities.Room;
 import com.gitrekt.resort.model.entities.RoomCategory;
 import com.gitrekt.resort.model.entities.GuestFeedback;
+import com.gitrekt.resort.model.entities.Package;
 import com.gitrekt.resort.model.services.GuestFeedbackService;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,6 +114,17 @@ public class DatabaseTestDataLoader {
             Room room = new Room(String.valueOf(roomNumber), king);
             entityManager.persist(room);
         }
+        
+        // Generate package data.
+        Package package1 = new Package("Loch-Ness monster viewing", 3.50);
+        Package package2 = new Package("Basement tour", 10.00);
+        Package package3 = new Package("Drug cartel abduction experience", 650.00);
+        Package package4 = new Package("Surfing with sharks", 580.99);
+        
+        entityManager.persist(package1);
+        entityManager.persist(package2);
+        entityManager.persist(package3);
+        entityManager.persist(package4);
         
         entityManager.getTransaction().commit();
         
