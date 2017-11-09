@@ -26,6 +26,14 @@ public class MailingAddress {
     
     private String country;
 
+    /**
+     * DO NOT CALL THIS CONSTRUCTOR. IT EXISTS ONLY BECAUSE IT IS REQUIRED BY
+     * HIBERNATE
+     */
+    MailingAddress() {
+        // REQUIRED BY HIBERNATE
+    }
+    
     public MailingAddress(String addressLine1, String addressLine2,
             String postalCode,UsState state, String country) {
         this.addressLine1 = addressLine1;

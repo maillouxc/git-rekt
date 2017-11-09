@@ -3,7 +3,6 @@ package com.gitrekt.resort.model.entities;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,16 +22,14 @@ public class Booking {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Guest guest;
-
     
     @Temporal(TemporalType.DATE)
     private Date checkInDate;
-
     
     @Temporal(TemporalType.DATE)
     private Date checkOutDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Bill bill;
 
     private String specialInstructions;

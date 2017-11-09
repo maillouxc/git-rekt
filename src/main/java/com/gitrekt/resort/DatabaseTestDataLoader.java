@@ -2,12 +2,20 @@
 package com.gitrekt.resort;
 
 import com.gitrekt.resort.hibernate.HibernateUtil;
+import com.gitrekt.resort.model.UsState;
+import com.gitrekt.resort.model.entities.Bill;
+import com.gitrekt.resort.model.entities.Booking;
+import com.gitrekt.resort.model.entities.Guest;
 import com.gitrekt.resort.model.entities.Room;
 import com.gitrekt.resort.model.entities.RoomCategory;
 import com.gitrekt.resort.model.entities.GuestFeedback;
+import com.gitrekt.resort.model.entities.MailingAddress;
 import com.gitrekt.resort.model.entities.Package;
 import com.gitrekt.resort.model.services.GuestFeedbackService;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javafx.scene.image.Image;
 import javax.persistence.EntityManager;
@@ -126,6 +134,31 @@ public class DatabaseTestDataLoader {
         entityManager.persist(package3);
         entityManager.persist(package4);
         
+        // Generate test guest data
+        Guest g1 = new Guest("Chris", "Mailldfghoux", "mailloux.cl@gmail.com", "239-242-4256", new MailingAddress("525 fake way", null, "33969", UsState.FLORIDA, "United States"));
+        Guest g2 = new Guest("Chrsfgmis", "Mailloux", "mailsfghux.cl@gmail.com", "239-242-4256", new MailingAddress("525 fake way", null, "33969", UsState.FLORIDA, "United States"));
+        Guest g3 = new Guest("Chris", "Mailldfghoux", "maillsfghsfghsoux.cl@gmail.com", "239-242-4256", new MailingAddress("525 fake way", null, "33969", UsState.FLORIDA, "United States"));
+        Guest g4 = new Guest("Chrawetis", "Mailloux", "maillojytfkdfux.cl@gmail.com", "239-242-4256", new MailingAddress("525 fake way", null, "33969", UsState.FLORIDA, "United States"));
+        
+        entityManager.persist(g1);
+        entityManager.persist(g2);
+        entityManager.persist(g3);
+        entityManager.persist(g4);
+        
+        // Generate test booking data
+        Calendar testCalendar = new GregorianCalendar();
+        Date d1 = testCalendar.getTime();
+        testCalendar.add(Calendar.DATE, 2);
+        Date d2 = testCalendar.getTime();
+        
+        List<Package> testBookingPackages = new ArrayList<Package>();
+        testBookingPackages.add(package1);
+        testBookingPackages.add(package2);
+        
+        Booking b = new Booking(g1, d1, d2, new Bill(), null, testBookingPackages, null);
+        
+        entityManager.persist(b);
+        
         entityManager.getTransaction().commit();
         
         // Don't forget to close the entityManager when done with it
@@ -142,7 +175,6 @@ public class DatabaseTestDataLoader {
         
         // TODO: Load test employee data
         
-        // TODO: Load test guest data
     }
     
 }
