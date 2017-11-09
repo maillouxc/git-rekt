@@ -3,6 +3,7 @@ package com.gitrekt.resort.model.entities;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,8 +35,6 @@ public class Booking {
     @OneToOne
     private Bill bill;
 
-    private String confirmationNumber;
-
     private String specialInstructions;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -52,14 +51,13 @@ public class Booking {
     }
 
     public Booking(Guest guest, Date checkInDate, Date checkOutDate, Bill bill,
-            String confirmationNumber, String specialInstructions,
-            List<Package> packages, List<Room> bookedRooms) {
+            String specialInstructions, List<Package> packages, 
+            List<Room> bookedRooms) {
 
         this.guest = guest;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.bill = bill;
-        this.confirmationNumber = confirmationNumber;
         this.specialInstructions = specialInstructions;
         this.packages = packages;
         this.bookedRooms = bookedRooms;
@@ -71,10 +69,6 @@ public class Booking {
 
     public Date getCheckOutDate() {
         return checkOutDate;
-    }
-
-    public String getConfirmationNumbet() {
-        return confirmationNumber;
     }
 
     public Bill getBill() {

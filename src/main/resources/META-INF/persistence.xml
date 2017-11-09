@@ -19,6 +19,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <class>com.gitrekt.resort.model.entities.MailingAddress</class>
             <class>com.gitrekt.resort.model.entities.Room</class>
             <class>com.gitrekt.resort.model.entities.RoomCategory</class>
+            <class>com.gitrekt.resort.model.entities.Booking</class>
     
         <properties>
             <!-- Configure the DB connection -->
