@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class Booking {
@@ -39,6 +40,12 @@ public class Booking {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Room> bookedRooms;
+    
+    private boolean isCanceled = false;
+    
+    @CreationTimestamp
+    @Temporal(TemporalType.DATE)
+    private Date createdDate;
 
     /**
      * DO NOT CALL THIS CONSTRUCTOR. IT IS INTENDED FOR USE BY HIBERNATE ONLY.
@@ -82,6 +89,18 @@ public class Booking {
 
     public List<Room> getBookedRooms() {
         return bookedRooms;
+    }
+    
+    public boolean isCanceled() {
+        return isCanceled;
+    }
+    
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+    
+    public void setCanceled(boolean canceled) {
+        this.isCanceled = canceled;
     }
 
 }
