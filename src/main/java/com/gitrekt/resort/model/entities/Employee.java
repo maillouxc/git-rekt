@@ -14,7 +14,7 @@ public class Employee {
 
     private String hashedPassword;
 
-    private boolean isManager;
+    private boolean isManager = false;
 
     private String firstName;
 
@@ -30,10 +30,10 @@ public class Employee {
     }
 
     public Employee(String hashedPassword, boolean isManager,
-            String firstNamw, String lastName, String userName) {
+            String firstName, String lastName, String userName) {
         this.hashedPassword = hashedPassword;
         this.isManager = isManager;
-        this.firstName = firstNamw;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
     }
