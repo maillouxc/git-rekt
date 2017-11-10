@@ -21,7 +21,7 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Guest guest;
     
     @Temporal(TemporalType.DATE)
@@ -38,7 +38,7 @@ public class Booking {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Package> packages;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.MERGE)
     private List<Room> bookedRooms;
     
     private boolean isCanceled = false;
@@ -103,4 +103,17 @@ public class Booking {
         this.isCanceled = canceled;
     }
 
+    public Guest getGuest() {
+        return guest;
+    }
+    
+    /**
+     * @return The booking id, which is currently being used as the confirmation
+     * number until a scheme for generating confirmation numbers in the 
+     * database can be properly devised.
+     */
+    public Long getId() {
+        return this.id;
+    }
+    
 }

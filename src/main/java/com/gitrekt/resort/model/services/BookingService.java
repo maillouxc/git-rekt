@@ -4,10 +4,13 @@ import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.entities.BillItem;
 import com.gitrekt.resort.model.entities.Booking;
 import java.time.Instant;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -21,6 +24,14 @@ public class BookingService {
     @PersistenceContext
     private final EntityManager entityManager;
 
+    /**
+     * Constructs a basic instance of BookingService.
+     * 
+     * Initializes an entityManager for the service, which is used to manage
+     * Hibernate entities for database persistence. This entityManager is later
+     * closed by the finalize method and so does not need to (nor can it be)
+     * explicitly closed.
+     */
     public BookingService() {
         this.entityManager = HibernateUtil.getEntityManager();
     }
@@ -52,8 +63,7 @@ public class BookingService {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(booking);
-            EmailService emailService = new EmailService();
-            
+            sendBookingConfirmationEmail(booking);
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
@@ -146,6 +156,7 @@ public class BookingService {
                 "Cancellation fee", cancellationFee, 1
             );
             booking.getBill().getCharges().add(cancellationCharge);
+            sendBookingCancellationEmail(booking);
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
@@ -166,17 +177,24 @@ public class BookingService {
      * would be running server side, not client side, and then time zones would
      * not matter.
      * 
+     * Sadly, the new Java Time and Date API is almost laughably annoying in 
+     * that there is NO built in easy way to transform an existing Java Date
+     * object into a new time api date object, excepting the toInstant method,
+     * which brings with it it's own cluttered bag of complications. Why?!?
+     * 
      * @param booking The booking to calculate cancellation fees for.
      * 
      * @return The cancellation fee to cancel the provided booking.
      */
     public static double calcCancellationFee(Booking booking) {  
         // Define some useful dates for our calculations
-        LocalDateTime today = LocalDateTime.now();
+        LocalDate today = LocalDate.now();
         Instant temp = booking.getCheckInDate().toInstant();
-        LocalDateTime checkInDate = LocalDateTime.from(temp);
+        ZonedDateTime zdt = temp.atZone(ZoneId.systemDefault());
+        LocalDate checkInDate = zdt.toLocalDate();
         temp = booking.getCreatedDate().toInstant();
-        LocalDateTime bookingCreationDate = LocalDateTime.from(temp);
+        zdt = temp.atZone(ZoneId.systemDefault());
+        LocalDate bookingCreationDate = LocalDate.from(zdt);
         long daysTillCheckIn = today.until(checkInDate, ChronoUnit.DAYS);
         
         // Determine the fee percentage based on specifications
@@ -203,5 +221,85 @@ public class BookingService {
         }
         
         return fee;
+    }
+    
+    /**
+     * Sends an email to the user confirming their booking, along with a booking
+     * number that is used to reference the booking by the customer.
+     * 
+     * This method probably belongs in it's own class, but for now, this is
+     * good enough for our needs.
+     * 
+     * At some point, it would be nice to use a parameterized template system
+     * like ThymeLeaf or something similar, rather than the clunky StringBuilder
+     * approach that is currently used, as well as HTTP email rather than
+     * plaintext, but these enhancements are reserved for a future where I don't
+     * have 3 major projects running concurrently.
+     * 
+     * Also, finally note that the exception handling here is basically 
+     * nonexistent, due to the extremely limited time we have to develop this
+     * prototype. This is something that would need to be addressed in future
+     * iterations.
+     * 
+     * @param booking The booking which the email is being sent for.
+     */
+    private void sendBookingConfirmationEmail(Booking booking) {
+        EmailService emailService = new EmailService();
+        String subjectLine = "Here's your booking info";
+        String toAddress = booking.getGuest().getEmailAddress();
+        StringBuilder builder = new StringBuilder();
+        
+        builder.append("Thanks for placing a booking at Git-Rekt Resort.\n\n");
+        builder.append("Your booking number is ");
+        builder.append(booking.getId().toString());
+        builder.append(" \n\n");
+        builder.append("Please save this number, as you will need it to "
+                + "reference the booking in the future, view your bill, "
+                + "check-in, or cancel the booking.");
+        builder.append("\n\nThank you for being dumb enough to book with us.");
+        String emailText = builder.toString();
+        
+        try {
+            emailService.sendEmail(toAddress, subjectLine, emailText);
+        } catch (MessagingException e) {
+            System.err.println("Error sending confirmation email");
+            // TODO: Handle exception better.
+        }
+    }
+    
+    /**
+     * Sends an email confirming the cancellation of the guest's booking.
+     * 
+     * See the documentation on the sendBookingConfirmationEmail method for some
+     * comments that apply here as well regarding the design of this method,
+     * since the two methods are basically identical in design.
+     * 
+     * @param booking The booking to send the email regarding.
+     */
+    private void sendBookingCancellationEmail(Booking booking) {
+        EmailService emailService = new EmailService();
+        String subjectLine = "Your booking has been cancelled. Loser.";
+        String toAddress = booking.getGuest().getEmailAddress();
+        StringBuilder builder = new StringBuilder();
+        
+        builder.append("Hey loser, we cancelled your booking, booking number ");
+        builder.append(booking.getId().toString());
+        builder.append(" like you asked.");
+        builder.append("\n\n");
+        builder.append("It's okay, we didn't want people like you in our resort"
+                + " anyway.");
+        builder.append(" \n\n");
+        builder.append("Your bill total is $");
+        builder.append(booking.getBill().getTotal());
+        builder.append(", which includes any applicable cancellation fees.");
+        builder.append("\n\nPay us, or we'll be forced to take it ourselves.");
+        String emailText = builder.toString();
+        
+        try {
+            emailService.sendEmail(toAddress, subjectLine, emailText);
+        } catch (MessagingException e) {
+            System.err.println("Error sending confirmation email");
+            // TODO: Handle exception better.
+        }
     }
 }
