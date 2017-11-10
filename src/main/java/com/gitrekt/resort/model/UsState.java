@@ -69,7 +69,7 @@ public enum UsState {
     }
         
     /**
-     * The abbreviated name of this state, e.g. "NY", or "WY".
+     * @return The abbreviated name of this state, e.g. "NY", or "WY".
      */
     public String getAbbreviation() {
         return this.abbreviation;
