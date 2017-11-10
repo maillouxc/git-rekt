@@ -20,6 +20,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <class>com.gitrekt.resort.model.entities.Room</class>
             <class>com.gitrekt.resort.model.entities.RoomCategory</class>
             <class>com.gitrekt.resort.model.entities.Booking</class>
+            <class>com.gitrekt.resort.model.entities.Employee</class>
     
         <properties>
             <!-- Configure the DB connection -->
@@ -58,7 +59,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <!-- We should set value to validate at some point -->
             <property name="hibernate.hbm2ddl.auto" value="create"/>
             
-            <property name="hibernate.connection.pool_size" value="1"/>
+            <property name="hibernate.connection.pool_size" value="10"/>
             
             <!-- For heroku
             <property name="hibernate.dialect" 

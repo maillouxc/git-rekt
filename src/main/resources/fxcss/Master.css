@@ -8,7 +8,6 @@
 .root {
     -fx-background-color: linear-gradient( rgb(204, 228, 252), rgb(3, 67, 131));
     -fx-font-family: "Sans Serif";
-    
 }
 
 .screenHeader {
@@ -27,4 +26,8 @@
 .button:hover {
     -fx-background-color: linear-gradient(rgba(3, 120, 89, 0.5), rgba(3, 120, 89, 1));
     -fx-cursor: hand;
+}
+
+.validationErrorText {
+    -fx-text-fill: #FF0000;
 }

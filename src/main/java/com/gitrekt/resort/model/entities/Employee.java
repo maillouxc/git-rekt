@@ -1,15 +1,15 @@
 package com.gitrekt.resort.model.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
 public class Employee {
 
+    // Employee ID is not auto-generated, but rather would already exist in the
+    // business's records.
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employeeId;
 
     private String hashedPassword;
@@ -19,8 +19,8 @@ public class Employee {
     private String firstName;
 
     private String lastName;
-
-    private String userName;
+    
+    private static final int LOG_ROUNDS = 10;
 
     /**
      * DO NOT CALL THIS CONSTRUCTOR. IT IS INTENDED FOR USE BY HIBERNATE ONLY.
@@ -29,13 +29,13 @@ public class Employee {
         // REQUIRED BY HIBERNATE
     }
 
-    public Employee(String hashedPassword, boolean isManager,
-            String firstName, String lastName, String userName) {
-        this.hashedPassword = hashedPassword;
+    public Employee(Long id, String plaintextPassword, boolean isManager,
+            String firstName, String lastName) {
+        encryptPassword(plaintextPassword);
         this.isManager = isManager;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
+        this.employeeId = id;
     }
 
     public Long getId() {
@@ -61,13 +61,15 @@ public class Employee {
     public void setManager(boolean isManager) {
         this.isManager = isManager;
     }
-
-    public String getUserName() {
-        return userName;
+    
+    public void setHashedPassword(String hashedPassword){
+        this.hashedPassword = hashedPassword;
     }
     
-    public void setHashedPassuord(String hashedPassword){
-        this.hashedPassword = hashedPassword;
+    private void encryptPassword(String plaintextPassword) {
+        int numRoundsToHash = 2000;
+        String salt = BCrypt.gensalt(LOG_ROUNDS);
+        this.hashedPassword = BCrypt.hashpw(plaintextPassword, salt);
     }
 
 }
