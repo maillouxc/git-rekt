@@ -68,10 +68,8 @@ public class PlaceBookingScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         initializeStatePicker();
         initializeCountryPicker();
-
     }
 
     public void onBackButtonClicked() {
@@ -103,60 +101,7 @@ public class PlaceBookingScreenController implements Initializable {
     }
 
     public void initializeStatePicker() {
-        states = FXCollections.observableArrayList();
-        states.add(UsState.ALABAMA.getAbbreviation());
-        states.add(UsState.ALASKA.getAbbreviation());
-        states.add(UsState.ARIZONA.getAbbreviation());
-        states.add(UsState.ARKANSAS.getAbbreviation());
-        states.add(UsState.CALIFORNIA.getAbbreviation());
-        states.add(UsState.COLORADO.getAbbreviation());
-        states.add(UsState.CONNECTICUT.getAbbreviation());
-        states.add(UsState.DELAWARE.getAbbreviation());
-        states.add(UsState.DISTRICT_OF_COLUMBIA.getAbbreviation());
-        states.add(UsState.FLORIDA.getAbbreviation());
-        states.add(UsState.GEORGIA.getAbbreviation());
-        states.add(UsState.HAWAII.getAbbreviation());
-        states.add(UsState.IDAHO.getAbbreviation());
-        states.add(UsState.ILLINOIS.getAbbreviation());
-        states.add(UsState.INDIANA.getAbbreviation());
-        states.add(UsState.IOWA.getAbbreviation());
-        states.add(UsState.LOUISIANA.getAbbreviation());
-        states.add(UsState.KENTUCKY.getAbbreviation());
-        states.add(UsState.MAINE.getAbbreviation());
-        states.add(UsState.MARYLAND.getAbbreviation());
-        states.add(UsState.MASSACHUSETTS.getAbbreviation());
-        states.add(UsState.MICHIGAN.getAbbreviation());
-        states.add(UsState.MINNESOTA.getAbbreviation());
-        states.add(UsState.MISSISSIPPI.getAbbreviation());
-        states.add(UsState.MISSOURI.getAbbreviation());
-        states.add(UsState.MONTANA.getAbbreviation());
-        states.add(UsState.NEBRASKA.getAbbreviation());
-        states.add(UsState.NEVADA.getAbbreviation());
-        states.add(UsState.NEW_HAMPSHIRE.getAbbreviation());
-        states.add(UsState.NEW_JERSEY.getAbbreviation());
-        states.add(UsState.NEW_MEXICO.getAbbreviation());
-        states.add(UsState.NEW_YORK.getAbbreviation());
-        states.add(UsState.NORTH_CAROLINA.getAbbreviation());
-        states.add(UsState.NORTH_DAKOTA.getAbbreviation());
-        states.add(UsState.OHIO.getAbbreviation());
-        states.add(UsState.OKLAHOMA.getAbbreviation());
-        states.add(UsState.OREGON.getAbbreviation());
-        states.add(UsState.PENNSYLVANIA.getAbbreviation());
-        states.add(UsState.PUERTO_RICO.getAbbreviation());
-        states.add(UsState.RHODE_ISLAND.getAbbreviation());
-        states.add(UsState.SOUTH_CAROLINA.getAbbreviation());
-        states.add(UsState.SOUTH_DAKOTA.getAbbreviation());
-        states.add(UsState.TENNESSEE.getAbbreviation());
-        states.add(UsState.TEXAS.getAbbreviation());
-        states.add(UsState.UTAH.getAbbreviation());
-        states.add(UsState.VERMONT.getAbbreviation());
-        states.add(UsState.VIRGINIA.getAbbreviation());
-        states.add(UsState.WASHINGTON.getAbbreviation());
-        states.add(UsState.WEST_VIRGINIA.getAbbreviation());
-        states.add(UsState.WISCONSIN.getAbbreviation());
-        states.add(UsState.WYOMING.getAbbreviation());
-        
-        FXCollections.sort(states);
+        states.add(UsState.getValues());
         statePicker.setItems(states);
     }
 }
