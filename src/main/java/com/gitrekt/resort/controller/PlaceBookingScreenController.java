@@ -101,7 +101,7 @@ public class PlaceBookingScreenController implements Initializable {
     }
 
     public void initializeStatePicker() {
-        states.add(UsState.getValues());
+        states.add(UsState.values());
         statePicker.setItems(states);
     }
 }
