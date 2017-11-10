@@ -5,6 +5,7 @@ import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.UsState;
 import com.gitrekt.resort.model.entities.Bill;
 import com.gitrekt.resort.model.entities.Booking;
+import com.gitrekt.resort.model.entities.Employee;
 import com.gitrekt.resort.model.entities.Guest;
 import com.gitrekt.resort.model.entities.Room;
 import com.gitrekt.resort.model.entities.RoomCategory;
@@ -159,6 +160,13 @@ public class DatabaseTestDataLoader {
         
         entityManager.persist(b);
         
+        // Load test employee data
+        Employee e1 = new Employee(1L, "gitrekt", true, "Chris", "Mailloux");
+        Employee e2 = new Employee(2L, "bassface", false, "Chris", "Kael");
+        
+        entityManager.persist(e1);
+        entityManager.persist(e2);
+        
         entityManager.getTransaction().commit();
         
         // Don't forget to close the entityManager when done with it
@@ -171,10 +179,7 @@ public class DatabaseTestDataLoader {
         s.createNewGuestFeedback(new GuestFeedback("You're the worst programmer ever and this simple feature took you all night to implement.", "mailloux.cl@gmail.com"));
         s.createNewGuestFeedback(new GuestFeedback("You're bad and you should feel bad.", "mailloux.cl@gmail.com"));
         
-        // TODO: Room pricing data
-        
-        // TODO: Load test employee data
-        
+        // TODO: Room pricing data  
     }
     
 }

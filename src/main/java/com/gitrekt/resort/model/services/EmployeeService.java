@@ -41,6 +41,17 @@ public class EmployeeService {
     @Override
     public void finalize() throws Throwable {
         super.finalize();
+        this.cleanup();
+    }
+    
+    /**
+     * Closes the database connection held by this instance.
+     * 
+     * Normally called by finalize, but in cases where the garbage collector
+     * has not yet run, that may not be sufficient, resulting in a need for this
+     * type of method.
+     */
+    public void cleanup() {
         this.entityManager.close();
     }
     

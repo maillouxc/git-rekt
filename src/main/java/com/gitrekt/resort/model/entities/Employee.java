@@ -1,6 +1,5 @@
 package com.gitrekt.resort.model.entities;
 
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import org.mindrot.jbcrypt.BCrypt;
@@ -21,7 +20,7 @@ public class Employee {
 
     private String lastName;
     
-    private static final int HASH_ITERATIONS = 2000;
+    private static final int LOG_ROUNDS = 10;
 
     /**
      * DO NOT CALL THIS CONSTRUCTOR. IT IS INTENDED FOR USE BY HIBERNATE ONLY.
@@ -30,12 +29,13 @@ public class Employee {
         // REQUIRED BY HIBERNATE
     }
 
-    public Employee(String plaintextPassword, boolean isManager,
+    public Employee(Long id, String plaintextPassword, boolean isManager,
             String firstName, String lastName) {
         encryptPassword(plaintextPassword);
         this.isManager = isManager;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.employeeId = id;
     }
 
     public Long getId() {
@@ -68,7 +68,7 @@ public class Employee {
     
     private void encryptPassword(String plaintextPassword) {
         int numRoundsToHash = 2000;
-        String salt = BCrypt.gensalt(HASH_ITERATIONS);
+        String salt = BCrypt.gensalt(LOG_ROUNDS);
         this.hashedPassword = BCrypt.hashpw(plaintextPassword, salt);
     }
 
