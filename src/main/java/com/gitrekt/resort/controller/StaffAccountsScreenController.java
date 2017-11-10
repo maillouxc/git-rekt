@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,6 +31,18 @@ public class StaffAccountsScreenController implements Initializable {
     
     @FXML
     private Button addNewEmployeeButton;
+    
+    @FXML
+    private TableView staffAccountTableView;
+    
+    @FXML
+    private TableColumn idColumn;
+    
+    @FXML
+    private TableColumn nameColumn;
+    
+    @FXML
+    private TableColumn managerColumn;
     
     private final Image appLogo = new Image("images/Logo.png");
     
@@ -53,10 +67,12 @@ public class StaffAccountsScreenController implements Initializable {
     public void onResetEmployeePasswordButtonClicked() throws IOException {
         Stage dialogStage = new Stage();
         dialogStage.getIcons().add(appLogo);
-        Parent dialogRoot = FXMLLoader.load(
+        FXMLLoader loader = new FXMLLoader(
             getClass().getResource("/fxml/ResetEmployeePasswordDialog.fxml")
         );
+        Parent dialogRoot = loader.load();
         Scene resetPasswordDialog = new Scene(dialogRoot);
+        
         dialogStage.setScene(resetPasswordDialog);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.initOwner(
@@ -65,6 +81,11 @@ public class StaffAccountsScreenController implements Initializable {
         dialogStage.setResizable(false);
         dialogStage.setTitle("Authentication Required");
         dialogStage.centerOnScreen();
+        
+        ResetEmployeePasswordDialogController c;
+        c = (ResetEmployeePasswordDialogController) loader.getController();
+        long employeeId = getSelectedEmployeeId();
+        c.setEmployeeId(employeeId);
         
         dialogStage.show();
     }
@@ -86,6 +107,11 @@ public class StaffAccountsScreenController implements Initializable {
         dialogStage.centerOnScreen();
         
         dialogStage.show();
+    }
+    
+    private long getSelectedEmployeeId() {
+        // TODO: REPLACE WITH REAL IMPLEMENTATION
+        return 1L;
     }
     
 }

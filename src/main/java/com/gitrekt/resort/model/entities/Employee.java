@@ -62,8 +62,8 @@ public class Employee {
         this.isManager = isManager;
     }
     
-    public void setHashedPassword(String hashedPassword){
-        this.hashedPassword = hashedPassword;
+    public void setPassword(String plaintextPassword){
+        encryptPassword(plaintextPassword);
     }
     
     private void encryptPassword(String plaintextPassword) {
