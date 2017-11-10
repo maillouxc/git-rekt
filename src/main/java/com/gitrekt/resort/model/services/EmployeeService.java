@@ -4,45 +4,84 @@ import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.entities.Employee;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import org.mindrot.jbcrypt.BCrypt;
 
+/**
+ * Handles all business logic related to employee accounts.
+ */
 public class EmployeeService {
     
-    @PersistenceContext
     private final EntityManager entityManager;
     
+    /**
+     * This is an enum to allow for future possible values such as handling
+     * expired passwords, etc.
+     */
+    public enum AuthenticationResult {
+        SUCCESS,
+        FAILURE
+    }
+    
+    /**
+     * Creates an instance of the service class, along with it's associated 
+     * Hibernate entityManager.
+     */
     public EmployeeService(){
-            this.entityManager = HibernateUtil.getEntityManager();
+        this.entityManager = HibernateUtil.getEntityManager();
     }
     
     /**
      * Takes care of closing the Hibernate entityManager for the class.
      * 
-     * @throws Throwable 
+     * @throws Throwable
      */
     @Override
     public void finalize() throws Throwable {
         super.finalize();
+        this.cleanup();
+    }
+    
+    /**
+     * Closes the database connection held by this instance.
+     * 
+     * Normally called by finalize, but in cases where the garbage collector
+     * has not yet run, that may not be sufficient, resulting in a need for this
+     * type of method.
+     */
+    public void cleanup() {
         this.entityManager.close();
     }
     
+    /**
+     * @param employeeId The id of the employee to retrieve.
+     * 
+     * @return The employee object, if found. If not found, accessing the object
+     * will throw a EntityNotFoundException due to the lazy-loading behavior of
+     * Hibernate.
+     */
     public Employee getEmployeeById(Long employeeId){
-     Employee employee = entityManager.getReference(Employee.class, employeeId);
+        Employee employee = entityManager.getReference(
+            Employee.class, employeeId
+        );
         return employee;
     }
     
-    public List<Employee> getAllEmployee(){
-    String queryString = 
-            "FROM Employee WHERE employeeId is not NULL"; 
+    /**
+     * @return A list of all employee accounts in the system.
+     */
+    public List<Employee> getAllEmployees(){
+        String queryString = 
+            "FROM Employee"; 
         Query q = entityManager.createQuery(queryString);        
         List<Employee> results = q.getResultList();
         return results;
     }
     
     public void createEmployeeAccount(Employee employee){
-         try {
+        try {
             entityManager.getTransaction().begin();
             entityManager.persist(employee);
             entityManager.getTransaction().commit();
@@ -53,6 +92,13 @@ public class EmployeeService {
         }        
     }
     
+    /**
+     * Removes the provided employee from the database.
+     * 
+     * This operation cannot be undone, so be sure this is what you want to do.
+     * 
+     * @param employee The employee to delete.
+     */
     public void deleteEmployee(Employee employee){
          try {
             entityManager.getTransaction().begin();
@@ -65,6 +111,11 @@ public class EmployeeService {
         }
     }
     
+    /**
+     * Updates the record of the provided employee in the database.
+     * 
+     * @param employee The employee to update. 
+     */
     public void updateEmployee(Employee employee){
          try {
             entityManager.getTransaction().begin();
@@ -77,36 +128,36 @@ public class EmployeeService {
         }
     }
     
-    public Boolean authenticate(String username, String password){
-         String queryString = 
-            "FROM Employee WHERE userName = :username AND "
-                 + "hashedPassword = :passwrd"; 
-        Query q = entityManager.createQuery(queryString); 
-        q.setParameter("username", username);
-        q.setParameter("password", password);
-        List<Employee> results = q.getResultList();
-        Boolean isAuthenticated = !results.isEmpty();
-        return isAuthenticated;
+    /**
+     * Performs authentication on the provided employee.
+     * 
+     * @param employeeId The id number of the employee to authenticate.
+     * 
+     * @param plaintextPassword The plaintext password of the employee.
+     * 
+     * @return The appropriate authenticationResult enum type.
+     */
+    public AuthenticationResult authenticate(Long employeeId, 
+            String plaintextPassword) {
+        Employee employee = getEmployeeById(employeeId);
+        String hashed; // The encrypted (hashed) password of the employee.
+        try {
+            hashed = employee.getHashedPassword();
+        } catch (EntityNotFoundException e) {
+            return AuthenticationResult.FAILURE;
+        }
+        
+        boolean passwordCorrect = BCrypt.checkpw(plaintextPassword, hashed);
+        
+        if(passwordCorrect) {
+            return AuthenticationResult.SUCCESS;
+        } else {
+            return AuthenticationResult.FAILURE;
+        }
     }
     
     public void resetEmployeePassword(Long managerId, String managerPassword,
             Long employeeId,String employeePassword){
-        String queryString = 
-            "FROM Employee WHERE employeeId = :managerID AND "
-                 + "hashedPassword = :managerPassword"; 
-        Query q = entityManager.createQuery(queryString); 
-        q.setParameter("managerId", managerId);
-        q.setParameter("managerPassword", managerPassword);
-        List<Employee> results = q.getResultList();
-        if(!results.isEmpty()){
-            queryString = "FROM Employee WHERE employeeId = :employeeId";
-            q = entityManager.createQuery(queryString);
-            q.setParameter("employeeId", employeeId);
-            results = q.getResultList();
-            if(!results.isEmpty()){
-                results.get(0).setHashedPassuord(employeePassword);
-                this.updateEmployee(results.get(0));
-            }
-        }
+        // TODO
     }
 }
