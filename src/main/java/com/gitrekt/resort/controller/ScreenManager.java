@@ -48,8 +48,10 @@ public class ScreenManager {
     
     /**
      * @param fxmlPath The path to the FXML file of the screen to switch to.
+     * 
+     * @return The FXML controller of the new scene.
      */
-    public void switchToScreen(String fxmlPath) {
+    public Object switchToScreen(String fxmlPath) {
         Parent newScreenRoot;
         
         try {
@@ -61,6 +63,7 @@ public class ScreenManager {
         
         mainStage.getScene().setRoot(newScreenRoot);
         mainStage.setMaximized(true);
+        return fxmlLoader.getController();
     }
     
     /**
