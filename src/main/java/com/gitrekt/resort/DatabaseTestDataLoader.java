@@ -11,6 +11,7 @@ import com.gitrekt.resort.model.entities.RoomCategory;
 import com.gitrekt.resort.model.entities.GuestFeedback;
 import com.gitrekt.resort.model.entities.MailingAddress;
 import com.gitrekt.resort.model.entities.Package;
+import com.gitrekt.resort.model.services.BookingService;
 import com.gitrekt.resort.model.services.GuestFeedbackService;
 import java.util.ArrayList;
 import java.util.Calendar;

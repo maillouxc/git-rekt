@@ -3,6 +3,13 @@ package com.gitrekt.resort;
 
 import com.gitrekt.resort.controller.ScreenManager;
 import com.gitrekt.resort.hibernate.HibernateUtil;
+import com.gitrekt.resort.model.UsState;
+import com.gitrekt.resort.model.entities.Bill;
+import com.gitrekt.resort.model.entities.Booking;
+import com.gitrekt.resort.model.entities.Guest;
+import com.gitrekt.resort.model.entities.MailingAddress;
+import com.gitrekt.resort.model.entities.Package;
+import com.gitrekt.resort.model.services.BookingService;
 import com.gitrekt.resort.model.services.GuestService;
 import java.awt.print.PrinterException;
 import java.io.IOException;
