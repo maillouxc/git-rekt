@@ -1,5 +1,6 @@
 package com.gitrekt.resort.model.entities;
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,8 +20,8 @@ public class Employee {
     private String firstName;
 
     private String lastName;
-
-    private String userName;
+    
+    private Date lastPasswordChangeDate;
 
     /**
      * DO NOT CALL THIS CONSTRUCTOR. IT IS INTENDED FOR USE BY HIBERNATE ONLY.
@@ -29,13 +30,12 @@ public class Employee {
         // REQUIRED BY HIBERNATE
     }
 
-    public Employee(String hashedPassword, boolean isManager,
-            String firstName, String lastName, String userName) {
-        this.hashedPassword = hashedPassword;
+    public Employee(String plaintextPassword, boolean isManager,
+            String firstName, String lastName) {
+        encryptPassword(plaintextPassword);
         this.isManager = isManager;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
     }
 
     public Long getId() {
@@ -61,13 +61,18 @@ public class Employee {
     public void setManager(boolean isManager) {
         this.isManager = isManager;
     }
-
-    public String getUserName() {
-        return userName;
+    
+    public void setHashedPassword(String hashedPassword){
+        this.hashedPassword = hashedPassword;
+        this.lastPasswordChangeDate = new Date();
     }
     
-    public void setHashedPassuord(String hashedPassword){
-        this.hashedPassword = hashedPassword;
+    public Date getLastPasswordChangeDate() {
+        return lastPasswordChangeDate;
+    }
+    
+    private void encryptPassword(String plaintextPassword) {
+        // TODO
     }
 
 }
