@@ -14,6 +14,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * This service class is used to manage sending email from the system.
+ */
 public class EmailService {
     
     private static final Properties emailConfig = new Properties();
@@ -57,9 +60,17 @@ public class EmailService {
         );
     }
     
-    // TEST IMPLEMENTATION
-    public void sendTestEmail(String toAddress, String subject, String text) 
-            throws MessagingException {
+    /**
+     * Sends an email with the provided parameters. Enough said.
+     * 
+     * @param toAddress The recipient email address.
+     * @param subject The subject line of the email.
+     * @param text The text of the message body.
+     * 
+     * @throws MessagingException
+     */
+    public void sendEmail(String toAddress, String subject, String text) 
+        throws MessagingException {
         Message message = new MimeMessage(session);
         InternetAddress fromAddress;
         try {
