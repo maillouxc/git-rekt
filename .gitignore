@@ -32,3 +32,7 @@ bin/
 # Fix Jeffrey's nonsense #
 
 private/
+
+# H2 embedded database data location #
+
+data/
