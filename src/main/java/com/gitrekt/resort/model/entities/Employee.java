@@ -2,15 +2,15 @@ package com.gitrekt.resort.model.entities;
 
 import java.util.Date;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
 public class Employee {
 
+    // Employee ID is not auto-generated, but rather would already exist in the
+    // business's records.
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employeeId;
 
     private String hashedPassword;
@@ -21,7 +21,7 @@ public class Employee {
 
     private String lastName;
     
-    private Date lastPasswordChangeDate;
+    private static final int HASH_ITERATIONS = 2000;
 
     /**
      * DO NOT CALL THIS CONSTRUCTOR. IT IS INTENDED FOR USE BY HIBERNATE ONLY.
@@ -64,15 +64,12 @@ public class Employee {
     
     public void setHashedPassword(String hashedPassword){
         this.hashedPassword = hashedPassword;
-        this.lastPasswordChangeDate = new Date();
-    }
-    
-    public Date getLastPasswordChangeDate() {
-        return lastPasswordChangeDate;
     }
     
     private void encryptPassword(String plaintextPassword) {
-        // TODO
+        int numRoundsToHash = 2000;
+        String salt = BCrypt.gensalt(HASH_ITERATIONS);
+        this.hashedPassword = BCrypt.hashpw(plaintextPassword, salt);
     }
 
 }
