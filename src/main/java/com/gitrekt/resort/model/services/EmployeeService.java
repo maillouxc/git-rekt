@@ -2,13 +2,9 @@ package com.gitrekt.resort.model.services;
 
 import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.entities.Employee;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import org.mindrot.jbcrypt.BCrypt;
@@ -20,10 +16,13 @@ public class EmployeeService {
     
     private final EntityManager entityManager;
     
+    /**
+     * This is an enum to allow for future possible values such as handling
+     * expired passwords, etc.
+     */
     public enum AuthenticationResult {
         SUCCESS,
-        FAILURE,
-        PASSWORD_EXPIRED
+        FAILURE
     }
     
     /**
@@ -53,23 +52,25 @@ public class EmployeeService {
      * Hibernate.
      */
     public Employee getEmployeeById(Long employeeId){
-     Employee employee = entityManager.getReference(Employee.class, employeeId);
+        Employee employee = entityManager.getReference(
+            Employee.class, employeeId
+        );
         return employee;
     }
     
     /**
      * @return A list of all employee accounts in the system.
      */
-    public List<Employee> getAllEmployee(){
-    String queryString = 
-            "FROM Employee WHERE employeeId is not NULL"; 
+    public List<Employee> getAllEmployees(){
+        String queryString = 
+            "FROM Employee"; 
         Query q = entityManager.createQuery(queryString);        
         List<Employee> results = q.getResultList();
         return results;
     }
     
     public void createEmployeeAccount(Employee employee){
-         try {
+        try {
             entityManager.getTransaction().begin();
             entityManager.persist(employee);
             entityManager.getTransaction().commit();
@@ -119,46 +120,29 @@ public class EmployeeService {
     /**
      * Performs authentication on the provided employee.
      * 
-     * @param employee The employee to authenticate.
+     * @param employeeId The id number of the employee to authenticate.
      * 
      * @param plaintextPassword The plaintext password of the employee.
      * 
      * @return The appropriate authenticationResult enum type.
      */
-    public AuthenticationResult authenticate(Employee employee, 
+    public AuthenticationResult authenticate(Long employeeId, 
             String plaintextPassword) {
-        String hashed = employee.getHashedPassword();
+        Employee employee = getEmployeeById(employeeId);
+        String hashed; // The encrypted (hashed) password of the employee.
+        try {
+            hashed = employee.getHashedPassword();
+        } catch (EntityNotFoundException e) {
+            return AuthenticationResult.FAILURE;
+        }
+        
         boolean passwordCorrect = BCrypt.checkpw(plaintextPassword, hashed);
-        boolean passwordExpired = isPasswordExpired(employee);
         
         if(passwordCorrect) {
-            if(passwordExpired) {
-                return AuthenticationResult.PASSWORD_EXPIRED;
-            } else {
-                return AuthenticationResult.SUCCESS;
-            }
+            return AuthenticationResult.SUCCESS;
         } else {
             return AuthenticationResult.FAILURE;
         }
-    }
-    
-    /**
-     * Determines whether the given employee's password is considered expired,
-     * per the defined rules set in the requirements document.
-     * 
-     * Password change is supposed to be required every 90 days
-     * 
-     * @param employee The employee to check.
-     * 
-     * @return Whether the password is considered expired.
-     */
-    public boolean isPasswordExpired(Employee employee) {        
-        Instant temp = employee.getLastPasswordChangeDate().toInstant();
-        ZonedDateTime zdt = temp.atZone(ZoneId.systemDefault());
-        LocalDateTime lastChanged = zdt.toLocalDateTime();
-        LocalDateTime now = LocalDateTime.now();
-        long daysSinceChange = lastChanged.until(now, ChronoUnit.DAYS);        
-        return (daysSinceChange > 90);
     }
     
     public void resetEmployeePassword(Long managerId, String managerPassword,
