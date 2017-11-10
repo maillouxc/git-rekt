@@ -43,4 +43,8 @@ public class BillItem {
         return quantity;
     }
     
+    public double getTotalPrice() {
+        return quantity * price;
+    }
+    
 }
