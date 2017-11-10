@@ -1,6 +1,7 @@
 package com.gitrekt.resort.controller;
 
-import com.gitrekt.resort.model.GuestFeedback;
+import com.gitrekt.resort.model.entities.GuestFeedback;
+import com.gitrekt.resort.model.services.GuestFeedbackService;
 import com.gitrekt.resort.view.GuestFeedbackListItem;
 import java.io.IOException;
 import java.net.URL;
@@ -10,12 +11,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 /**
  * Handles the functionality of FeedbackReportScreen.fxml
  */
-public class FeedbackReportScreenController implements Initializable {
+public class FeedbackReportScreenController 
+        implements Initializable {
     
     @FXML
     private Button backButton;
@@ -25,6 +28,8 @@ public class FeedbackReportScreenController implements Initializable {
     
     private ObservableList<GuestFeedback> guestFeedbackList;
     
+    private GuestFeedbackService guestFeedbackService;
+    
     /**
      * Initializes the controller class.
      */
@@ -33,25 +38,44 @@ public class FeedbackReportScreenController implements Initializable {
         guestFeedbackList = FXCollections.observableArrayList();
         guestFeedbackListView.setItems(guestFeedbackList);
         guestFeedbackListView.setCellFactory( 
-            param -> new GuestFeedbackListItem()
+            param -> new GuestFeedbackListItem(this)
         );
-                
-        testCodePleaseDeleteLater();
         
-        // TODO: initialize arraylist from db
+        guestFeedbackListView.setPlaceholder(
+            new Label("No unresolved feedback")
+        );
+        
+        this.guestFeedbackService = new GuestFeedbackService();
+        loadFeedback();
     }
     
-    public void onBackButtonClicked() throws IOException {
+    /**
+     * @param item The data item to hide from the screen.
+     */
+    public void hideItem(GuestFeedback item) {
+        guestFeedbackList.remove(item);
+    }
+    
+    @FXML
+    private void onBackButtonClicked() throws IOException {
         ScreenManager.getInstance().switchToScreen(
             "/fxml/ReportsHomeScreen.fxml"
         );
     }
     
-    private void testCodePleaseDeleteLater() {
-        guestFeedbackList.add(new GuestFeedback());
-        guestFeedbackList.add(new GuestFeedback());
-        guestFeedbackList.add(new GuestFeedback());
-        guestFeedbackList.add(new GuestFeedback());
+    @FXML
+    private void onRefreshButtonClicked() {
+        loadFeedback();
+    }
+    
+    private void loadFeedback() {
+        // Clear any existing items from the list
+        guestFeedbackList.clear();
+        
+        // Retrieve new items
+        guestFeedbackList.addAll(
+            guestFeedbackService.getUnresolvedGuestFeedback()
+        );
     }
     
 }
