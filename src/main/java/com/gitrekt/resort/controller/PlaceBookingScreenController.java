@@ -2,6 +2,7 @@ package com.gitrekt.resort.controller;
 
 import com.gitrekt.resort.model.UsState;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -101,7 +102,10 @@ public class PlaceBookingScreenController implements Initializable {
     }
 
     public void initializeStatePicker() {
-        states.add(UsState.values());
+        states = FXCollections.observableArrayList();
+        for(UsState state : UsState.values()) {
+            states.add(state.getUnabbreviated());
+        }
         statePicker.setItems(states);
     }
 }
