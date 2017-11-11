@@ -13,6 +13,7 @@ import com.gitrekt.resort.model.entities.GuestFeedback;
 import com.gitrekt.resort.model.entities.MailingAddress;
 import com.gitrekt.resort.model.entities.Package;
 import com.gitrekt.resort.model.services.GuestFeedbackService;
+import com.gitrekt.resort.model.services.RoomService;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -146,31 +147,6 @@ public class DatabaseTestDataLoader {
         entityManager.persist(g3);
         entityManager.persist(g4);
         
-        // Generate test booking data
-        Calendar testCalendar = new GregorianCalendar();
-        Date d1 = testCalendar.getTime();
-        testCalendar.add(Calendar.DATE, 3);
-        Date d2 = testCalendar.getTime();
-        
-        List<Package> testBookingPackages = new ArrayList<Package>();
-        testBookingPackages.add(package1);
-        testBookingPackages.add(package2);
-        
-        Booking b1 = new Booking(g1, d1, d2, new Bill(), null, testBookingPackages, null);
-        Booking b2 = new Booking(g1, d1, d2, new Bill(), null, null, null);
-        Booking b3 = new Booking(g1, d1, d2, new Bill(), null, null, null);
-        Booking b4 = new Booking(g1, d1, d2, new Bill(), null, null, null);
-        Booking b5 = new Booking(g1, d1, d2, new Bill(), null, null, null);
-        Booking b6 = new Booking(g1, d1, d2, new Bill(), null, null, null);
-        
-        
-        entityManager.persist(b1);
-        entityManager.persist(b2);
-        entityManager.persist(b3);
-        entityManager.persist(b4);
-        entityManager.persist(b5);
-        entityManager.persist(b6);
-        
         // Load test employee data
         Employee e1 = new Employee(1L, "gitrekt", true, "Chris", "Mailloux");
         Employee e2 = new Employee(2L, "bassface", false, "Chris", "Kael");
@@ -191,6 +167,35 @@ public class DatabaseTestDataLoader {
         s.createNewGuestFeedback(new GuestFeedback("You're bad and you should feel bad.", "mailloux.cl@gmail.com"));
         
         // TODO: Room pricing data  
+        
+        createTestBookingData();
+    }
+    
+    private static void createTestBookingData() {
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        
+        Guest g1 = new Guest("Chris", "Mailldfghoux", "maillasdgoux.cl@gmail.com", "239-242-4256", new MailingAddress("525 fake way", null, "33969", UsState.FLORIDA, "United States"));
+        entityManager.persist(g1);
+        
+        RoomService r = new RoomService();
+        List<Room> testRooms = r.getAllRoomsInCategory("Basic");
+        System.out.println(testRooms.size() + " Basic rooms added to test booking");
+        
+        Calendar testCalendar = new GregorianCalendar();
+        Date d1 = new Date();
+        System.out.println(d1);
+        testCalendar.add(Calendar.DAY_OF_MONTH, 3);
+        Date d2 = testCalendar.getTime();
+        System.out.println(d2);
+        
+        Booking b1 = new Booking(g1, d1, d2, new Bill(), "you suck", null, testRooms);
+        Booking b2 = new Booking(g1, d1, d2, new Bill(), null, null, null);
+        
+        entityManager.getTransaction().begin();
+        entityManager.persist(b1);
+        entityManager.persist(b2);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
     
 }

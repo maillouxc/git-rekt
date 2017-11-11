@@ -16,16 +16,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.concurrent.ThreadLocalRandom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
 /**
@@ -34,21 +31,12 @@ import javafx.scene.control.Label;
 public class BookingsReportScreenController implements Initializable {
 
     @FXML
-    private BarChart<String, Number> barChart;
+    private LineChart<String, Number> lineChart;
     
     @FXML
     private Label monthYearLabel;
     
-    @FXML
-    private Button nextMonthButton;
-    
-    @FXML
-    private Button previousMonthButton;
-    
-    @FXML
-    private ComboBox<String> categoryComboBox;
-    
-    private ObservableList<String> categories;
+    private List<String> categories;
     
     private ObservableList<String> daysInCurrentMonth;
     
@@ -57,9 +45,6 @@ public class BookingsReportScreenController implements Initializable {
     private LocalDateTime selectedMonth;
     
     private List<Booking> bookingsForMonth;
-    
-    // TODO: Remove
-    private List<String> printStatements = new ArrayList<>();
     
     /**
      * Initializes the controller class.
@@ -111,17 +96,6 @@ public class BookingsReportScreenController implements Initializable {
     }
     
     /**
-     * Changes the category of data displayed.
-     */
-    @FXML
-    private void onComboBoxChanged() {
-        String selectedCategory = categoryComboBox
-                .getSelectionModel().getSelectedItem();
-        
-        showDataForCategory(selectedCategory);
-    }
-    
-    /**
      * Initializes the chart.
      */
     private void initializeChart() {
@@ -140,46 +114,36 @@ public class BookingsReportScreenController implements Initializable {
         for(int i = 1; i <= numDaysInMonth; i++) {
             daysInCurrentMonth.add(String.valueOf(i));
         }
-        barChart.getXAxis().setAutoRanging(false);
-        CategoryAxis x  = (CategoryAxis) barChart.getXAxis();
+        CategoryAxis x  = (CategoryAxis) lineChart.getXAxis();
         x.setCategories(daysInCurrentMonth);
         
-        // Show initial data for the default category of all
-        showDataForCategory("All");  
-        
-        // TODO: Remove
-        for(String s : printStatements) {
-            System.out.println(s);
-        }
+        showDataForAllCategories();
     }
     
     /**
-     * Displays on the chart the report data for the selected month and
-     * room category.
-     * 
-     * @param category The room category to display the data for.
+     * Displays on the chart the report data for the selected month.
      */
-    private void showDataForCategory(String category) {
-        XYChart.Series<String, Number> categoryData;
-        categoryData = new XYChart.Series<>();
-        categoryData.setName(category);
-        
-        for(int i = 1; i <= daysInCurrentMonth.size(); i++) {
-            XYChart.Data<String, Number> dayData = new XYChart.Data<>();
-            dayData.setXValue(String.valueOf(i));
-            double percentBooked = getPercentBookedInCategoryOnDay(category, i);
-            
-            // TODO REMOVE TEST CODE
-            percentBooked = ThreadLocalRandom.current().nextDouble(0, 100);
-            
-            
-            dayData.setYValue(percentBooked);
-            categoryData.getData().add(dayData);
-        }
-        
+    private void showDataForAllCategories() {
+        // Clear any existing data
         this.data.clear();
-        this.data.add(categoryData);
-        barChart.setData(this.data);
+        
+        for(String category : categories) {
+            XYChart.Series<String, Number> categoryData;
+            categoryData = new XYChart.Series<>();
+            categoryData.setName(category);
+        
+            for(int i = 1; i <= daysInCurrentMonth.size(); i++) {
+                XYChart.Data<String, Number> dayData = new XYChart.Data<>();
+                dayData.setXValue(String.valueOf(i));
+                double percentBooked;
+                percentBooked = getPercentBookedInCategoryOnDay(category, i);
+                dayData.setYValue(percentBooked);
+                categoryData.getData().add(dayData);
+            }
+            
+            this.data.add(categoryData);   
+        }
+        lineChart.setData(this.data);
     }
     
     /**
@@ -189,18 +153,14 @@ public class BookingsReportScreenController implements Initializable {
      */
     private void prepareCategoriesList() {
         this.categories = FXCollections.observableArrayList();
-        this.categoryComboBox.setItems(this.categories);
         
         RoomService roomService = new RoomService();
         List<RoomCategory> categories = roomService.getAllRoomCategories();
         List<String> result = new ArrayList<>();
         for(RoomCategory cat : categories) {
-            result.add(cat.getName());
+            this.categories.add(cat.getName());
         }
-        
-        this.categories.setAll(result);
         this.categories.add("All");
-        this.categoryComboBox.setValue("All");
     }
     
     /**
@@ -228,28 +188,45 @@ public class BookingsReportScreenController implements Initializable {
         this.bookingsForMonth = bookingService.getBookingsBetweenDates(d1, d2);
     }
     
+    /**
+     * @param category The room category name in question.
+     * @param dayOfMonth The day of the selected month in question.
+     * 
+     * @return The number of rooms booked in the given category on the given
+     * day of the selected month.
+     */
     private int getNumBookedInCategoryOnDay(
         String category, int dayOfMonth
-    ) {        
-        LocalDateTime temp = (selectedMonth.withDayOfMonth(dayOfMonth));
-        Date d = new Date(temp.toEpochSecond(ZoneOffset.UTC));
-        List<Booking> bookingsOnDayInCat = new ArrayList<>();
-        for(Booking b : bookingsForMonth) {
-            // TODO: Fix using compareto
-            if(b.getCheckInDate().compareTo(d) <= 1
-                    && b.getCheckOutDate().compareTo(d) >= 1) {
-                
+    ) {    
+        LocalDateTime day = selectedMonth.withDayOfMonth(dayOfMonth);
+        Date date = Date.from(day.toInstant(ZoneOffset.UTC));
+        
+        int result = 0;
+        
+        // Handle special case of "All" category
+        if(category.equals("All")) {           
+            for(Booking b : bookingsForMonth) {
+                if(b.getCheckInDate().compareTo(date) <= 0
+                        && b.getCheckOutDate().compareTo(date) >= 0) {
+                    result += b.getBookedRooms().size();
+                }
+            }  
+        }    
+        
+        // Handle general case of specific category
+        for(Booking b : bookingsForMonth) {            
+            if(b.getCheckInDate().compareTo(date) <= 0
+                    && b.getCheckOutDate().compareTo(date) >= 0) {                
                 for(Room room : b.getBookedRooms()) {
-                    if(room.getRoomCategory().getName().equals(category)) {
-                        bookingsOnDayInCat.add(b);
+                    String cat = room.getRoomCategory().getName();
+                    if(cat.equals(category)) {
+                        result++;
                     }
                 }
             }
         }
-        // TODO REMOVE
-        printStatements.add("There are " + bookingsOnDayInCat.size() + " " + category + " rooms booked on day " + dayOfMonth);
         
-        return bookingsOnDayInCat.size();
+        return result;
     }
     
     /**
@@ -279,6 +256,18 @@ public class BookingsReportScreenController implements Initializable {
      * Gets the number of total rooms in the resort in the provided category.
      */
     private int getNumRoomsInCategory(String category) {
+        // Handle special case of "All" category
+        if(category.equals("All")) {
+            int totalNumRoomsInResort = 0;
+            for(String cat : this.categories) {
+                if(!cat.equals("All")) {
+                    totalNumRoomsInResort += getNumRoomsInCategory(cat);
+                }
+            }
+            return totalNumRoomsInResort;
+        }
+        
+        // Handle general case
         RoomService roomService = new RoomService();
         List<Room> allRoomsInCat = roomService.getAllRoomsInCategory(category);
         return allRoomsInCat.size();
