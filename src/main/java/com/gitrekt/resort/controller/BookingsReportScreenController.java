@@ -155,15 +155,17 @@ public class BookingsReportScreenController implements Initializable {
     private void getBookingsForMonth() {
         BookingService bookingService = new BookingService();
         // We have to use the old date API here because of JPA specs
-        Date d1 = new Date(
-            this.selectedMonth.toEpochSecond(ZoneOffset.UTC)
-        );
+        Date d1 = Date.from(selectedMonth.toInstant(ZoneOffset.UTC));
         LocalDateTime lastDayInSelectedMonth = 
             this.selectedMonth.with(TemporalAdjusters.lastDayOfMonth());
-        Date d2 = new Date(
-            lastDayInSelectedMonth.toEpochSecond(ZoneOffset.UTC)
-        );
+        Date d2 = Date.from(lastDayInSelectedMonth.toInstant(ZoneOffset.UTC));
         this.bookingsForMonth = bookingService.getBookingsBetweenDates(d1, d2);
+        
+        printStatements.add(d1.toString());
+        printStatements.add(d2.toString());
+        
+        // TODO: Remove
+        printStatements.add(bookingsForMonth.toString());
     }
     
     private void prepareCategoryData() {
@@ -195,6 +197,7 @@ public class BookingsReportScreenController implements Initializable {
         Date d = new Date(temp.toEpochSecond(ZoneOffset.UTC));
         List<Booking> bookingsOnDayInCat = new ArrayList<>();
         for(Booking b : bookingsForMonth) {
+            // TODO: Fix using compareto
             if(b.getCheckInDate().compareTo(d) <= 1
                     && b.getCheckOutDate().compareTo(d) >= 1) {
                 
@@ -205,6 +208,9 @@ public class BookingsReportScreenController implements Initializable {
                 }
             }
         }
+        // TODO REMOVE
+        printStatements.add("There are " + bookingsOnDayInCat.size() + " " + category + " rooms booked on day " + dayOfMonth);
+        
         return bookingsOnDayInCat.size();
     }
     
@@ -215,9 +221,6 @@ public class BookingsReportScreenController implements Initializable {
             category, dayOfMonth
         );
         int numInCat = getNumRoomsInCategory(category);
-        
-        // TODO REMOVE
-        printStatements.add("There are " + ((numBookedInCat * 100) / numInCat) + " " + category + " rooms booked on day " + dayOfMonth);
         
         return (numBookedInCat * 100) / numInCat;
     }
@@ -235,6 +238,7 @@ public class BookingsReportScreenController implements Initializable {
         for(RoomCategory cat : categories) {
             result.add(cat.getName());
         }
+        
         return result;
     }
     
