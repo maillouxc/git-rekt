@@ -149,16 +149,27 @@ public class DatabaseTestDataLoader {
         // Generate test booking data
         Calendar testCalendar = new GregorianCalendar();
         Date d1 = testCalendar.getTime();
-        testCalendar.add(Calendar.DATE, 2);
+        testCalendar.add(Calendar.DATE, 3);
         Date d2 = testCalendar.getTime();
         
         List<Package> testBookingPackages = new ArrayList<Package>();
         testBookingPackages.add(package1);
         testBookingPackages.add(package2);
         
-        Booking b = new Booking(g1, d1, d2, new Bill(), null, testBookingPackages, null);
+        Booking b1 = new Booking(g1, d1, d2, new Bill(), null, testBookingPackages, null);
+        Booking b2 = new Booking(g1, d1, d2, new Bill(), null, null, null);
+        Booking b3 = new Booking(g1, d1, d2, new Bill(), null, null, null);
+        Booking b4 = new Booking(g1, d1, d2, new Bill(), null, null, null);
+        Booking b5 = new Booking(g1, d1, d2, new Bill(), null, null, null);
+        Booking b6 = new Booking(g1, d1, d2, new Bill(), null, null, null);
         
-        entityManager.persist(b);
+        
+        entityManager.persist(b1);
+        entityManager.persist(b2);
+        entityManager.persist(b3);
+        entityManager.persist(b4);
+        entityManager.persist(b5);
+        entityManager.persist(b6);
         
         // Load test employee data
         Employee e1 = new Employee(1L, "gitrekt", true, "Chris", "Mailloux");
