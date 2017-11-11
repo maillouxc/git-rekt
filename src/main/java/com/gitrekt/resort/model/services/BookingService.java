@@ -3,6 +3,7 @@ package com.gitrekt.resort.model.services;
 import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.entities.BillItem;
 import com.gitrekt.resort.model.entities.Booking;
+import com.gitrekt.resort.model.entities.RoomCategory;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -302,4 +303,5 @@ public class BookingService {
             // TODO: Handle exception better.
         }
     }
+    
 }

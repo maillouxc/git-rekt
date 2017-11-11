@@ -52,8 +52,11 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <!-- Configure some Hibernate specific properties -->
         
             <!-- This shows SQL statements executed by Hibernate in the logs -->
+            
+            <!--
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
+            -->
         
             <!-- This checks to make sure the actual db tables match our entities-->
             <!-- We should set value to validate at some point -->
