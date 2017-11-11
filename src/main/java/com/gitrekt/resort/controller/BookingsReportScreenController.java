@@ -2,6 +2,7 @@ package com.gitrekt.resort.controller;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.time.format.TextStyle;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Locale;
@@ -10,9 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -22,7 +24,7 @@ import javafx.scene.control.Label;
 public class BookingsReportScreenController implements Initializable {
 
     @FXML
-    private StackedBarChart barChart;
+    private StackedBarChart<String, Number> barChart;
     
     @FXML
     private Label monthYearLabel;
@@ -39,9 +41,13 @@ public class BookingsReportScreenController implements Initializable {
     @FXML
     private Button backButton;
 
-    private XYChart.Series<String, Number> roomCategoriesDataSeries;
+    private XYChart.Series<Number, Number> roomCategoriesDataSeries;
     
-    private ObservableList<Data<String, Number>> roomCategoriesList;
+    private CategoryAxis xAxis;
+    
+    private NumberAxis yAxis;
+    
+    private ObservableList<String> daysInCurrentMonth;
     
     private LocalDateTime selectedMonth;
     
@@ -52,11 +58,8 @@ public class BookingsReportScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Default month is the current month.
         selectedMonth = LocalDateTime.now().withDayOfMonth(1);
-        // TODO: Test using test data, then implement with real logic.
-        Data<String,Number> testData = new Data<String,Number>();
-        roomCategoriesList = FXCollections.observableArrayList();
-        roomCategoriesDataSeries = new XYChart.Series<>();
-        roomCategoriesDataSeries.setData(roomCategoriesList);
+        daysInCurrentMonth = FXCollections.observableArrayList();
+        prepareGraph();
     }    
     
     @FXML
@@ -70,6 +73,7 @@ public class BookingsReportScreenController implements Initializable {
             TemporalAdjusters.firstDayOfNextMonth()
         );
         monthYearLabel.setText(getCurrentMonthYearString());
+        prepareGraph();
     }
     
     @FXML
@@ -77,6 +81,7 @@ public class BookingsReportScreenController implements Initializable {
         selectedMonth = selectedMonth.minusMonths(1);
         selectedMonth = selectedMonth.withDayOfMonth(1);
         monthYearLabel.setText(getCurrentMonthYearString());
+        prepareGraph();
     }
     
     @FXML
@@ -89,10 +94,21 @@ public class BookingsReportScreenController implements Initializable {
     public void onSelectMonthButtonClicked() {
         // TODO
         monthYearLabel.setText(getCurrentMonthYearString());
+        prepareGraph();
     }
     
-    private void populateData() {
-        // TODO
+    private void prepareGraph() {
+        // Prepare the x-axis, the days in the month
+        daysInCurrentMonth.clear();
+        int selectedYear = selectedMonth.getYear();
+        int numDaysInMonth = selectedMonth.getMonth()
+                .length(Year.isLeap(selectedYear));
+        for(int i = 1; i <= numDaysInMonth; i++) {
+            daysInCurrentMonth.add(String.valueOf(i));
+        }
+        barChart.getXAxis().setAutoRanging(false);
+        CategoryAxis x  = (CategoryAxis) barChart.getXAxis();
+        x.setCategories(daysInCurrentMonth);
     }
     
     private String getCurrentMonthYearString() {
