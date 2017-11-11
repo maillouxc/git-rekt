@@ -63,6 +63,9 @@ public class BookingsReportScreenController implements Initializable {
     
     private List<Booking> bookingsForMonth;
     
+    // TODO: Remove
+    private List<String> printStatements = new ArrayList<>();
+    
     /**
      * Initializes the controller class.
      * 
@@ -135,6 +138,11 @@ public class BookingsReportScreenController implements Initializable {
         
         // Display the now prepared data
         barChart.setData(categoryData);
+        
+        // TODO: Remove
+        for(String s : printStatements) {
+            System.out.println(s);
+        }
     }
     
     private String getCurrentMonthYearString() {
@@ -209,7 +217,7 @@ public class BookingsReportScreenController implements Initializable {
         int numInCat = getNumRoomsInCategory(category);
         
         // TODO REMOVE
-        System.out.println("There are " + ((numBookedInCat * 100) / numInCat) + " " + category + " rooms booked on day " + dayOfMonth);
+        printStatements.add("There are " + ((numBookedInCat * 100) / numInCat) + " " + category + " rooms booked on day " + dayOfMonth);
         
         return (numBookedInCat * 100) / numInCat;
     }
