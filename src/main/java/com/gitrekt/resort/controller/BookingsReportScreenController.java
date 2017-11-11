@@ -1,6 +1,10 @@
 package com.gitrekt.resort.controller;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,11 +43,15 @@ public class BookingsReportScreenController implements Initializable {
     
     private ObservableList<Data<String, Number>> roomCategoriesList;
     
+    private LocalDateTime selectedMonth;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Default month is the current month.
+        selectedMonth = LocalDateTime.now().withDayOfMonth(1);
         // TODO: Test using test data, then implement with real logic.
         Data<String,Number> testData = new Data<String,Number>();
         roomCategoriesList = FXCollections.observableArrayList();
@@ -51,19 +59,28 @@ public class BookingsReportScreenController implements Initializable {
         roomCategoriesDataSeries.setData(roomCategoriesList);
     }    
     
-    public void onPickMonthButtonClicked() {
+    @FXML
+    private void onPickMonthButtonClicked() {
         // TODO
     }
     
-    public void onNextMonthButtonClicked() {
-        // TODO
+    @FXML
+    private void onNextMonthButtonClicked() {
+        selectedMonth = selectedMonth.with(
+            TemporalAdjusters.firstDayOfNextMonth()
+        );
+        monthYearLabel.setText(getCurrentMonthYearString());
     }
     
-    public void onPreviousMonthButtonClicked() {
-        // TODO
+    @FXML
+    private void onPreviousMonthButtonClicked() {
+        selectedMonth = selectedMonth.minusMonths(1);
+        selectedMonth = selectedMonth.withDayOfMonth(1);
+        monthYearLabel.setText(getCurrentMonthYearString());
     }
     
-    public void onBackButtonClicked() {
+    @FXML
+    private void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen(
             "/fxml/ReportsHomeScreen.fxml"
         );
@@ -71,6 +88,18 @@ public class BookingsReportScreenController implements Initializable {
     
     public void onSelectMonthButtonClicked() {
         // TODO
+        monthYearLabel.setText(getCurrentMonthYearString());
+    }
+    
+    private void populateData() {
+        // TODO
+    }
+    
+    private String getCurrentMonthYearString() {
+        return selectedMonth.getMonth()
+                .getDisplayName(TextStyle.FULL, Locale.US)
+                + " "
+                + selectedMonth.getYear();
     }
     
 }
