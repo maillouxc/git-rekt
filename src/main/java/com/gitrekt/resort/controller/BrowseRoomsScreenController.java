@@ -16,16 +16,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 
-// TODO: Clean up this mess of a class; major refactoring needed.
-
 /**
  * FXML Controller class for the browse rooms screen.
  */
 public class BrowseRoomsScreenController implements Initializable,
         DeletableListItemDeletionListener {
-
-    @FXML
-    private Button backButton;
     
     @FXML
     private ListView<RoomSearchResult> roomsListView;
@@ -35,9 +30,6 @@ public class BrowseRoomsScreenController implements Initializable,
     
     @FXML
     private Button findAvailableRoomsButton;
-    
-    @FXML
-    private Button nextButton;
     
     private ObservableList<RoomSearchResult> roomSearchResults;
     
@@ -86,7 +78,6 @@ public class BrowseRoomsScreenController implements Initializable,
         currentlySelectedRooms.add(r4);
         currentlySelectedRooms.add(r4);
         currentlySelectedRooms.add(r4);
-
     }
     
     /**
@@ -118,14 +109,16 @@ public class BrowseRoomsScreenController implements Initializable,
         );
     }
     
-    public void onBackButtonClicked() {
+    @FXML
+    private void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen(
             "/fxml/GuestHomeScreen.fxml"
         );
     }
     
     // TODO: Implement real program logic, Remove test code.
-    public void onFindAvailableRoomsButtonClicked() {
+    @FXML
+    private void onFindAvailableRoomsButtonClicked() {
         Random random = new Random();
         int randInt = random.nextInt(999);
         BigDecimal bd = new BigDecimal(randInt);
@@ -142,7 +135,8 @@ public class BrowseRoomsScreenController implements Initializable,
         this.addResult(r4);
     }
     
-    public void onNextButtonClicked() {
+    @FXML
+    private void onNextButtonClicked() {
         // TODO replace with the packages screen first - this is temporary
         
         ScreenManager.getInstance().switchToScreen(
