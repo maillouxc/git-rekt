@@ -1,10 +1,11 @@
 package com.gitrekt.resort.controller;
 
+import com.gitrekt.resort.model.entities.Booking;
+import com.gitrekt.resort.model.services.BookingService;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 
@@ -12,15 +13,6 @@ import javafx.scene.control.TableView;
  * FXML Controller class for the booking details screen.
  */
 public class BookingDetailsScreenController implements Initializable {
-
-    @FXML
-    private Button backButton;
-    
-    @FXML
-    private Button cancelBookingButton;
-    
-    @FXML
-    private Button viewBillButton;
     
     // TODO fix rawtype
     @FXML
@@ -39,27 +31,37 @@ public class BookingDetailsScreenController implements Initializable {
     @FXML
     private Label checkOutDateLabel;
     
+    private Booking booking;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO: Remove test code
+        BookingService bookingService = new BookingService();
+        this.booking = bookingService.getBookingById(1L);
     }
     
-    public void onBackButtonClicked() {
+    @FXML
+    private void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen(
             "/fxml/GuestHomeScreen.fxml"
         );
     }
     
-    public void onViewBillButtonClicked() {
-        ScreenManager.getInstance().switchToScreen(
+    @FXML
+    private void onViewBillButtonClicked() {
+        Object temp = ScreenManager.getInstance().switchToScreen(
             "/fxml/CustomerBillScreen.fxml"
         );
+        CustomerBillScreenController controller;
+        controller = (CustomerBillScreenController) temp;
+        controller.initializeData(this.booking);
     }
     
-    public void onCancelBookingButtonClicked() {
+    @FXML
+    private void onCancelBookingButtonClicked() {
         // TODO
     }
     

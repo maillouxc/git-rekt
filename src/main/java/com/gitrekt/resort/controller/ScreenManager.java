@@ -13,12 +13,12 @@ public class ScreenManager {
     
     private static Stage mainStage;
     
-    private final FXMLLoader fxmlLoader;
+    private FXMLLoader fxmlLoader;
     
     private static ScreenManager instance;
     
     private ScreenManager() {
-        fxmlLoader = new FXMLLoader();
+        //fxmlLoader = new FXMLLoader();
     }
     
     /**
@@ -56,7 +56,8 @@ public class ScreenManager {
         
         try {
             URL pathToFxml = getClass().getResource(fxmlPath);
-            newScreenRoot = fxmlLoader.load(pathToFxml);
+            fxmlLoader = new FXMLLoader(pathToFxml);
+            newScreenRoot = fxmlLoader.load();
         } catch (IOException e) {
             throw new IllegalArgumentException("Failed to load FXML", e);
         }

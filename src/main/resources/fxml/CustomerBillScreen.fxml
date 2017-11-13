@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.CustomerBillScreenController">
+<AnchorPane stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.CustomerBillScreenController">
    <children>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../fxcss/Master.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -62,14 +62,6 @@
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="1000.0" spacing="5.0">
-               <children>
-                  <Label text="Billing Period:">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="billingPeriodText" text="5 Oct, 2017 - 7 Oct. 2017" />
-               </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
