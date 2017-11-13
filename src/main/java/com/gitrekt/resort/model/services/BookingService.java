@@ -304,4 +304,13 @@ public class BookingService {
         }
     }
     
+    public List<RoomCategory> getRoomTypesAvailable(
+        Date checkIn, Date checkout
+    ) {
+        // TODO
+        String queryString = "";
+        Query query = entityManager.createQuery(queryString);
+        return query.getResultList();
+    }
+    
 }
