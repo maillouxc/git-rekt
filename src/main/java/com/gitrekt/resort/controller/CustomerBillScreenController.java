@@ -1,14 +1,17 @@
 package com.gitrekt.resort.controller;
 
-import com.gitrekt.resort.model.entities.Bill;
 import com.gitrekt.resort.model.entities.BillItem;
 import com.gitrekt.resort.model.entities.Booking;
 import com.gitrekt.resort.model.services.BillService;
-import com.gitrekt.resort.model.services.BookingService;
 import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ThreadLocalRandom;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -27,32 +30,47 @@ public class CustomerBillScreenController implements Initializable {
     private Label customerNameText;
     
     @FXML
-    private Label billingPeriodText;
-    
-    @FXML
     private Label bookingNumberText;
     
-    // TODO: Fix rawtype
     @FXML
-    private TableView billTable;
+    private TableView<BillItem> billTable;
     
     @FXML
-    private TableColumn itemNameColumn;
+    private TableColumn<BillItem, String> itemNameColumn;
     
     @FXML
-    private TableColumn qtyColumn;
+    private TableColumn<BillItem,Integer> qtyColumn;
     
     @FXML
-    private TableColumn priceColumn;
+    private TableColumn<BillItem, String> priceColumn;
     
     private Booking booking;
+    
+    private ObservableList<BillItem> billItems;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
-        // TODO
+        billItems = FXCollections.observableArrayList();
+        
+        itemNameColumn.setCellValueFactory((param) -> {
+            return new SimpleStringProperty(param.getValue().getName());
+        });
+        
+        qtyColumn.setCellValueFactory((param) -> {
+            return new SimpleIntegerProperty(param.getValue().getQuantity())
+                    .asObject();
+        });
+        
+        priceColumn.setCellValueFactory((param) -> {
+            return new SimpleStringProperty(
+                String.format("%.2f", param.getValue().getTotalPrice())
+            );
+        });
+        
+        billTable.setItems(billItems);
     }
     
     /**
@@ -71,8 +89,13 @@ public class CustomerBillScreenController implements Initializable {
         this.booking = booking;
         
         // TODO: Remove test code
-        booking.getBill().getCharges().add(new BillItem("Test bill item", 15.99, 1));
+        for(int i = 0; i < 30; i++) {
+            double price = ThreadLocalRandom.current().nextDouble(0,500);
+            int qty = ThreadLocalRandom.current().nextInt(10);
+            booking.getBill().getCharges().add(new BillItem("Test bill item", price, qty));
+        }
         
+        billItems.addAll(booking.getBill().getCharges());
         initializeInfoLabels();
         prepareTableView();
     }
