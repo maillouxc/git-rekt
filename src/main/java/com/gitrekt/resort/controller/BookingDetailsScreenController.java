@@ -57,6 +57,10 @@ public class BookingDetailsScreenController implements Initializable {
         );
         CustomerBillScreenController controller;
         controller = (CustomerBillScreenController) temp;
+        
+        // Fix LazyInitializationException by forcing initialization here.
+        this.booking.toString();
+        
         controller.initializeData(this.booking);
     }
     
