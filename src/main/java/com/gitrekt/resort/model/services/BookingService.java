@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.List;
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -22,7 +21,6 @@ import javax.persistence.Query;
  */
 public class BookingService {
 
-    @PersistenceContext
     private final EntityManager entityManager;
 
     /**
