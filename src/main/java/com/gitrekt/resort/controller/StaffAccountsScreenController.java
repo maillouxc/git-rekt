@@ -1,14 +1,19 @@
 package com.gitrekt.resort.controller;
 
+import com.gitrekt.resort.model.entities.Employee;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -33,16 +38,19 @@ public class StaffAccountsScreenController implements Initializable {
     private Button addNewEmployeeButton;
     
     @FXML
-    private TableView staffAccountTableView;
-    
-    @FXML
-    private TableColumn idColumn;
+    private TableView staffAccountsTableView;
     
     @FXML
     private TableColumn nameColumn;
     
     @FXML
     private TableColumn managerColumn;
+    
+    @FXML
+    private TableColumn<Employee,String> employeeIdColumn; 
+    
+    
+    private ObservableList<Employee> staffAccountList;
     
     private final Image appLogo = new Image("images/Logo.png");
     
@@ -51,7 +59,20 @@ public class StaffAccountsScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        staffAccountList = FXCollections.observableArrayList();
+        staffAccountsTableView.setItems(staffAccountList);
+        
+        employeeIdColumn.setCellValueFactory((param) -> {
+            return new SimpleStringProperty(String.valueOf(param.getValue().getId()));
+        });
+        
+        staffAccountsTableView.setPlaceholder(
+            new Label("We fired everyone")
+        );
+        
+        //EmployeeService employeeService = new EmployeeService();
+        //List<Employee> employees = employeeService.getAllEmployees();
+        
     }    
     
     public void onBackButtonClicked() {
