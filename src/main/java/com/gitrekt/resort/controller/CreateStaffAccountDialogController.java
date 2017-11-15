@@ -1,5 +1,7 @@
 package com.gitrekt.resort.controller;
 
+import com.gitrekt.resort.model.entities.Employee;
+import com.gitrekt.resort.model.services.EmployeeService;
 import com.gitrekt.resort.model.services.PasswordValidatorUtil;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -79,11 +81,20 @@ public class CreateStaffAccountDialogController implements Initializable {
     
     public void onConfirmButtonClicked() {
         
-        String name = firstNameField.getText();
+        String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
+        String password = passwordField.getText();
         boolean isManager = managerCheckBox.isSelected();
         long employeeId = Long.valueOf(employeeIdField.getText());
         
+        if(validatePasswords() && validateStaffAccount()) {
+            Employee newEmployee = new Employee(
+                employeeId, password, isManager, firstName, lastName
+            ); 
+            
+            EmployeeService employeeService = new EmployeeService();
+            employeeService.createEmployeeAccount(newEmployee);
+        }
     }
 
     private void onPasswordFieldUpdated() {
@@ -108,7 +119,7 @@ public class CreateStaffAccountDialogController implements Initializable {
         lastNameLabel.getStyleClass().remove("validationErrorText");
         employeeIdLabel.getStyleClass().remove("validationErrorText");
         
-        if (firstName.isEmpty() 
+        if(firstName.isEmpty() 
                 || lastName.isEmpty() 
                 || String.valueOf(employeeId).isEmpty()) {
             staffErrorLabel.setVisible(true);
@@ -128,55 +139,55 @@ public class CreateStaffAccountDialogController implements Initializable {
      */
     private boolean validatePasswords() {
         boolean result = true;
-        
-        String password = passwordField.getText();
-        String confirmPassword = confirmPasswordField.getText();
-        
-        //hide any errors that are showing already
-        errorLabel.setVisible(false);
-        lengthLabel.getStyleClass().remove("validationErrorText");
-        numAndSpecialCharLabel.getStyleClass().remove("validationErrorText");
-        mixedCaseLabel.getStyleClass().remove("validationErrorText");
-        
-        //check if there is any text written in the passwords fields
-        if (password.isEmpty() || confirmPassword.isEmpty()) {
-            errorLabel.setVisible(true);
-            errorLabel.setText("Fields cannot be empty");
-            result =   false;
-        }
-        
-        //check if password matches confirmation password
-        if (!password.equals(confirmPassword)) {
-            errorLabel.setVisible(true);
-            errorLabel.setText("Passwords don't match");
-            result = false;
-        }
-        
-        RuleResult ruleResult = PasswordValidatorUtil.validator
-                .validate(new PasswordData(password));
-        
-        if (!ruleResult.isValid()) {
-            result = false;
-        }
-        
-        //Update the label requirements
-        for (RuleResultDetail d : ruleResult.getDetails()) {
-            String errorCode = d.getErrorCode();
-            
-            switch(errorCode) {
-                case "TOO_SHORT":
-                    lengthLabel.getStyleClass().add("validationErrorText");
-                    break;
-                case "INSUFFICIENT_LOWERCASE":
-                case "INSUFFICIENT_UPPERCASE":
-                    mixedCaseLabel.getStyleClass().add("validationErrorText");
-                    break;
-                case "INSUFFICIENT_DIGIT":
-                case "INSUFFICIENT_SPECIAL":
-                    numAndSpecialCharLabel.getStyleClass().add("validationErrorText");
-                    break;
-            }
-        }
+//        
+//        String password = passwordField.getText();
+//        String confirmPassword = confirmPasswordField.getText();
+//        
+//        //hide any errors that are showing already
+//        errorLabel.setVisible(false);
+//        lengthLabel.getStyleClass().remove("validationErrorText");
+//        numAndSpecialCharLabel.getStyleClass().remove("validationErrorText");
+//        mixedCaseLabel.getStyleClass().remove("validationErrorText");
+//        
+//        //check if there is any text written in the passwords fields
+//        if (password.isEmpty() || confirmPassword.isEmpty()) {
+//            errorLabel.setVisible(true);
+//            errorLabel.setText("Fields cannot be empty");
+//            result =   false;
+//        }
+//        
+//        //check if password matches confirmation password
+//        if (!password.equals(confirmPassword)) {
+//            errorLabel.setVisible(true);
+//            errorLabel.setText("Passwords don't match");
+//            result = false;
+//        }
+//        
+//        RuleResult ruleResult = PasswordValidatorUtil.validator
+//                .validate(new PasswordData(password));
+//        
+//        if (!ruleResult.isValid()) {
+//            result = false;
+//        }
+//        
+//        //Update the label requirements
+//        for (RuleResultDetail d : ruleResult.getDetails()) {
+//            String errorCode = d.getErrorCode();
+//            
+//            switch(errorCode) {
+//                case "TOO_SHORT":
+//                    lengthLabel.getStyleClass().add("validationErrorText");
+//                    break;
+//                case "INSUFFICIENT_LOWERCASE":
+//                case "INSUFFICIENT_UPPERCASE":
+//                    mixedCaseLabel.getStyleClass().add("validationErrorText");
+//                    break;
+//                case "INSUFFICIENT_DIGIT":
+//                case "INSUFFICIENT_SPECIAL":
+//                    numAndSpecialCharLabel.getStyleClass().add("validationErrorText");
+//                    break;
+//            }
+//        }
         
         return result;
     }
