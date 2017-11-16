@@ -25,11 +25,11 @@ public class BrowseRoomsScreenController implements Initializable,
     
     private final ObservableList<RoomSearchResult> roomSearchResults;
     
-    private final ObservableList<RoomSearchResult> currentlySelectedRooms;
+    private final ObservableList<RoomSearchResult> selectedRooms;
     
     public BrowseRoomsScreenController() {
         roomSearchResults = FXCollections.observableArrayList();
-        currentlySelectedRooms = FXCollections.observableArrayList();
+        selectedRooms = FXCollections.observableArrayList();
     }
     
     @Override
@@ -44,7 +44,7 @@ public class BrowseRoomsScreenController implements Initializable,
         selectedRoomsListView.setCellFactory(
             param -> new DeletableListItem(this)
         );
-        selectedRoomsListView.setItems(currentlySelectedRooms);
+        selectedRoomsListView.setItems(selectedRooms);
     }
     
     private void sortResultsByPrice() {
@@ -70,9 +70,13 @@ public class BrowseRoomsScreenController implements Initializable,
     private void onNextButtonClicked() {
         // TODO replace with the packages screen first - this is temporary
         
-        ScreenManager.getInstance().switchToScreen(
-            "/fxml/PlaceBookingScreen.fxml"
-        );
+        if(selectedRooms.size() > 0) {
+            ScreenManager.getInstance().switchToScreen(
+                "/fxml/PlaceBookingScreen.fxml"
+            );
+        }
+        
+        
     }
     
     // TODO: Determine if really necessary
