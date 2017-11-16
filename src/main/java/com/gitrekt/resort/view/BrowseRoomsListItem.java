@@ -7,9 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 
-/**
- * TODO
- */
 public class BrowseRoomsListItem extends ListCell<RoomSearchResult> {
     
     private final BrowseRoomsListItemController controller; 
@@ -24,7 +21,7 @@ public class BrowseRoomsListItem extends ListCell<RoomSearchResult> {
         
         try {
             fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/fxml/BrowseRoomsListItem.fxml")
+                getClass().getResource("/fxml/BrowseRoomsListItem.fxml")
             );
             view = fxmlLoader.load();
             controller = fxmlLoader.getController();

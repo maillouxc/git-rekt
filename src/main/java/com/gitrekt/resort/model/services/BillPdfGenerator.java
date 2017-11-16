@@ -13,6 +13,12 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+/**
+ * Responsible for generating a PDF representation of the guest bill.
+ * 
+ * Currently very crude and incomplete, although the most basic functionality 
+ * is in place and usable. This class still needs a lot of work.
+ */
 public class BillPdfGenerator {
     
     private static final String LINE_ITEM_FORMAT = "%-40s %11s %13s %13s";
@@ -105,6 +111,14 @@ public class BillPdfGenerator {
         );
     }
     
+    /**
+     * Gathers the fields from the guest bill items and converts them into their
+     * formatted string representation to be displayed as a single line-item
+     * on the printed guest bill.
+     * 
+     * @param item The bill item to format.
+     * @return The formatted bill item.
+     */
     private String convertBillItemToLineItem(BillItem item) {
         String lineItem;
         double totalPrice = item.getPrice() * item.getQuantity();       
