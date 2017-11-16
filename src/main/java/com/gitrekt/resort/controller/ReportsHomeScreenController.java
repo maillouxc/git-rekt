@@ -4,21 +4,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 
 /**
  * FXML Controller class for reports home screen.
  */
 public class ReportsHomeScreenController implements Initializable {
-
-    @FXML
-    private Button backButton;
-    
-    @FXML
-    private Button bookingPercentagesReportButton;
-    
-    @FXML
-    private Button feedbackReportButton;
     
     /**
      * Initializes the controller class.
@@ -28,19 +18,31 @@ public class ReportsHomeScreenController implements Initializable {
         // TODO
     }    
     
-    public void onBackButtonClicked() {
+    /**
+     * Returns to the staff home screen.
+     */
+    @FXML
+    private void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen(
             "/fxml/StaffHomeScreen.fxml"
         );
     }
     
-    public void onBookingPercentagesReportButtonClicked() {
+    /**
+     * Displays the booking percentages report screen.
+     */
+    @FXML
+    private void onBookingPercentagesReportButtonClicked() {
         ScreenManager.getInstance().switchToScreen(
             "/fxml/BookingsReportScreen.fxml"
         );
     }
     
-     public void onFeedbackReportButtonClicked() {
+    /**
+     * Displays the guest feedback report screen.
+     */
+    @FXML
+    private void onFeedbackReportButtonClicked() {
         ScreenManager.getInstance().switchToScreen(
             "/fxml/FeedbackReportScreen.fxml"
         );
