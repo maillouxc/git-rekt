@@ -4,6 +4,8 @@ import com.gitrekt.resort.model.entities.Employee;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,10 +43,10 @@ public class StaffAccountsScreenController implements Initializable {
     private TableView staffAccountsTableView;
     
     @FXML
-    private TableColumn nameColumn;
+    private TableColumn<Employee,String> employeeNameColumn;
     
     @FXML
-    private TableColumn managerColumn;
+    private TableColumn<Employee,Boolean> isManagerColumn;
     
     @FXML
     private TableColumn<Employee,String> employeeIdColumn; 
@@ -66,12 +68,20 @@ public class StaffAccountsScreenController implements Initializable {
             return new SimpleStringProperty(String.valueOf(param.getValue().getId()));
         });
         
+        employeeNameColumn.setCellValueFactory((param) -> {
+            return new SimpleStringProperty(param.getValue().getFirstName());
+        });
+        
+        isManagerColumn.setCellValueFactory((param) -> {
+            return new SimpleBooleanProperty(param.getValue().isManager());
+        });
+        
         staffAccountsTableView.setPlaceholder(
             new Label("We fired everyone")
         );
         
-        //EmployeeService employeeService = new EmployeeService();
-        //List<Employee> employees = employeeService.getAllEmployees();
+        Employee employee = new Employee(Long.valueOf(1),"1234", true, "Juan" , "Gomez");
+        //List<Employee> employees = employee.getAllEmployees();
         
     }    
     
