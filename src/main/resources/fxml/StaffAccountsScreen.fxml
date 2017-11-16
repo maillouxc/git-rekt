@@ -27,7 +27,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Separator>
-            <TableView fx:id="staffAccountsTableView" maxWidth="-Infinity" prefHeight="300.0" prefWidth="800.0">
+            <TableView fx:id="staffAccountsTableView" maxWidth="-Infinity" prefHeight="800.0" prefWidth="800.0">
               <columns>
                 <TableColumn fx:id="employeeIdColumn" editable="false" prefWidth="100.0" resizable="false" text="Id #" />
                 <TableColumn fx:id="employeeNameColumn" editable="false" prefWidth="580.0" resizable="false" text="Name (Last, First)" />
