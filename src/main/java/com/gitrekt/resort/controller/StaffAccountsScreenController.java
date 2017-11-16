@@ -15,13 +15,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class.
@@ -92,6 +90,8 @@ public class StaffAccountsScreenController implements Initializable {
             new Label("We fired everyone")
         );
         
+        // TODO: Remove test data
+        
         Employee employee1 = new Employee(Long.valueOf(1),"1234", true, "Juan" , "Gomez");
         Employee employee2 = new Employee(Long.valueOf(2),"1234", true, "Juanito" , "Gomez");
         Employee employee3 = new Employee(Long.valueOf(3),"1234", false, "Juana" , "Gomez");
@@ -111,10 +111,19 @@ public class StaffAccountsScreenController implements Initializable {
         );
     }
     
+    /**
+     * Displays the dialog to delete the currently selected employee account.
+     */
     public void onRemoveEmployeeButtonClicked() {
-        // TODO
+        Employee selectedEmployee = getSelectedEmployee();
+        // TODO: Display dialog to delete employee account.
     }
     
+    /**
+     * Displays the reset password dialog for the currently selected employee.
+     * 
+     * @throws IOException 
+     */
     public void onResetEmployeePasswordButtonClicked() throws IOException {
         Stage dialogStage = new Stage();
         FXMLLoader loader = new FXMLLoader(
@@ -134,7 +143,7 @@ public class StaffAccountsScreenController implements Initializable {
         
         ResetEmployeePasswordDialogController c;
         c = (ResetEmployeePasswordDialogController) loader.getController();
-        long employeeId = getSelectedEmployeeId();
+        long employeeId = getSelectedEmployee().getId();
         c.setEmployeeId(employeeId);
         
         dialogStage.show();
@@ -158,9 +167,13 @@ public class StaffAccountsScreenController implements Initializable {
         dialogStage.show();
     }
     
-    private long getSelectedEmployeeId() {
-        // TODO: REPLACE WITH REAL IMPLEMENTATION
-        return 1L;
+    /**
+     * @return The currently selected employee in the employee table view. 
+     */
+    private Employee getSelectedEmployee() {
+        Employee selectedEmployee = 
+                staffAccountsTableView.getSelectionModel().getSelectedItem();
+        return selectedEmployee;
     }
     
 }
