@@ -74,7 +74,7 @@ public class BrowseRoomsScreenController implements Initializable,
         int randInt = random.nextInt(999);
         BigDecimal bd = new BigDecimal(randInt);
         
-        Image i = new Image("/images/temporary_hotel_room_image_placeholder.jpg");
+        Image i = new Image("/images/rooms/basic.jpg");
         RoomSearchResult r4 = new RoomSearchResult("512", bd, 
             new RoomCategory(
                 "Basic Family Suite", 
@@ -130,16 +130,27 @@ public class BrowseRoomsScreenController implements Initializable,
         int randInt = random.nextInt(999);
         BigDecimal bd = new BigDecimal(randInt);
         
-        Image i = new Image("/images/temporary_hotel_room_image_placeholder.jpg");
+        Image i = new Image("/images/rooms/basic.jpg");
         RoomSearchResult r4 = new RoomSearchResult("512", bd, 
             new RoomCategory(
-                "Basic Family Suite", 
+                "Basic Suite", 
                 "This room features a 40-inch flat-screen TV with high-definition channels. An iPod docking station and coffee-making facilities are also provided.\n" + "\n" + "Room Facilities: Safe, Air conditioning, Iron, Heating, Carpeted, Interconnecting room(s) available, Hairdryer, Free toiletries, Toilet, Bathroom, Bathtub or shower, Telephone, Radio, Cable channels, Flat-screen TV, Refrigerator, Alarm clock",
                 i,
                 "2 King, 2 Twin"
             )
         );
         this.addResult(r4);
+        
+        Image i2 = new Image("/images/rooms/family_basic.jpg");
+        RoomSearchResult r5 = new RoomSearchResult("512", bd, 
+            new RoomCategory(
+                "Family Basic Suite", 
+                "This room features a 40-inch flat-screen TV with high-definition channels. An iPod docking station and coffee-making facilities are also provided.\n" + "\n" + "Room Facilities: Safe, Air conditioning, Iron, Heating, Carpeted, Interconnecting room(s) available, Hairdryer, Free toiletries, Toilet, Bathroom, Bathtub or shower, Telephone, Radio, Cable channels, Flat-screen TV, Refrigerator, Alarm clock",
+                i2,
+                "2 King, 2 Twin"
+            )
+        );
+        this.addResult(r5);
     }
     
     public void onNextButtonClicked() {
