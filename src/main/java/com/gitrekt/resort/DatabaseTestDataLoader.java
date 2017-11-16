@@ -150,9 +150,20 @@ public class DatabaseTestDataLoader {
         // Load test employee data
         Employee e1 = new Employee(1L, "gitrekt", true, "Chris", "Mailloux");
         Employee e2 = new Employee(2L, "bassface", false, "Chris", "Kael");
+        Employee e3 = new Employee(Long.valueOf(3),"1234", true, "Juan" , "Gomez");
+        Employee e4 = new Employee(Long.valueOf(4),"1234", true, "Juanito" , "Gomez");
+        Employee e5 = new Employee(Long.valueOf(5),"1234", false, "Juana" , "Gomez");
+        Employee e6 = new Employee(Long.valueOf(6),"1234", false, "Juanita" , "Gomez");
+        Employee e7 = new Employee(Long.valueOf(7),"1234", true, "Juanucho" , "Gomez");
         
         entityManager.persist(e1);
         entityManager.persist(e2);
+        // Ignore the variable name changes here, it's from a copy and paste.
+        entityManager.persist(e3);
+        entityManager.persist(e4);
+        entityManager.persist(e5);
+        entityManager.persist(e6);
+        entityManager.persist(e7);
         
         entityManager.getTransaction().commit();
         
