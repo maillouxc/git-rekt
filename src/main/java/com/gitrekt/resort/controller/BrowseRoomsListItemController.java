@@ -38,46 +38,44 @@ public class BrowseRoomsListItemController implements Initializable {
     public BrowseRoomsListItemController() {
         // TODO
     }
-    
-    /**
-     * Handles any needed initialization logic for the controller class.
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
     
+    /**
+     * Sets the data on the screen to the values from the search result data.
+     * 
+     * @param roomData The room information returned from the search.
+     */
     public void setData(RoomSearchResult roomData) {
         roomCategoryLabel.setText(roomData.getRoomCategory().getName());
         roomThumbnailView.setImage(roomData.getRoomCategory().getImage());
         bedsInfoLabel.setText(roomData.getRoomCategory().getBedsInfo());
-    
-        // TODO: We should handle currency more flexibly at some point.
+        // TODO We should handle currency more flexibly at some point.
         String priceString = "$" + roomData.getRoomPrice() + " / night";
-                    
         roomPriceLabel.setText(priceString);
         roomDescriptionLabel.setText(
             roomData.getRoomCategory().getDescription()
         );
     }
     
+    /**
+     * @return The graphical representation of this list item. 
+     */
     public Node getView() {
         return root;
     }
     
     @FXML
     protected void onAddToBookingButtonClicked() {
-        // TODO implement program logic
-    }
-    
-    @FXML
-    protected void onMoreInfoButtonClicked() {
         // TODO
     }
     
     @FXML
     protected void onRoomThumbnailClicked() {
-        // TODO
+        // TODO: Display fullsize image.
     }
     
 }
