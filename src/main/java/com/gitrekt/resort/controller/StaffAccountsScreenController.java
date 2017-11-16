@@ -1,6 +1,7 @@
 package com.gitrekt.resort.controller;
 
 import com.gitrekt.resort.model.entities.Employee;
+import com.gitrekt.resort.model.services.EmployeeService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,7 +23,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class.
+ * FXML Controller class for the "Manage Staff Accounts" screen.
  */
 public class StaffAccountsScreenController implements Initializable {
 
@@ -90,22 +91,11 @@ public class StaffAccountsScreenController implements Initializable {
             new Label("We fired everyone")
         );
         
-        // TODO: Remove test data
-        
-        Employee employee1 = new Employee(Long.valueOf(1),"1234", true, "Juan" , "Gomez");
-        Employee employee2 = new Employee(Long.valueOf(2),"1234", true, "Juanito" , "Gomez");
-        Employee employee3 = new Employee(Long.valueOf(3),"1234", false, "Juana" , "Gomez");
-        Employee employee4 = new Employee(Long.valueOf(4),"1234", false, "Juanita" , "Gomez");
-        Employee employee5 = new Employee(Long.valueOf(5),"1234", true, "Juanucho" , "Gomez");
-        
-        staffAccountList.add(employee1);
-        staffAccountList.add(employee2);
-        staffAccountList.add(employee3);
-        staffAccountList.add(employee4);
-        staffAccountList.add(employee5);
+        fetchTableData();
     }    
     
-    public void onBackButtonClicked() {
+    @FXML
+    private void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen(
             "/fxml/StaffHomeScreen.fxml"
         );
@@ -114,7 +104,8 @@ public class StaffAccountsScreenController implements Initializable {
     /**
      * Displays the dialog to delete the currently selected employee account.
      */
-    public void onRemoveEmployeeButtonClicked() {
+    @FXML
+    private void onRemoveEmployeeButtonClicked() {
         Employee selectedEmployee = getSelectedEmployee();
         // TODO: Display dialog to delete employee account.
     }
@@ -124,7 +115,8 @@ public class StaffAccountsScreenController implements Initializable {
      * 
      * @throws IOException 
      */
-    public void onResetEmployeePasswordButtonClicked() throws IOException {
+    @FXML
+    private void onResetEmployeePasswordButtonClicked() throws IOException {
         Stage dialogStage = new Stage();
         FXMLLoader loader = new FXMLLoader(
             getClass().getResource("/fxml/ResetEmployeePasswordDialog.fxml")
@@ -149,7 +141,13 @@ public class StaffAccountsScreenController implements Initializable {
         dialogStage.show();
     }
     
-    public void onAddNewEmployeeButtonClicked() throws IOException {
+    /**
+     * Displays the dialog to create a new employee account.
+     * 
+     * @throws IOException 
+     */
+    @FXML
+    private void onAddNewEmployeeButtonClicked() throws IOException {
         Stage dialogStage = new Stage();
         Parent dialogRoot = FXMLLoader.load(
             getClass().getResource("/fxml/CreateStaffAccountDialog.fxml")
@@ -174,6 +172,15 @@ public class StaffAccountsScreenController implements Initializable {
         Employee selectedEmployee = 
                 staffAccountsTableView.getSelectionModel().getSelectedItem();
         return selectedEmployee;
+    }
+    
+    /**
+     * Retrieves the employee data from the database and populates the tableview
+     * with it.
+     */
+    private void fetchTableData() {
+        EmployeeService employeeService = new EmployeeService();
+        staffAccountList.addAll(employeeService.getAllEmployees());
     }
     
 }
