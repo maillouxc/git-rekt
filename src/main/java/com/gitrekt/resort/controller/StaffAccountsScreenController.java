@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,11 +15,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class.
@@ -40,7 +41,7 @@ public class StaffAccountsScreenController implements Initializable {
     private Button addNewEmployeeButton;
     
     @FXML
-    private TableView staffAccountsTableView;
+    private TableView<Employee> staffAccountsTableView;
     
     @FXML
     private TableColumn<Employee,String> employeeNameColumn;
@@ -54,8 +55,6 @@ public class StaffAccountsScreenController implements Initializable {
     
     private ObservableList<Employee> staffAccountList;
     
-    private final Image appLogo = new Image("images/Logo.png");
-    
     /**
      * Initializes the controller class.
      */
@@ -65,24 +64,45 @@ public class StaffAccountsScreenController implements Initializable {
         staffAccountsTableView.setItems(staffAccountList);
         
         employeeIdColumn.setCellValueFactory((param) -> {
-            return new SimpleStringProperty(String.valueOf(param.getValue().getId()));
+            return new SimpleStringProperty(
+                String.valueOf(param.getValue().getId())
+            );
         });
         
         employeeNameColumn.setCellValueFactory((param) -> {
-            return new SimpleStringProperty(param.getValue().getFirstName());
+            return new SimpleStringProperty(
+                param.getValue().getLastName() 
+                    + ", " 
+                    + param.getValue().getFirstName()
+            );
         });
         
         isManagerColumn.setCellValueFactory((param) -> {
             return new SimpleBooleanProperty(param.getValue().isManager());
         });
         
+        // Display the boolean column using checkboxes instead of strings
+        isManagerColumn.setCellFactory(
+            (param) -> {
+                return new CheckBoxTableCell<>();
+            }
+        );
+        
         staffAccountsTableView.setPlaceholder(
             new Label("We fired everyone")
         );
         
-        Employee employee = new Employee(Long.valueOf(1),"1234", true, "Juan" , "Gomez");
-        //List<Employee> employees = employee.getAllEmployees();
+        Employee employee1 = new Employee(Long.valueOf(1),"1234", true, "Juan" , "Gomez");
+        Employee employee2 = new Employee(Long.valueOf(2),"1234", true, "Juanito" , "Gomez");
+        Employee employee3 = new Employee(Long.valueOf(3),"1234", false, "Juana" , "Gomez");
+        Employee employee4 = new Employee(Long.valueOf(4),"1234", false, "Juanita" , "Gomez");
+        Employee employee5 = new Employee(Long.valueOf(5),"1234", true, "Juanucho" , "Gomez");
         
+        staffAccountList.add(employee1);
+        staffAccountList.add(employee2);
+        staffAccountList.add(employee3);
+        staffAccountList.add(employee4);
+        staffAccountList.add(employee5);
     }    
     
     public void onBackButtonClicked() {
@@ -97,7 +117,6 @@ public class StaffAccountsScreenController implements Initializable {
     
     public void onResetEmployeePasswordButtonClicked() throws IOException {
         Stage dialogStage = new Stage();
-        dialogStage.getIcons().add(appLogo);
         FXMLLoader loader = new FXMLLoader(
             getClass().getResource("/fxml/ResetEmployeePasswordDialog.fxml")
         );
@@ -110,7 +129,7 @@ public class StaffAccountsScreenController implements Initializable {
             resetEmployeePasswordButton.getScene().getWindow()
         );
         dialogStage.setResizable(false);
-        dialogStage.setTitle("Authentication Required");
+        dialogStage.setTitle("Confirm");
         dialogStage.centerOnScreen();
         
         ResetEmployeePasswordDialogController c;
@@ -123,7 +142,6 @@ public class StaffAccountsScreenController implements Initializable {
     
     public void onAddNewEmployeeButtonClicked() throws IOException {
         Stage dialogStage = new Stage();
-        dialogStage.getIcons().add(appLogo);
         Parent dialogRoot = FXMLLoader.load(
             getClass().getResource("/fxml/CreateStaffAccountDialog.fxml")
         );
@@ -134,7 +152,7 @@ public class StaffAccountsScreenController implements Initializable {
             addNewEmployeeButton.getScene().getWindow()
         );
         dialogStage.setResizable(false);
-        dialogStage.setTitle("Authentication Required");
+        dialogStage.setTitle("Create employee");
         dialogStage.centerOnScreen();
         
         dialogStage.show();
