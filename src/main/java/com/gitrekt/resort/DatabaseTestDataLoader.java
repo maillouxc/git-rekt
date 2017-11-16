@@ -44,7 +44,7 @@ public class DatabaseTestDataLoader {
         // Uncomment this line later once RoomService is created
         // RoomService roomService = new RoomService()
         
-        Image placeholderImg = new Image("/images/temporary_hotel_room_image_placeholder.jpg");
+        Image placeholderImg = new Image("/images/rooms/basic.jpg");
         
         List<Room> rooms = new ArrayList<>();
         
