@@ -29,6 +29,8 @@ public class RoomCategory {
     
     private String description;
     
+    private Double basePrice;
+    
     // This should not be persisted to the database until we figure out
     // what out final solution for storing images is. I'm currently thinking
     // the for the purposes of our prototype we can just store the filepath
@@ -51,11 +53,12 @@ public class RoomCategory {
     }
     
     public RoomCategory(String name, String description, 
-        Image roomCategoryImage, String bedsInfo) {
+        Image roomCategoryImage, String bedsInfo, Double basePrice) {
         this.name = name;
         this.description = description;
         this.roomCategoryImage = roomCategoryImage;
         this.bedsInfo = bedsInfo;
+        this.basePrice = basePrice;
     }
     
     public String getName() {
@@ -75,6 +78,21 @@ public class RoomCategory {
     
     public String getBedsInfo() {
         return bedsInfo;
+    }
+    
+    /**
+     * DANGER!
+     * 
+     * This method only gives you the base price of a room, which is just a part
+     * of what goes into the pricing of a room. Other factors like resort
+     * capacity, etc. affect this price. This method should only be used to
+     * calculate the final price of the room within the appropriate service
+     * class.
+     * 
+     * @return The base price of the room. 
+     */
+    public Double getBasePrice() {
+        return basePrice;
     }
     
 }

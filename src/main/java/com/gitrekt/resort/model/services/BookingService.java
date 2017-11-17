@@ -305,10 +305,28 @@ public class BookingService {
     public List<RoomCategory> getRoomTypesAvailable(
         Date checkIn, Date checkout
     ) {
-        // TODO
         String queryString = "";
         Query query = entityManager.createQuery(queryString);
         return query.getResultList();
+    }
+    
+    /**
+     * This method should be used instead of the getPrice() method in 
+     * roomCategory.
+     * 
+     * This should probably be handled in a better way, but it all comes down to
+     * the amount of design time available in the end, and that is a resource
+     * we are critically short on at the moment.
+     * 
+     * @param roomCategory The category of room to determine the price for.
+     * 
+     * @return The room price after pricing adjustments are taken into account.
+     */
+    public Double getCurrentPrice(RoomCategory roomCategory) {
+        Double basePrice = roomCategory.getBasePrice();
+        Double currentPrice = basePrice;
+        // TODO: Factor in capacity and other things
+        return currentPrice;
     }
     
 }

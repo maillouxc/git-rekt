@@ -10,7 +10,6 @@ import javafx.scene.control.ListCell;
 public class BrowseRoomsListItem extends ListCell<RoomSearchResult> {
     
     private final BrowseRoomsListItemController controller; 
-           // = new BrowseRoomsListItemController();
     
     private final FXMLLoader fxmlLoader;
     
@@ -26,7 +25,6 @@ public class BrowseRoomsListItem extends ListCell<RoomSearchResult> {
             view = fxmlLoader.load();
             controller = fxmlLoader.getController();
         } catch (IOException ex) {
-            ex.printStackTrace();
             throw new IllegalStateException(ex + "FXML file loading failed.");
         }
     }

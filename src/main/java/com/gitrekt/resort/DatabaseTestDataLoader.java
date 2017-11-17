@@ -41,46 +41,48 @@ public class DatabaseTestDataLoader {
         
         // Populate database with data on all of the rooms available
         
-        // Uncomment this line later once RoomService is created
-        // RoomService roomService = new RoomService()
-        
         Image placeholderImg = new Image("/images/rooms/basic.jpg");
         
         List<Room> rooms = new ArrayList<>();
         
         RoomCategory basic = new RoomCategory(
             "Basic",
-            "This room is as basic as you are. Includes complimentary bedbugs and various mystery stains on the sheets.",
+            "This room is as basic as you are. Includes complimentary bedbugs and various mystery stains on the sheets. Homeless paint sniffer included free of charge.",
             placeholderImg,
-            "Beds not provided"               
+            "Beds not provided",
+            100.00
         );
         
         RoomCategory familyBasic = new RoomCategory(
             "Family Basic",
             "With the Family basic room, you can be treated like dirt, but now with the whole family!",
             placeholderImg,
-            "2 Queen, 2 twin"               
+            "2 Queen, 2 twin",
+            125.99
         );
         
         RoomCategory luxury = new RoomCategory(
             "Luxury",
             "Because in 2017 being able to go to a resort at all is a luxury. You should be thanking us.",
             placeholderImg,
-            "2 Queen"               
+            "2 Queen",
+            159.99
         );
         
         RoomCategory luxuryFamily = new RoomCategory(
             "Luxury Family",
             "This room is almost bearable. Too bad you have kids and you won't be able to enjoy it.",
             placeholderImg,
-            "2 Queen, 2 twin"               
+            "2 Queen, 2 twin",
+            179.67
         );
         
         RoomCategory king = new RoomCategory(
             "King",
             "The room that says, 'I'm better than everyone else, and I want them to know it.'",
             placeholderImg,
-            "2 King"               
+            "2 King",
+            259.99
         );
         
         EntityManager entityManager = HibernateUtil.getEntityManager();
