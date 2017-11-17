@@ -1,25 +1,25 @@
 package com.gitrekt.resort.controller;
 
 import com.gitrekt.resort.model.RoomSearchResult;
-import com.gitrekt.resort.model.entities.RoomCategory;
 import com.gitrekt.resort.model.services.BookingService;
 import com.gitrekt.resort.view.BrowseRoomsListItem;
 import com.gitrekt.resort.view.DeletableListItem;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class for the browse rooms screen.
@@ -67,7 +67,22 @@ public class BrowseRoomsScreenController implements Initializable,
     }
     
     private void initializeDatePickers() {
-        // TODO
+        checkInDatePicker.setDayCellFactory(
+            (final DatePicker datePicker) -> new DateCell() {
+                @Override
+                public void updateItem(LocalDate item, boolean empty) {
+                    super.updateItem(item, empty);
+                
+                    if(item.isAfter(LocalDate.now().plusYears(1))) {
+                        setDisable(true);
+                    }
+                    
+                    if(item.isBefore(ChronoLocalDate.from(LocalDate.now()))) {
+                        setDisable(true);
+                    }
+                }
+            }
+        );
     }
     
     @FXML
