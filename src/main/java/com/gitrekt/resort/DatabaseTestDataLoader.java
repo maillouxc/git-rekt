@@ -14,12 +14,10 @@ import com.gitrekt.resort.model.entities.MailingAddress;
 import com.gitrekt.resort.model.entities.Package;
 import com.gitrekt.resort.model.services.GuestFeedbackService;
 import com.gitrekt.resort.model.services.RoomService;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import javafx.scene.image.Image;
 import javax.persistence.EntityManager;
 
 /**
@@ -41,46 +39,53 @@ public class DatabaseTestDataLoader {
         
         // Populate database with data on all of the rooms available
         
-        // Uncomment this line later once RoomService is created
-        // RoomService roomService = new RoomService()
-        
-        Image placeholderImg = new Image("/images/rooms/basic.jpg");
-        
-        List<Room> rooms = new ArrayList<>();
-        
         RoomCategory basic = new RoomCategory(
             "Basic",
-            "This room is as basic as you are. Includes complimentary bedbugs and various mystery stains on the sheets.",
-            placeholderImg,
-            "Beds not provided"               
+            "This room is as basic as you are. Includes complimentary bedbugs "
+                + "and various mystery stains on the sheets. Used needles also "
+                + "included free of charge.",
+            "images/rooms/basic.jpg",
+            "Beds not provided",
+            100.00
         );
         
         RoomCategory familyBasic = new RoomCategory(
             "Family Basic",
-            "With the Family basic room, you can be treated like dirt, but now with the whole family!",
-            placeholderImg,
-            "2 Queen, 2 twin"               
+            "With the Family basic room, you can be treated like the dirt you"
+                + " are, but now with the whole family!",
+            "images/rooms/family_basic.jpg",
+            "2 Queen, 2 twin",
+            125.99
         );
         
         RoomCategory luxury = new RoomCategory(
             "Luxury",
-            "Because in 2017 being able to go to a resort at all is a luxury. You should be thanking us.",
-            placeholderImg,
-            "2 Queen"               
+            "Because in 2017 being able to go to a resort at all is a luxury. "
+                + "You should be thanking us.",
+            "images/rooms/luxury.jpg",
+            "2 Queen",
+            159.99
         );
         
         RoomCategory luxuryFamily = new RoomCategory(
             "Luxury Family",
-            "This room is almost bearable. Too bad you have kids and you won't be able to enjoy it.",
-            placeholderImg,
-            "2 Queen, 2 twin"               
+            "This room is almost bearable. Too bad you have kids and you won't "
+                + "be able to enjoy it.",
+            "images/rooms/luxury_family.jpg",
+            "2 Queen, 2 twin",
+            179.67
         );
         
         RoomCategory king = new RoomCategory(
             "King",
-            "The room that says, 'I'm better than everyone else, and I want them to know it.'",
-            placeholderImg,
-            "2 King"               
+            "The room that says, \"I'm better than everyone else, and I want"
+                + " them to know it.\" Includes access to a large arena where"
+                + " basic level guests battle to the death for a small sum of"
+                + "money - plus, we give you javelins to throw at the winner."
+                + " Helipad access available.",
+            "images/rooms/king.jpg",
+            "2 King",
+            259.99
         );
         
         EntityManager entityManager = HibernateUtil.getEntityManager();

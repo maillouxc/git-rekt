@@ -17,6 +17,9 @@ import javafx.scene.layout.HBox;
  * test the UI. It needs to be redesigned from the ground up.
  * 
  * Please, please, do not use this class in the final program.
+ * 
+ * We need to determine if the class is even needed, and if it is, how to make
+ * it more generalized.
  */
 public class DeletableListItem extends ListCell<RoomSearchResult> {
 

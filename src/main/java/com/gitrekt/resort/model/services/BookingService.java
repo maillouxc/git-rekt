@@ -1,14 +1,17 @@
 package com.gitrekt.resort.model.services;
 
 import com.gitrekt.resort.hibernate.HibernateUtil;
+import com.gitrekt.resort.model.RoomSearchResult;
 import com.gitrekt.resort.model.entities.BillItem;
 import com.gitrekt.resort.model.entities.Booking;
+import com.gitrekt.resort.model.entities.Room;
 import com.gitrekt.resort.model.entities.RoomCategory;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.mail.MessagingException;
@@ -302,13 +305,64 @@ public class BookingService {
         }
     }
     
-    public List<RoomCategory> getRoomTypesAvailable(
-        Date checkIn, Date checkout
+    public List<RoomSearchResult> getRoomTypesAvailable(
+        Date checkin, Date checkout
     ) {
-        // TODO
-        String queryString = "";
-        Query query = entityManager.createQuery(queryString);
-        return query.getResultList();
+        List<RoomSearchResult> results = new ArrayList<>();
+        
+        // Get the list of rooms booked during this window.
+        List<Booking> bookings = getBookingsBetweenDates(checkout, checkout);
+        List<Room> bookedRooms = new ArrayList<>();
+        bookings.forEach(
+            (booking) -> {
+                bookedRooms.addAll(booking.getBookedRooms());
+            }
+        ); 
+
+        // Get the list of rooms NOT booked during this window via exclusion
+        RoomService roomService = new RoomService();
+        List<Room> rooms = roomService.getAllRooms();
+        // Can we just talk about how beautiful this syntax is?
+        rooms.removeAll(bookedRooms);
+        
+        // And how ugly this one is? I need to get better at streams API / HQL
+        for(Room r : rooms) {
+            boolean found = false; // Whether the category is in the result list
+            for(RoomSearchResult result : results) {
+                String existingCategory = result.getRoomCategory().getName();
+                if(r.getRoomCategory().getName().equals(existingCategory)) {
+                    result.setNumAvailable(result.getNumAvailable() + 1);
+                    found = true;
+                }
+            }
+            if(!found) {
+                Double price = getCurrentPrice(r.getRoomCategory());
+                RoomSearchResult result = new RoomSearchResult(
+                    price, r.getRoomCategory(), 1
+                );
+                results.add(result);
+            }
+        }
+        return results;
+    }
+    
+    /**
+     * This method should be used instead of the getPrice() method in 
+     * roomCategory.
+     * 
+     * This should probably be handled in a better way, but it all comes down to
+     * the amount of design time available in the end, and that is a resource
+     * we are critically short on at the moment.
+     * 
+     * @param roomCategory The category of room to determine the price for.
+     * 
+     * @return The room price after pricing adjustments are taken into account.
+     */
+    public Double getCurrentPrice(RoomCategory roomCategory) {
+        Double basePrice = roomCategory.getBasePrice();
+        Double currentPrice = basePrice;
+        // TODO: Factor in capacity and other things
+        return currentPrice;
     }
     
 }
