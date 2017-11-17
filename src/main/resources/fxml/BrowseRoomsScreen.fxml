@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -16,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BrowseRoomsScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BrowseRoomsScreenController">
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <items>
@@ -27,13 +26,13 @@
                   <Image url="@../images/arrival.png" />
                </image>
             </ImageView>
-            <DatePicker promptText="Check-in Date" />
+            <DatePicker fx:id="checkInDatePicker" onAction="#onCheckInDateSelected" promptText="Check-in Date" />
             <ImageView fitHeight="45.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/departure_icon.png" />
                </image>
             </ImageView>
-            <DatePicker promptText="Check-out Date" />
+            <DatePicker fx:id="checkOutDatePicker" onAction="#onCheckOutDateSelected" promptText="Check-out Date" />
             <Separator orientation="VERTICAL" />
             <Button fx:id="findAvailableRoomsButton" mnemonicParsing="false" onAction="#onFindAvailableRoomsButtonClicked" text="Find Available Rooms" textAlignment="CENTER">
                <cursor>
@@ -45,10 +44,6 @@
          </items>
       </ToolBar>
    </top>
-   <stylesheets>
-      <URL value="@../fxcss/Master.css" />
-      <URL value="@../fxcss/BrowseRoomsScreen.css" />
-   </stylesheets>
    <left>
       <ScrollPane BorderPane.alignment="CENTER_LEFT">
          <BorderPane.margin>
@@ -68,7 +63,7 @@
                         <Font name="Segoe UI" size="13.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="currentlySelectedRoomsListView">
+                  <ListView fx:id="selectedRoomsListView">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
