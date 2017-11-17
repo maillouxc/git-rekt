@@ -8,10 +8,13 @@ public class RoomSearchResult {
     
     private final Double roomPrice;
     
-    public RoomSearchResult(double roomPrice, RoomCategory roomCategory
-    ) {
+    private int numberAvailable;
+    
+    public RoomSearchResult(double roomPrice, RoomCategory roomCategory,
+            int numAvailable) {
         this.roomCategory = roomCategory;
         this.roomPrice = roomPrice;
+        this.numberAvailable = numAvailable;
     }
     
     public RoomCategory getRoomCategory() {
@@ -20,6 +23,14 @@ public class RoomSearchResult {
     
     public Double getRoomPrice() {
         return roomPrice;
+    }
+    
+    public int getNumAvailable() {
+        return numberAvailable;
+    }
+    
+    public void setNumAvailable(int numAvailable) {
+        this.numberAvailable = numAvailable;
     }
     
 }

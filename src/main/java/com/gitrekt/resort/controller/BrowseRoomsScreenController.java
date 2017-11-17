@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -98,8 +99,12 @@ public class BrowseRoomsScreenController implements Initializable,
         // The new date api is great. Converting back and forth, not so much.
         LocalDate checkInDateTemp = checkInDatePicker.getValue();
         LocalDate checkOutDateTemp = checkOutDatePicker.getValue();
-        Instant temp1 = Instant.from(checkInDateTemp.atStartOfDay());
-        Instant temp2 = Instant.from(checkOutDateTemp.atStartOfDay());
+        Instant temp1 = Instant.from(
+            checkInDateTemp.atStartOfDay(ZoneId.systemDefault())
+        );
+        Instant temp2 = Instant.from(
+            checkOutDateTemp.atStartOfDay(ZoneId.systemDefault())
+        );
         Date checkInDate = Date.from(temp1);
         Date checkOutDate = Date.from(temp2);
         
@@ -108,13 +113,9 @@ public class BrowseRoomsScreenController implements Initializable,
         
         // Get the new results
         BookingService bookingService = new BookingService();
-        List<RoomCategory> roomTypes = 
-            bookingService.getRoomTypesAvailable(checkInDate, checkOutDate);
-        for(RoomCategory roomCategory : roomTypes) {
-            Double price = bookingService.getCurrentPrice(roomCategory);
-            RoomSearchResult result = new RoomSearchResult(price, roomCategory);
-            roomSearchResults.add(result);
-        }
+        roomSearchResults.addAll(
+            bookingService.getRoomTypesAvailable(checkInDate, checkOutDate)
+        );
     }
     
     @FXML
