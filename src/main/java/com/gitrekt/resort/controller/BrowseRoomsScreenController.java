@@ -100,11 +100,12 @@ public class BrowseRoomsScreenController implements Initializable,
     }
     
     /**
-     * Doesn't do anything at the moment, but may be needed later.
+     * Clears the results list; doesn't really need to do anything else at the 
+     * moment.
      */
     @FXML
     private void onCheckInDateSelected() {
-        // Intentionally blank.
+        roomSearchResults.clear();
     }
     
     /**
@@ -131,6 +132,7 @@ public class BrowseRoomsScreenController implements Initializable,
             checkOutDatePicker.setTooltip(null);
             findAvailableRoomsButton.setDisable(false);
         }
+        roomSearchResults.clear();
     }
     
     /**
