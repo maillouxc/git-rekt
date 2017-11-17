@@ -1,6 +1,7 @@
 package com.gitrekt.resort.model.entities;
 
 import javafx.scene.image.Image;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -26,6 +27,7 @@ public class RoomCategory {
     @Id
     private String name;
     
+    @Column(length = 1000)
     private String description;
     
     private Double basePrice;
