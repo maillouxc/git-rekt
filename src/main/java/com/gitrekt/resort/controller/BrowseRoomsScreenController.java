@@ -67,7 +67,7 @@ public class BrowseRoomsScreenController implements Initializable,
     }
     
     private void initializeDatePickers() {
-        checkInDatePicker.setDayCellFactory(
+        Callback<DatePicker, DateCell> dayCellFactory = 
             (final DatePicker datePicker) -> new DateCell() {
                 @Override
                 public void updateItem(LocalDate item, boolean empty) {
@@ -76,13 +76,15 @@ public class BrowseRoomsScreenController implements Initializable,
                     if(item.isAfter(LocalDate.now().plusYears(1))) {
                         setDisable(true);
                     }
-                    
                     if(item.isBefore(ChronoLocalDate.from(LocalDate.now()))) {
                         setDisable(true);
                     }
                 }
-            }
-        );
+            };
+        
+        // Disable selecting invalid check-in/check-out dates
+        checkInDatePicker.setDayCellFactory(dayCellFactory);
+        checkOutDatePicker.setDayCellFactory(dayCellFactory);
     }
     
     @FXML
