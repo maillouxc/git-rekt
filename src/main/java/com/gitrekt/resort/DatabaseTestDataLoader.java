@@ -14,12 +14,10 @@ import com.gitrekt.resort.model.entities.MailingAddress;
 import com.gitrekt.resort.model.entities.Package;
 import com.gitrekt.resort.model.services.GuestFeedbackService;
 import com.gitrekt.resort.model.services.RoomService;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import javafx.scene.image.Image;
 import javax.persistence.EntityManager;
 
 /**
@@ -40,10 +38,6 @@ public class DatabaseTestDataLoader {
     public static void initializeTestData() {
         
         // Populate database with data on all of the rooms available
-        
-        Image placeholderImg = new Image("/images/rooms/basic.jpg");
-        
-        List<Room> rooms = new ArrayList<>();
         
         RoomCategory basic = new RoomCategory(
             "Basic",

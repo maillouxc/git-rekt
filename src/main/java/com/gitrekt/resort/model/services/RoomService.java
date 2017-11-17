@@ -34,7 +34,7 @@ public class RoomService {
     }
     
     public List<Room> getAllRooms() {
-        String queryString = "FROM Employee"; 
+        String queryString = "FROM Room"; 
         Query q = entityManager.createQuery(queryString);        
         return q.getResultList();
     }
