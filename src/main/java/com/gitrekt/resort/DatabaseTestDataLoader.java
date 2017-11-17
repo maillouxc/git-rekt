@@ -42,7 +42,7 @@ public class DatabaseTestDataLoader {
         RoomCategory basic = new RoomCategory(
             "Basic",
             "This room is as basic as you are. Includes complimentary bedbugs and various mystery stains on the sheets. Homeless paint sniffer included free of charge.",
-            placeholderImg,
+            "images/rooms/basic.jpg",
             "Beds not provided",
             100.00
         );
@@ -50,7 +50,7 @@ public class DatabaseTestDataLoader {
         RoomCategory familyBasic = new RoomCategory(
             "Family Basic",
             "With the Family basic room, you can be treated like dirt, but now with the whole family!",
-            placeholderImg,
+            "images/rooms/family_basic.jpg",
             "2 Queen, 2 twin",
             125.99
         );
@@ -58,7 +58,7 @@ public class DatabaseTestDataLoader {
         RoomCategory luxury = new RoomCategory(
             "Luxury",
             "Because in 2017 being able to go to a resort at all is a luxury. You should be thanking us.",
-            placeholderImg,
+            "images/rooms/luxury.jpg",
             "2 Queen",
             159.99
         );
@@ -66,7 +66,7 @@ public class DatabaseTestDataLoader {
         RoomCategory luxuryFamily = new RoomCategory(
             "Luxury Family",
             "This room is almost bearable. Too bad you have kids and you won't be able to enjoy it.",
-            placeholderImg,
+            "images/rooms/luxury_family.jpg",
             "2 Queen, 2 twin",
             179.67
         );
@@ -74,7 +74,7 @@ public class DatabaseTestDataLoader {
         RoomCategory king = new RoomCategory(
             "King",
             "The room that says, 'I'm better than everyone else, and I want them to know it.'",
-            placeholderImg,
+            "images/rooms/king.jpg",
             "2 King",
             259.99
         );
