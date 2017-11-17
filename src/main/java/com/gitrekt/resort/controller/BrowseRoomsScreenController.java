@@ -15,10 +15,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.util.Callback;
 
 /**
@@ -38,6 +40,9 @@ public class BrowseRoomsScreenController implements Initializable,
     
     @FXML
     private DatePicker checkOutDatePicker;
+    
+    @FXML
+    private Button findAvailableRoomsButton;
     
     private final ObservableList<RoomSearchResult> roomSearchResults;
     
@@ -66,6 +71,13 @@ public class BrowseRoomsScreenController implements Initializable,
         initializeDatePickers();
     }
     
+    /**
+     * Ensures that the date pickers only allow selection of dates within the
+     * valid booking date range, as defined in the specifications document.
+     * 
+     * Chief among these rules is that bookings may not be placed more than one
+     * day in advance.
+     */
     private void initializeDatePickers() {
         Callback<DatePicker, DateCell> dayCellFactory = 
             (final DatePicker datePicker) -> new DateCell() {
@@ -87,16 +99,43 @@ public class BrowseRoomsScreenController implements Initializable,
         checkOutDatePicker.setDayCellFactory(dayCellFactory);
     }
     
+    /**
+     * Doesn't do anything at the moment, but may be needed later.
+     */
     @FXML
     private void onCheckInDateSelected() {
-        // TODO
+        // Intentionally blank.
     }
     
+    /**
+     * Validates the checkout date to ensure that it is at least one day after 
+     * the checkin date.
+     * 
+     * If it isn't, disables the room search button until it is.
+     */
     @FXML
     private void onCheckOutDateSelected() {
-        // TODO
+        LocalDate checkOutDate = checkOutDatePicker.getValue();
+        LocalDate checkInDate = checkInDatePicker.getValue();
+        if(checkOutDate.isBefore(checkInDate)
+            || checkOutDate.isEqual(checkInDate)) {
+            checkOutDatePicker.getStyleClass().add("invalidField");
+            checkOutDatePicker.setTooltip(
+                new Tooltip(
+                    "Checkout date cannot be on or before checkin date!"
+                )
+            );
+            findAvailableRoomsButton.setDisable(true);
+        } else {
+            checkOutDatePicker.getStyleClass().remove("invalidField");
+            checkOutDatePicker.setTooltip(null);
+            findAvailableRoomsButton.setDisable(false);
+        }
     }
     
+    /**
+     * Sorts results list by price, high to low.
+     */
     private void sortResultsByPrice() {
         roomSearchResults.sort(
             (RoomSearchResult r1, RoomSearchResult r2) -> 
@@ -104,6 +143,9 @@ public class BrowseRoomsScreenController implements Initializable,
         );
     }
     
+    /**
+     * Returns to the previous screen.
+     */
     @FXML
     private void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen(
