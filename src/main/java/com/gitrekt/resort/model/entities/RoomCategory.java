@@ -63,7 +63,7 @@ public class RoomCategory {
      * The image representing this room category, based on the file path string
      * provided when the category was created.
      */
-    public Image getImageFilePath() {
+    public Image getImage() {
         return new Image(this.imageFilePath);
     }
     
