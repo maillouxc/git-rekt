@@ -96,7 +96,9 @@ public class EmployeeService {
      */
     public void deleteEmployee(Employee e){
         try {
-            entityManager.remove(entityManager.contains(e) ? e : entityManager.merge(e));
+            entityManager.getTransaction().begin();
+            entityManager.remove(entityManager.merge(e));
+            entityManager.getTransaction().commit();
         } catch (PersistenceException ex) {
             entityManager.getTransaction().rollback();
             // TODO: Log rollback or notify user somewhere, possibly in e.
@@ -130,8 +132,7 @@ public class EmployeeService {
      *
      * @return The appropriate authenticationResult enum type.
      */
-    public AuthenticationResult authenticate(Long employeeId,
-            String plaintextPassword) {
+    public AuthenticationResult authenticate(Long employeeId, String plaintextPassword) {
         Employee employee = getEmployeeById(employeeId);
         String hashed; // The encrypted (hashed) password of the employee.
         try {
@@ -141,7 +142,6 @@ public class EmployeeService {
         }
 
         boolean passwordCorrect = BCrypt.checkpw(plaintextPassword, hashed);
-
         if(passwordCorrect) {
             return AuthenticationResult.SUCCESS;
         } else {

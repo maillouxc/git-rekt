@@ -4,6 +4,7 @@ import com.gitrekt.resort.model.entities.Employee;
 import com.gitrekt.resort.model.services.EmployeeService;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -67,9 +68,7 @@ public class StaffAccountsScreenController implements Initializable {
 
         employeeNameColumn.setCellValueFactory((param) -> {
             return new SimpleStringProperty(
-                param.getValue().getLastName()
-                    + ", "
-                    + param.getValue().getFirstName()
+                param.getValue().getLastName() + ", " + param.getValue().getFirstName()
             );
         });
 
@@ -91,11 +90,12 @@ public class StaffAccountsScreenController implements Initializable {
         fetchTableData();
     }
 
+    /**
+     * Returns to the previous screen.
+     */
     @FXML
     private void onBackButtonClicked() {
-        ScreenManager.getInstance().switchToScreen(
-            "/fxml/StaffHomeScreen.fxml"
-        );
+        ScreenManager.getInstance().switchToScreen("/fxml/StaffHomeScreen.fxml");
     }
 
     /**
@@ -114,6 +114,13 @@ public class StaffAccountsScreenController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == ButtonType.OK){
             employeeService.deleteEmployee(selectedEmployee);
+
+            // TODO REMOVE TEST CODE
+            List<Employee> employees = employeeService.getAllEmployees();
+            for(Employee employ : employees) {
+                System.out.println("After delete we found: " + employ.getId());
+            }
+
             staffAccountsList.remove(selectedEmployee);
         }
     }
@@ -134,9 +141,7 @@ public class StaffAccountsScreenController implements Initializable {
 
         dialogStage.setScene(resetPasswordDialog);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.initOwner(
-            resetEmployeePasswordButton.getScene().getWindow()
-        );
+        dialogStage.initOwner(resetEmployeePasswordButton.getScene().getWindow());
         dialogStage.setResizable(false);
         dialogStage.setTitle("Confirm");
         dialogStage.centerOnScreen();
@@ -163,13 +168,10 @@ public class StaffAccountsScreenController implements Initializable {
         Scene createStaffAccountDialog = new Scene(dialogRoot);
         dialogStage.setScene(createStaffAccountDialog);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.initOwner(
-            addNewEmployeeButton.getScene().getWindow()
-        );
+        dialogStage.initOwner(addNewEmployeeButton.getScene().getWindow());
         dialogStage.setResizable(false);
         dialogStage.setTitle("Create employee");
         dialogStage.centerOnScreen();
-
         dialogStage.show();
     }
 
@@ -177,8 +179,7 @@ public class StaffAccountsScreenController implements Initializable {
      * @return The currently selected employee in the employee table view.
      */
     private Employee getSelectedEmployee() {
-        Employee selectedEmployee =
-                staffAccountsTableView.getSelectionModel().getSelectedItem();
+        Employee selectedEmployee = staffAccountsTableView.getSelectionModel().getSelectedItem();
         return selectedEmployee;
     }
 
@@ -189,6 +190,7 @@ public class StaffAccountsScreenController implements Initializable {
     private void fetchTableData() {
         EmployeeService employeeService = new EmployeeService();
         staffAccountsList.addAll(employeeService.getAllEmployees());
+        employeeService.cleanup();
     }
 
 }
