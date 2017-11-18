@@ -50,7 +50,7 @@
             <Insets />
          </BorderPane.margin>
          <content>
-            <VBox prefWidth="215.0">
+            <VBox maxHeight="1.7976931348623157E308" prefWidth="215.0">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
@@ -63,7 +63,7 @@
                         <Font name="Segoe UI" size="13.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="selectedRoomsListView">
+                  <ListView fx:id="selectedRoomsListView" maxHeight="1.7976931348623157E308" prefHeight="500.0">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>

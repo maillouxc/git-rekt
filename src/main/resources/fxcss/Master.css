@@ -32,10 +32,15 @@
     -fx-text-fill: #FF0000;
 }
 
-.chart-legend {
-    
+.invalidField {
+    -fx-background-color: rgba(255, 0, 0, 0.5);
 }
 
-.chart-legend-item {
+.subheader {
+    -fx-font-weight: bold;
+}
 
+.bookingStatusLabel {
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
 }
