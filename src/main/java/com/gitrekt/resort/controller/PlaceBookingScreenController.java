@@ -2,16 +2,14 @@ package com.gitrekt.resort.controller;
 
 import com.gitrekt.resort.model.UsState;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -55,10 +53,7 @@ public class PlaceBookingScreenController implements Initializable {
     private TextArea specialInstructionsBox;
 
     @FXML
-    private Button finishButton;
-
-    @FXML
-    private Button backButton;
+    private Label statePickerLabel;
 
     private ObservableList<String> countries ;
 
@@ -73,13 +68,13 @@ public class PlaceBookingScreenController implements Initializable {
         initializeCountryPicker();
     }
 
-    public void onBackButtonClicked() {
-        ScreenManager.getInstance().switchToScreen(
-                "/fxml/BrowseRoomsScreen.fxml"
-        );
+    @FXML
+    private void onBackButtonClicked() {
+        ScreenManager.getInstance().switchToScreen("/fxml/BrowseRoomsScreen.fxml");
     }
 
-    public void onFinishButtonClicked() {
+    @FXML
+    private void onFinishButtonClicked() {
         // TODO
     }
 
@@ -98,7 +93,13 @@ public class PlaceBookingScreenController implements Initializable {
     }
 
     public void onCountryPicked() {
-        // TODO: If country is US, show state picker (and it's associated label)
+        if(countryPicker.getValue().equals("United States")) {
+            statePicker.setVisible(true);
+            statePickerLabel.setVisible(true);
+        } else {
+            statePicker.setVisible(false);
+            statePickerLabel.setVisible(false);
+        }
     }
 
     public void initializeStatePicker() {
@@ -107,5 +108,7 @@ public class PlaceBookingScreenController implements Initializable {
             states.add(state.getUnabbreviated());
         }
         statePicker.setItems(states);
+        statePicker.setVisible(false);
+        statePickerLabel.setVisible(false);
     }
 }
