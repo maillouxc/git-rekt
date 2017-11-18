@@ -23,10 +23,10 @@ public class Booking {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private Guest guest;
-    
+
     @Temporal(TemporalType.DATE)
     private Date checkInDate;
-    
+
     @Temporal(TemporalType.DATE)
     private Date checkOutDate;
 
@@ -35,14 +35,14 @@ public class Booking {
 
     private String specialInstructions;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Package> packages;
 
     @OneToMany(cascade = CascadeType.MERGE)
     private List<Room> bookedRooms;
-    
+
     private boolean isCanceled = false;
-    
+
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private Date createdDate;
@@ -55,7 +55,7 @@ public class Booking {
     }
 
     public Booking(Guest guest, Date checkInDate, Date checkOutDate, Bill bill,
-            String specialInstructions, List<Package> packages, 
+            String specialInstructions, List<Package> packages,
             List<Room> bookedRooms) {
 
         this.guest = guest;
@@ -90,15 +90,15 @@ public class Booking {
     public List<Room> getBookedRooms() {
         return bookedRooms;
     }
-    
+
     public boolean isCanceled() {
         return isCanceled;
     }
-    
+
     public Date getCreatedDate() {
         return createdDate;
     }
-    
+
     public void setCanceled(boolean canceled) {
         this.isCanceled = canceled;
     }
@@ -106,14 +106,14 @@ public class Booking {
     public Guest getGuest() {
         return guest;
     }
-    
+
     /**
      * @return The booking id, which is currently being used as the confirmation
-     * number until a scheme for generating confirmation numbers in the 
+     * number until a scheme for generating confirmation numbers in the
      * database can be properly devised.
      */
     public Long getId() {
         return this.id;
     }
-    
+
 }
