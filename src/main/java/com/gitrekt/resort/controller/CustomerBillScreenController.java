@@ -47,8 +47,6 @@ public class CustomerBillScreenController implements Initializable {
 
     private ObservableList<BillItem> billItems;
 
-    private BookingDetailsScreenController parentController;
-
     /**
      * Initializes the controller class.
      */
@@ -87,21 +85,15 @@ public class CustomerBillScreenController implements Initializable {
     }
 
     /**
-     * This isn't the ideal OOP way to do this, but it works, and it's a quick way to ensure that
-     * the back button retains data from the previous screen when clicked.
-     *
-     * @param parentController A reference to the parent screen controller class.
-     */
-    public void setParentControllerReference(BookingDetailsScreenController parentController) {
-        this.parentController = parentController;
-    }
-
-    /**
      * Returns to the previous screen, and passes a reference to the relevant booking data.
+     *
+     * I don't like that this class needs to know about it's parent screen, but this is the
+     * simplest and fastest way to implement it.
      */
     @FXML
     private void onBackButtonClicked() {
-        ScreenManager.getInstance().switchToScreen("/fxml/BookingDetailsScreen.fxml");
+        Object temp = ScreenManager.getInstance().switchToScreen("/fxml/BookingDetailsScreen.fxml");
+        BookingDetailsScreenController parentController = (BookingDetailsScreenController) temp;
         parentController.intializeBookingData(this.booking);
     }
 
