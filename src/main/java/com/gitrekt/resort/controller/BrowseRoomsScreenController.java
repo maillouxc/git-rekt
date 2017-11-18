@@ -187,6 +187,7 @@ public class BrowseRoomsScreenController implements Initializable {
 
         // Clear any existing results
         roomSearchResults.clear();
+        selectedRooms.clear();
 
         // Get the new results
         BookingService bookingService = new BookingService();
