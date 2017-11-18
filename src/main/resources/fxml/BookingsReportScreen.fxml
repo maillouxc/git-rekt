@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -11,27 +11,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BookingsReportScreenController">
+<AnchorPane stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BookingsReportScreenController">
    <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../fxcss/Master.css">
+            <VBox fx:id="categorySpinner" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="830.0" prefWidth="1000.0" stylesheets="@../fxcss/Master.css">
                <children>
-                  <StackedBarChart fx:id="barChart" categoryGap="5.0" prefHeight="700.0" title="Bookings">
+                  <LineChart fx:id="lineChart" prefHeight="700.0" title="Booking Percentages By Room Category">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis autoRanging="false" label="Percentage" minorTickCount="2" side="LEFT" />
+                      <NumberAxis autoRanging="false" label="Percent Booked" side="LEFT" />
                     </yAxis>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
                      <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </VBox.margin>
-                  </StackedBarChart>
-                  <Label fx:id="monthYearLabel" text="October, 2017">
+                  </LineChart>
+                  <Label fx:id="monthYearLabel" text="Current Month" textFill="WHITE">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
@@ -40,9 +37,7 @@
                      <children>
                         <Button fx:id="previousMonthButton" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onPreviousMonthButtonClicked" prefWidth="110.0" text="Previous Month" />
                         <Separator orientation="VERTICAL" />
-                        <Button fx:id="selectMonthButton" mnemonicParsing="false" onAction="#onSelectMonthButtonClicked" prefWidth="100.0" text="Select Month" />
-                        <Separator orientation="VERTICAL" />
-                        <Button fx:id="nextMonthButton" mnemonicParsing="false" onAction="#onNextMonthButtonClicked" prefWidth="100.0" text="Next Month" />
+                        <Button fx:id="nextMonthButton" mnemonicParsing="false" onAction="#onNextMonthButtonClicked" prefWidth="110.0" text="Next Month" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

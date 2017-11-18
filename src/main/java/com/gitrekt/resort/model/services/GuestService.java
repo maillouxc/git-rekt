@@ -23,6 +23,13 @@ public class GuestService {
         super.finalize();
         this.entityManager.close();
     }
+    
+    /**
+     * Forcefully closes the entityManager for this service.
+     */
+    public void cleanup() {
+        entityManager.close();
+    }
 
     public List<Guest> getCurrentlyCheckedInGuests() {
         String query = "FROM Guest WHERE isCheckedIn = :param";

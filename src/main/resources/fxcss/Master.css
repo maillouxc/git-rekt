@@ -31,3 +31,16 @@
 .validationErrorText {
     -fx-text-fill: #FF0000;
 }
+
+.invalidField {
+    -fx-background-color: rgba(255, 0, 0, 0.5);
+}
+
+.subheader {
+    -fx-font-weight: bold;
+}
+
+.bookingStatusLabel {
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
+}
