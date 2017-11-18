@@ -154,7 +154,6 @@ public class BookingDetailsScreenController implements Initializable {
         // Fix LazyInitializationException by forcing initialization here with println
         System.out.println(this.booking.toString());
         controller.initializeData(this.booking);
-        controller.setParentControllerReference(this);
     }
 
     /**
