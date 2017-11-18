@@ -4,6 +4,7 @@ import com.gitrekt.resort.model.entities.Employee;
 import com.gitrekt.resort.model.services.EmployeeService;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,7 +15,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -53,7 +57,7 @@ public class StaffAccountsScreenController implements Initializable {
     
     
     private ObservableList<Employee> staffAccountList;
-    
+ 
     /**
      * Initializes the controller class.
      */
@@ -107,7 +111,19 @@ public class StaffAccountsScreenController implements Initializable {
     @FXML
     private void onRemoveEmployeeButtonClicked() {
         Employee selectedEmployee = getSelectedEmployee();
-        // TODO: Display dialog to delete employee account.
+        EmployeeService employeeService = new EmployeeService();
+        
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Remove Employee Confirmation");
+        alert.setHeaderText("Warning");
+        alert.setContentText("Do you wish to remove selected employee?");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            employeeService.deleteEmployee(selectedEmployee);
+        }else{
+            alert.close();
+        }
     }
     
     /**
