@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.PlaceBookingScreenController">
+<AnchorPane stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.PlaceBookingScreenController">
    <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -104,7 +104,7 @@
                               <TextField fx:id="addressLine1Field" prefHeight="25.0" prefWidth="350.0" promptText="Enter street address line 1" GridPane.columnIndex="1" />
                               <TextField fx:id="addressLine2Field" prefHeight="25.0" prefWidth="350.0" promptText="Enter street address line 2 (optional)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Country:" GridPane.columnIndex="2" />
-                              <Label text="State:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Label fx:id="statePickerLabel" text="State:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <ComboBox fx:id="countryPicker" onAction="#onCountryPicked" prefHeight="25.0" prefWidth="150.0" promptText="Select Country" GridPane.columnIndex="3" />
                               <ComboBox fx:id="statePicker" prefWidth="150.0" promptText="Select State" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                               <Label text="City:" GridPane.rowIndex="2" />

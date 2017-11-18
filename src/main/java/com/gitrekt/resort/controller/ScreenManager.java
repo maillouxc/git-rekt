@@ -13,12 +13,12 @@ public class ScreenManager {
     
     private static Stage mainStage;
     
-    private final FXMLLoader fxmlLoader;
+    private FXMLLoader fxmlLoader;
     
     private static ScreenManager instance;
     
     private ScreenManager() {
-        fxmlLoader = new FXMLLoader();
+        //fxmlLoader = new FXMLLoader();
     }
     
     /**
@@ -48,19 +48,23 @@ public class ScreenManager {
     
     /**
      * @param fxmlPath The path to the FXML file of the screen to switch to.
+     * 
+     * @return The FXML controller of the new scene.
      */
-    public void switchToScreen(String fxmlPath) {
+    public Object switchToScreen(String fxmlPath) {
         Parent newScreenRoot;
         
         try {
             URL pathToFxml = getClass().getResource(fxmlPath);
-            newScreenRoot = fxmlLoader.load(pathToFxml);
+            fxmlLoader = new FXMLLoader(pathToFxml);
+            newScreenRoot = fxmlLoader.load();
         } catch (IOException e) {
             throw new IllegalArgumentException("Failed to load FXML", e);
         }
         
         mainStage.getScene().setRoot(newScreenRoot);
         mainStage.setMaximized(true);
+        return fxmlLoader.getController();
     }
     
     /**

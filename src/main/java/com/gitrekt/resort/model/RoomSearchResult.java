@@ -1,37 +1,36 @@
 package com.gitrekt.resort.model;
 
 import com.gitrekt.resort.model.entities.RoomCategory;
-import java.math.BigDecimal;
 
-/**
- * TODO: Document entire class.
- */
 public class RoomSearchResult {
     
-    private String roomNumber;
+    private final RoomCategory roomCategory;
     
-    private BigDecimal roomPrice;
+    private final Double roomPrice;
     
-    private RoomCategory roomCategory;
+    private int numberAvailable;
     
-    public RoomSearchResult(
-        String roomNumber, BigDecimal roomPrice, RoomCategory roomCategory
-    ) {
-        this.roomNumber = roomNumber;
-        this.roomPrice = roomPrice;
+    public RoomSearchResult(double roomPrice, RoomCategory roomCategory,
+            int numAvailable) {
         this.roomCategory = roomCategory;
+        this.roomPrice = roomPrice;
+        this.numberAvailable = numAvailable;
     }
     
     public RoomCategory getRoomCategory() {
         return roomCategory;
     }
     
-    public BigDecimal getRoomPrice() {
+    public Double getRoomPrice() {
         return roomPrice;
     }
     
-    public String getRoomNumber() {
-        return roomNumber;
+    public int getNumAvailable() {
+        return numberAvailable;
+    }
+    
+    public void setNumAvailable(int numAvailable) {
+        this.numberAvailable = numAvailable;
     }
     
 }
