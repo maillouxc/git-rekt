@@ -39,7 +39,7 @@ public class StaffLoginDialogController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // Intentionally blank.
     }
 
     /**
@@ -53,7 +53,7 @@ public class StaffLoginDialogController implements Initializable {
     /**
      * Authenticates the user and takes appropriate action.
      *
-     * @throws IOException because I'm too lazy to fix it right now
+     * @throws IOException
      */
     public void onLoginButtonClicked() throws IOException {
         // Hide any previously displayed errors
@@ -69,8 +69,7 @@ public class StaffLoginDialogController implements Initializable {
         EmployeeService employeeService = new EmployeeService();
         Long id = new Long(employeeIdField.getText());
         String password = passwordField.getText();
-        AuthenticationResult authResult
-                = employeeService.authenticate(id, password);
+        AuthenticationResult authResult = employeeService.authenticate(id, password);
         switch(authResult) {
             case SUCCESS:
                 Employee loggedInEmployee = employeeService.getEmployeeById(id);
@@ -87,11 +86,12 @@ public class StaffLoginDialogController implements Initializable {
         employeeService.cleanup();
     }
 
+    /**
+     * Should be called after a successful authentication.
+     */
     private void showStaffHomeScreen() {
         Stage dialogStage = (Stage) loginButton.getScene().getWindow();
-        ScreenManager.getInstance().switchToScreen(
-            "/fxml/StaffHomeScreen.fxml"
-        );
+        ScreenManager.getInstance().switchToScreen("/fxml/StaffHomeScreen.fxml");
         dialogStage.close();
     }
 
