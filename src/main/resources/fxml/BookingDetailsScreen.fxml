@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BookingDetailsScreenController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BookingDetailsScreenController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="600.0" stylesheets="@../fxcss/Master.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" layoutX="5.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="600.0" stylesheets="@../fxcss/Master.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
             <Label styleClass="screenHeader" text="Booking Details" textAlignment="CENTER">
                <font>
@@ -54,7 +54,7 @@
                   <HBox alignment="CENTER" spacing="10.0">
                      <children>
                         <Label text="Check-out Date:" />
-                        <Label text="Label" />
+                        <Label fx:id="checkOutDateLabel" text="Label" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -68,12 +68,13 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <Label styleClass="sectionHeading" text="Booked Rooms">
+            <Label fx:id="bookingCanceledLabel" focusTraversable="false" styleClass="bookingStatusLabel" text="Booking Canceled" visible="false" />
+            <Label styleClass="subheader" text="Booked Rooms">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="bookedRoomsTableView" maxWidth="-Infinity" prefHeight="200.0" prefWidth="600.0">
+            <TableView fx:id="bookedRoomsTableView" maxWidth="-Infinity" prefWidth="600.0">
               <columns>
                 <TableColumn fx:id="roomNumberColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="Room #" />
                 <TableColumn fx:id="roomCategoryColumn" editable="false" minWidth="-Infinity" prefWidth="600.0" text="Category" />
@@ -82,15 +83,15 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TableView>
-            <Label styleClass="sectionHeading" text="Booked Packages">
+            <Label styleClass="subheader" text="Booked Packages">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="20.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="bookedPackagesTableView" maxWidth="-Infinity" prefHeight="200.0" prefWidth="600.0">
+            <TableView fx:id="bookedPackagesTableView" maxWidth="-Infinity" prefWidth="600.0">
               <columns>
-                <TableColumn fx:id="packageNameColumn" editable="false" prefWidth="79.0" text="Name" />
-                <TableColumn fx:id="packageQuantityColumn" editable="false" minWidth="-Infinity" prefWidth="600.0" text="Quantity" />
+                <TableColumn fx:id="packageNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="500.0" prefWidth="-1.0" text="Name" />
+                <TableColumn fx:id="packageQuantityColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" resizable="false" text="Quantity" />
               </columns>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
