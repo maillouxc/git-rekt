@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
+import javax.persistence.EntityNotFoundException;
 
 /**
  * FXML Controller class for the guest home screen.
@@ -50,12 +51,27 @@ public class GuestHomeScreenController implements Initializable {
         if(result.isPresent()) {
             Long bookingId = Long.valueOf(result.get());
             BookingService bookingService = new BookingService();
+            try {
+                Booking booking = bookingService.getBookingById(bookingId);
+                // Force loading of booking from DB (because of lazy loading)
+                System.out.println(booking.toString());
+                Object temp = ScreenManager.getInstance().switchToScreen(
+                    "/fxml/BookingDetailsScreen.fxml"
+                );
+                BookingDetailsScreenController controller = (BookingDetailsScreenController) temp;
+                controller.intializeBookingData(booking);
+            } catch (EntityNotFoundException e) {
+                return;
+            }
             Booking booking = bookingService.getBookingById(bookingId);
-            Object temp = ScreenManager.getInstance().switchToScreen(
-                "/fxml/BookingDetailsScreen.fxml"
-            );
-            BookingDetailsScreenController controller = (BookingDetailsScreenController) temp;
-            controller.intializeBookingData(booking);
+            if(booking != null) {
+                Object temp = ScreenManager.getInstance().switchToScreen(
+                    "/fxml/BookingDetailsScreen.fxml"
+                );
+                BookingDetailsScreenController controller = (BookingDetailsScreenController) temp;
+                controller.intializeBookingData(booking);
+            }
+
         }
     }
 }
