@@ -17,6 +17,6 @@
             </Label>
          </children>
       </HBox>
-      <ListView fx:id="listOfPackages" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+      <ListView fx:id="listOfPackages" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>
