@@ -42,6 +42,9 @@ public class BrowseRoomsScreenController implements Initializable {
 
     @FXML
     private Button findAvailableRoomsButton;
+    
+    @FXML
+    private Button addPackageButton;
 
     private final ObservableList<RoomSearchResult> roomSearchResults;
 
@@ -171,8 +174,13 @@ public class BrowseRoomsScreenController implements Initializable {
     private void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen("/fxml/GuestHomeScreen.fxml");
     }
-
-    /**
+  
+     @FXML
+    private void onAddPackageButtonClicked() {
+        ScreenManager.getInstance().switchToScreen("/fxml/PackageScreen.fxml");
+    }
+    
+     /**
      * Searches the database for rooms that are available in the given date range.
      */
     @FXML
