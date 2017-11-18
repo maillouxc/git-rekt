@@ -136,7 +136,7 @@ public class DatabaseTestDataLoader {
         Package package2 = new Package("Basement tour", 10.00);
         Package package3 = new Package("Drug cartel abduction experience", 650.00);
         Package package4 = new Package("Surfing with sharks", 580.99);
-
+        
         entityManager.persist(package1);
         entityManager.persist(package2);
         entityManager.persist(package3);
@@ -198,10 +198,8 @@ public class DatabaseTestDataLoader {
 
         Calendar testCalendar = new GregorianCalendar();
         Date d1 = new Date();
-        System.out.println(d1);
         testCalendar.add(Calendar.DAY_OF_MONTH, 3);
         Date d2 = testCalendar.getTime();
-        System.out.println(d2);
 
         PackageService packageService = new PackageService();
         List<Package> allPackages = packageService.getAllPackages();
