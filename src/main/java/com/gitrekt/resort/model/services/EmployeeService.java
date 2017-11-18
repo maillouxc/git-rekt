@@ -14,11 +14,13 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class EmployeeService {
 
+    // I know the security of this sucks horribly but that's not the point of this project.
+    public static boolean isManagerLoggedIn = false;
+
     private final EntityManager entityManager;
 
     /**
-     * This is an enum to allow for future possible values such as handling
-     * expired passwords, etc.
+     * This is an enum to allow for future possible values such as handling expired passwords, etc.
      */
     public enum AuthenticationResult {
         SUCCESS,
@@ -26,8 +28,7 @@ public class EmployeeService {
     }
 
     /**
-     * Creates an instance of the service class, along with it's associated
-     * Hibernate entityManager.
+     * Creates an instance of the service class, along with it's associated Hibernate entityManager.
      */
     public EmployeeService(){
         this.entityManager = HibernateUtil.getEntityManager();
@@ -47,9 +48,8 @@ public class EmployeeService {
     /**
      * Closes the database connection held by this instance.
      *
-     * Normally called by finalize, but in cases where the garbage collector
-     * has not yet run, that may not be sufficient, resulting in a need for this
-     * type of method.
+     * Normally called by finalize, but in cases where the garbage collector has not yet run, that
+     * may not be sufficient, resulting in a need for this type of method.
      */
     public void cleanup() {
         this.entityManager.close();
@@ -58,9 +58,8 @@ public class EmployeeService {
     /**
      * @param employeeId The id of the employee to retrieve.
      *
-     * @return The employee object, if found. If not found, accessing the object
-     * will throw a EntityNotFoundException due to the lazy-loading behavior of
-     * Hibernate.
+     * @return The employee object, if found. If not found, accessing the object will throw a
+     * EntityNotFoundException due to the lazy-loading behavior of Hibernate.
      */
     public Employee getEmployeeById(Long employeeId){
         Employee employee = entityManager.getReference(Employee.class, employeeId);
@@ -71,11 +70,9 @@ public class EmployeeService {
      * @return A list of all employee accounts in the system.
      */
     public List<Employee> getAllEmployees(){
-        String queryString =
-            "FROM Employee";
+        String queryString = "FROM Employee";
         Query q = entityManager.createQuery(queryString);
-        List<Employee> results = q.getResultList();
-        return results;
+        return q.getResultList();
     }
 
     public void createEmployeeAccount(Employee employee){
