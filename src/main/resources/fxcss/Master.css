@@ -6,7 +6,7 @@
  */
 
 .root {
-    -fx-background-color: linear-gradient( rgb(204, 228, 252), rgb(3, 67, 131));
+    -fx-background-color: powderblue;
     -fx-font-family: "Sans Serif";
     -fx-pref-width: 1000;
     -fx-pref-height: 800;
