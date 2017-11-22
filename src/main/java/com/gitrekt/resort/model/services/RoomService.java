@@ -71,4 +71,6 @@ public class RoomService {
         // TODO: Factor in capacity and other things
         return currentPrice;
     }
+
+
 }

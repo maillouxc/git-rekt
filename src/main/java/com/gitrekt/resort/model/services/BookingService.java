@@ -47,16 +47,6 @@ public class BookingService {
         this.entityManager.close();
     }
 
-    /**
-     * Stores a new booking in the database.
-     *
-     * Currently handles no other business logic besides this simple store operation. This could
-     * change in the future before v1.0 release, before the service interface is locked down.
-     *
-     * Also sends a confirmation email to the user with the booking number for future reference.
-     *
-     * @param booking The booking object to persist to the data store.
-     */
     public void createBooking(Booking booking) {
         BillService billService = new BillService();
         try {
@@ -288,29 +278,19 @@ public class BookingService {
         }
     }
 
-    public List<RoomSearchResult> getRoomTypesAvailable(
-        Date checkin, Date checkout
-    ) {
-        List<RoomSearchResult> results = new ArrayList<>();
-
-        // Get the list of rooms booked during this window.
-        List<Booking> bookings = getBookingsBetweenDates(checkout, checkout);
-        List<Room> bookedRooms = new ArrayList<>();
-        bookings.forEach(
-            (booking) -> {
-                bookedRooms.addAll(booking.getBookedRooms());
-            }
-        );
-
-        // Get the list of rooms NOT booked during this window via exclusion
+    /**
+     * @param checkin The desired checkin date.
+     * @param checkout The desired checkout date.
+     *
+     * @return A list of RoomSearchResult objects containing info about the available room types
+     * during the provided date range.
+     */
+    public List<RoomSearchResult> getRoomTypesAvailable(Date checkin, Date checkout) {
         RoomService roomService = new RoomService();
-        List<Room> rooms = roomService.getAllRooms();
-        // Can we just talk about how beautiful this syntax is?
-        rooms.removeAll(bookedRooms);
-
-        // And how ugly this one is? I need to get better at streams API / HQL
+        List<RoomSearchResult> results = new ArrayList<>();
+        List<Room> rooms = getAvailableRoomsBetweenDates(checkin, checkout);
         for(Room r : rooms) {
-            boolean found = false; // Whether the category is in the result list
+            boolean found = false; // Whether the room's category is in the result list already
             for(RoomSearchResult result : results) {
                 String existingCategory = result.getRoomCategory().getName();
                 if(r.getRoomCategory().getName().equals(existingCategory)) {
@@ -325,6 +305,38 @@ public class BookingService {
             }
         }
         return results;
+    }
+
+    /**
+     * @param start The start date of the availability window.
+     * @param end The end date of the availability window.
+     *
+     * @return The list of rooms that are not booked during the given date window.
+     */
+    public List<Room> getAvailableRoomsBetweenDates(Date start, Date end) {
+        RoomService roomService = new RoomService();
+        List<Room> bookedRooms = getRoomsBookedBetweenDates(start, end);
+        List<Room> rooms = roomService.getAllRooms();
+        rooms.removeAll(bookedRooms);
+        return rooms;
+    }
+
+    /**
+     * @param start The start date of the availability window.
+     * @param end The end date of the availability window.
+     *
+     * @return The list of rooms that are booked during the given date window.
+     */
+    public List<Room> getRoomsBookedBetweenDates(Date start, Date end) {
+        List<Booking> bookings = getBookingsBetweenDates(start, end);
+        List<Room> bookedRooms = new ArrayList<>();
+        // This could potentially add duplicates but that should not be an issue for now
+        bookings.forEach(
+            (booking) -> {
+                bookedRooms.addAll(booking.getBookedRooms());
+            }
+        );
+        return bookedRooms;
     }
 
 }

@@ -20,8 +20,6 @@ public class Guest {
 
     private String emailAddress;
 
-    private String phoneNumber;
-
     @OneToOne (cascade = CascadeType.ALL)
     private MailingAddress mailingAddress;
 
@@ -34,12 +32,11 @@ public class Guest {
         // REQUIRED BY HIBERNATE
     }
 
-    public Guest(String firstName, String lastName, String emailAddress, String phoneNumber,
+    public Guest(String firstName, String lastName, String emailAddress,
             MailingAddress mailingAddress) {
         this.emailAddress = emailAddress;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
         this.mailingAddress = mailingAddress;
     }
 
@@ -75,14 +72,6 @@ public class Guest {
         this.mailingAddress = mailingAddress;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNUmber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public void setCheckedIn(boolean checkedIn) {
         this.isCheckedIn = checkedIn;
     }
@@ -108,9 +97,6 @@ public class Guest {
             return false;
         }
         else if(this.emailAddress.equals(obj2.emailAddress)){
-            return false;
-        }
-        else if(this.phoneNumber.equals(obj2.phoneNumber)){
             return false;
         }
         else{

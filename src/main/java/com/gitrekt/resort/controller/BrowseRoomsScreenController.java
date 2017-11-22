@@ -1,6 +1,8 @@
 package com.gitrekt.resort.controller;
 
 import com.gitrekt.resort.model.RoomSearchResult;
+import com.gitrekt.resort.model.entities.Package;
+import com.gitrekt.resort.model.entities.RoomCategory;
 import com.gitrekt.resort.model.services.BookingService;
 import com.gitrekt.resort.view.BrowseRoomsListItem;
 import com.gitrekt.resort.view.SelectedRoomListItem;
@@ -10,6 +12,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +46,7 @@ public class BrowseRoomsScreenController implements Initializable {
 
     @FXML
     private Button findAvailableRoomsButton;
-    
+
     @FXML
     private Button addPackageButton;
 
@@ -174,12 +178,12 @@ public class BrowseRoomsScreenController implements Initializable {
     private void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen("/fxml/GuestHomeScreen.fxml");
     }
-  
+
      @FXML
     private void onAddPackageButtonClicked() {
         ScreenManager.getInstance().switchToScreen("/fxml/PackageScreen.fxml");
     }
-    
+
      /**
      * Searches the database for rooms that are available in the given date range.
      */
@@ -206,7 +210,23 @@ public class BrowseRoomsScreenController implements Initializable {
     private void onNextButtonClicked() {
         // TODO replace with the packages screen first - this is temporary
         if(selectedRooms.size() > 0) {
-            ScreenManager.getInstance().switchToScreen("/fxml/PlaceBookingScreen.fxml");
+            Object temp = ScreenManager.getInstance().switchToScreen(
+                "/fxml/PlaceBookingScreen.fxml"
+            );
+            PlaceBookingScreenController controller = (PlaceBookingScreenController) temp;
+
+            Map<RoomCategory, Integer> roomsData = new HashMap<>();
+            Map<Package, Integer> packagesData = new HashMap<>();
+            LocalDate checkInDate = checkInDatePicker.getValue();
+            LocalDate checkOutDate = checkOutDatePicker.getValue();
+
+            for(RoomSearchResult r : roomSearchResults) {
+                // Java 8 amazes me sometimes with how much better it is
+                roomsData.merge(r.getRoomCategory(), 1, Integer::sum);
+            }
+            // TODO: Handle packages
+
+            controller.initializeData(roomsData, packagesData, checkInDate, checkOutDate);
         }
     }
 
