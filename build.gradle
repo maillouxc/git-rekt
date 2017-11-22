@@ -8,7 +8,7 @@ plugins {
     id 'com.gradle.build-scan' version '1.9'
 }
 
-version = '0.6'
+version = '0.7'
 
 // This is the coolest way I have ever not read the terms of service.
 // To view the build scan when you build the project, open the command prompt
@@ -21,6 +21,7 @@ buildScan {
     }
 }
 
+// I'm aware that this doesn't work, it just isn't a priority right now.
 task incrementBuildNumber (dependsOn: build) {
     doLast {
         if(System.getenv('CI')) {
