@@ -72,5 +72,14 @@ public class RoomService {
         return currentPrice;
     }
 
+    public RoomCategory getRoomCategoryByName(String categoryName) {
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        String queryString = "FROM RoomCategory WHERE name = :categoryName";
+        Query q = entityManager.createQuery(queryString);
+        q.setParameter("categoryName", categoryName);
+        RoomCategory result = (RoomCategory) q.getSingleResult();
+        entityManager.close();
+        return result;
+    }
 
 }
