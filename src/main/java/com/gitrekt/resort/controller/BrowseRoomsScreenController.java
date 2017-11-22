@@ -39,6 +39,9 @@ public class BrowseRoomsScreenController implements Initializable {
     private ListView<RoomSearchResult> selectedRoomsListView;
 
     @FXML
+    private ListView<Package> packagesListView;
+
+    @FXML
     private DatePicker checkInDatePicker;
 
     @FXML
@@ -54,9 +57,15 @@ public class BrowseRoomsScreenController implements Initializable {
 
     private final ObservableList<RoomSearchResult> selectedRooms;
 
+    private final ObservableList<Package> availablePackages;
+
+    private final ObservableList<Package> selectedPackages;
+
     public BrowseRoomsScreenController() {
         roomSearchResults = FXCollections.observableArrayList();
         selectedRooms = FXCollections.observableArrayList();
+        availablePackages = FXCollections.observableArrayList();
+        selectedPackages = FXCollections.observableArrayList();
     }
 
     @Override
@@ -74,6 +83,8 @@ public class BrowseRoomsScreenController implements Initializable {
         selectedRoomsListView.setItems(selectedRooms);
         selectedRoomsListView.setPlaceholder(new Label("No rooms selected"));
         initializeDatePickers();
+
+
     }
 
     /**
