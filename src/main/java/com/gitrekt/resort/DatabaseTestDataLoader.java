@@ -122,10 +122,10 @@ public class DatabaseTestDataLoader {
         }
 
         // Generate package data.
-        Package package1 = new Package("Loch-Ness monster viewing", 3.50);
-        Package package2 = new Package("Basement tour", 10.00);
-        Package package3 = new Package("Drug cartel abduction experience", 650.00);
-        Package package4 = new Package("Surfing with sharks", 580.99);
+        Package package1 = new Package("Loch-Ness monster viewing", 3.50, "images/packages/loch_ness_monster.jpg", "We're gonna need about tree fiddy.");
+        Package package2 = new Package("Basement tour", 10.00, "images/packages/crappy_basement.jpg", "Experience the thrills of the boiler room on our expertly guided tour.");
+        Package package3 = new Package("Drug cartel abduction experience", 650.00, "images/packages/cartel_abduction.jpg", "Ever dreamed of being ransomed by an international drug cartel? Of course you have. Now's your change to live the dreamm, with this package.");
+        Package package4 = new Package("Surfing with sharks", 580.99, "images/packages/shark.jpg", "Shark cooperation not guaranteed.");
 
         entityManager.persist(package1);
         entityManager.persist(package2);

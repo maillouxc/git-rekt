@@ -1,5 +1,6 @@
 package com.gitrekt.resort.model.entities;
 
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,10 @@ public class Package {
 
     private double pricePerPerson;
 
+    private String imagePath;
+
+    private String description;
+
     /**
      * DO NOT CALL THIS CONSTRUCTOR. IT IS MEANT FOR USE ONLY BY HIBERNATE
      */
@@ -23,9 +28,11 @@ public class Package {
         // REQUIRED BY HIBERNATE
     }
 
-    public Package(String name, double pricePerPerson){
+    public Package(String name, double pricePerPerson, String imagePath, String description) {
         this.name = name;
         this.pricePerPerson = pricePerPerson;
+        this.imagePath = imagePath;
+        this.description = description;
     }
 
     public Long getId() {
@@ -40,23 +47,41 @@ public class Package {
         return pricePerPerson;
     }
 
-    /**
-     * Calculates Package equality based on database ID and package name. Does NOT account for
-     * package price per person in it's equality calculations.
-     *
-     * @param obj The object to compare against.
-     *
-     * @return True if the two packages are equal.
-     */
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
     @Override
     public boolean equals(Object obj) {
-        Package p = (Package) obj;
-        if(!name.equals(p.getName())) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        if(id != p.getId()) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Package other = (Package) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+
 }
