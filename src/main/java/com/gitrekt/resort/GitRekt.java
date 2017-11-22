@@ -33,7 +33,7 @@ public class GitRekt extends Application {
         Image appLogo = new Image("images/Logo.png");
         mainStage.getIcons().add(appLogo);
         mainStage.setTitle("Git-Rektsort Booking Software");
-
+        mainStage.setMaximized(true);
         mainStage.show();
 
         GuestService guestService = new GuestService();
