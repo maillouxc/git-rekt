@@ -1,62 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="packageImage" fitHeight="130.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="packageImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" smooth="false">
          <HBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </HBox.margin>
          <image>
-            <Image url="@../images/rooms/family_basic.jpg" />
+            <Image url="@../images/packages/cartel_abduction.jpg" />
          </image>
       </ImageView>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="440.0">
+      <AnchorPane>
+         <HBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </HBox.margin>
          <children>
-            <HBox>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="packageTitle" text="Package Title">
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="pricePerPerson" text="Price">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label text="/Person" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" spacing="100.0">
-               <children>
-                  <Label fx:id="packageDescription" text="Description" />
-               </children>
-            </HBox>
-            <HBox prefHeight="40.0" spacing="200.0">
-               <children>
-                  <HBox prefHeight="100.0">
+                  <HBox spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-" />
-                        <Label fx:id="totalPrice" text="Total Price">
+                        <Label fx:id="packageNameLabel" text="Package Name">
                            <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
+                              <Insets />
                            </HBox.margin>
                         </Label>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+" />
+                        <Label layoutX="15.0" layoutY="15.0" text="|" />
+                        <Label fx:id="packagePriceLabel" text="Package Price (each)">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
                      </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </HBox>
-                  <Button mnemonicParsing="false" text="Add Package" />
+                  <HBox>
+                     <children>
+                        <Label fx:id="packageDescription" text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo." wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
                </children>
-            </HBox>
+            </VBox>
+            <Spinner fx:id="packageQtySpinner" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
          </children>
-      </VBox>
+      </AnchorPane>
    </children>
 </HBox>
