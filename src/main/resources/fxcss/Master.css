@@ -30,6 +30,10 @@
     -fx-cursor: hand;
 }
 
+.button:focused {
+    -fx-underline: true;
+}
+
 .validationErrorText {
     -fx-text-fill: #FF0000;
 }
