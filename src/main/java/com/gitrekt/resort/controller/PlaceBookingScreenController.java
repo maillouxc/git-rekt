@@ -28,6 +28,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javax.persistence.NoResultException;
 
 /**
  * FXML Controller class for the screen where the user enters their name and other relevant info
@@ -119,15 +120,15 @@ public class PlaceBookingScreenController implements Initializable {
         boolean validInput = validateInput();
         if(validInput) {
             // Gather the form data
-            String firstName = firstNameField.getText();
-            String lastName = lastNameField.getText();
-            String email = emailField.getText();
-            String addressLine1 = addressLine1Field.getText();
-            String addressLine2 = addressLine2Field.getText();
-            String city = cityField.getText();
-            String country = countryPicker.getValue();
-            String postalCode = postalCodeField.getText();
-            String specialInstructions = specialInstructionsBox.getText();
+            String firstName = firstNameField.getText().trim();
+            String lastName = lastNameField.getText().trim();
+            String email = emailField.getText().trim();
+            String addressLine1 = addressLine1Field.getText().trim();
+            String addressLine2 = addressLine2Field.getText().trim();
+            String city = cityField.getText().trim();
+            String country = countryPicker.getValue().trim();
+            String postalCode = postalCodeField.getText().trim();
+            String specialInstructions = specialInstructionsBox.getText().trim();
 
             // Mailing address shouold not include a state if the guest doesn't live in the US
             MailingAddress mailingAddress;
@@ -220,43 +221,45 @@ public class PlaceBookingScreenController implements Initializable {
     }
 
     private boolean validateInput() {
-        boolean isValid = true;
+        boolean isValid = true; // Form is innocent until proven guilty
 
-        // Gather all input from all fields
-        String firstName = firstNameField.getText();
-        String lastName = lastNameField.getText();
-        String email = emailField.getText();
-        String confirmedEmail = confirmEmailField.getText();
-        String addressLine1 = addressLine1Field.getText();
-        String addressLine2 = addressLine2Field.getText();
-        String city = cityField.getText();
+        // Gather all trimmed input from all fields
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
+        String email = emailField.getText().trim();
+        String confirmedEmail = confirmEmailField.getText().trim();
+        String addressLine1 = addressLine1Field.getText().trim();
+        String addressLine2 = addressLine2Field.getText().trim();
+        String city = cityField.getText().trim();
         String country = countryPicker.getValue();
-        String postalCode = postalCodeField.getText();
-        String specialInstructions = specialInstructionsBox.getText();
+        String postalCode = postalCodeField.getText().trim();
+        String specialInstructions = specialInstructionsBox.getText().trim();
 
-        if(!confirmedEmail.equals(email)) {
+        if(!confirmedEmail.equals(email) || email.isEmpty()) {
+            isValid = false;
+        }
+        if(!ensureRequiredFieldsNotEmpty()) {
             isValid = false;
         }
 
-
         return isValid;
-        // TODO Finish validation
-        // TODO UI cues
-        // TODO trim input
     }
 
     private Guest findOrCreateGuest(String firstName, String lastName, String email,
             MailingAddress mailingAddress) {
 
         GuestService guestService = new GuestService();
-        Guest guest = guestService.getGuestByEmailAddress(email);
-        if(guest != null) {
-            return guest;
-        } else {
+        Guest guest;
+        try {
+            guest = guestService.getGuestByEmailAddress(email);
+            // Update the guest's mailing address while we are here.
+            guest.setMailingAddress(mailingAddress);
+            guestService.updateGuest(guest);
+        } catch (NoResultException e) {
             guest = new Guest(firstName, lastName, email, mailingAddress);
             guestService.createNewGuest(guest);
-            return guestService.getGuestByEmailAddress(email);
         }
+        return guestService.getGuestByEmailAddress(email);
     }
 
     private List<Room> getListOfRoomsToBook(Date checkin, Date checkout) {
@@ -322,5 +325,40 @@ public class PlaceBookingScreenController implements Initializable {
 
         // Once the user has closed the dialog...
         ScreenManager.getInstance().switchToScreen("/fxml/HomeScreen.fxml");
+    }
+
+    private boolean ensureRequiredFieldsNotEmpty() {
+        // Gather trimmed form data from all required fields.
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
+        String email = emailField.getText().trim();
+        String confirmedEmail = confirmEmailField.getText().trim();
+        String addressLine1 = addressLine1Field.getText().trim();
+        String city = cityField.getText().trim();
+        String country = countryPicker.getValue();
+        String postalCode = postalCodeField.getText().trim();
+        String specialInstructions = specialInstructionsBox.getText().trim();
+
+        boolean requiredFieldsNotEmpty = true;
+
+        // Check if required fields are empty
+        if(firstName.isEmpty()
+                || lastName.isEmpty()
+                || addressLine1.isEmpty()
+                || city.isEmpty()
+                || country.isEmpty()
+                || postalCode.isEmpty()) {
+            requiredFieldsNotEmpty = true;
+        }
+
+        if(requiredFieldsNotEmpty) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Missing Required Fields");
+            alert.setContentText("Please ensure all fields are filled.");
+            alert.showAndWait();
+        }
+
+        return requiredFieldsNotEmpty;
     }
 }
