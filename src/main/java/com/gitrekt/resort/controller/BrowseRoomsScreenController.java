@@ -97,8 +97,7 @@ public class BrowseRoomsScreenController implements Initializable, PackageListCo
                 // Don't touch. Magic.
                 prefWidthProperty().bind(packagesListView.widthProperty());
             }
-            }
-        );
+        });
     }
 
     /**

@@ -11,7 +11,6 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.PackageListItemController">
    <children>
-      <Spinner fx:id="qtySpinner" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fx:id="packageImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" smooth="false">
@@ -54,5 +53,6 @@
             </VBox>
          </children>
       </HBox>
+      <Spinner fx:id="qtySpinner" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>
