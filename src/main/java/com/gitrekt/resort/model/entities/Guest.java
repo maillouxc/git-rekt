@@ -84,7 +84,7 @@ public class Guest {
         this.phoneNumber = phoneNumber;
     }
 
-    public void getCheckedIn(boolean checkedIn) {
+    public void setCheckedIn(boolean checkedIn) {
         this.isCheckedIn = checkedIn;
     }
 
@@ -94,6 +94,28 @@ public class Guest {
     
     public Long getId(){
         return id;
-    } 
+    }
     
+    @Override
+    public boolean equals(Object obj) {
+        Guest obj2 = (Guest) obj;
+        if(obj == null){
+            return false;
+        }
+        else if(this.firstName.equals(obj2.firstName)){
+            return false;
+        }
+         else if(this.lastName.equals(obj2.lastName)){
+             return false; 
+        }
+         else if(this.emailAddress.equals(obj2.emailAddress)){
+             return false;
+        }
+         else if(this.phoneNumber.equals(obj2.phoneNumber)){
+             return false;
+        }
+         else{
+             return true;
+         }
+    }  
 }

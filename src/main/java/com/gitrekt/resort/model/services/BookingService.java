@@ -5,7 +5,6 @@ import com.gitrekt.resort.model.RoomSearchResult;
 import com.gitrekt.resort.model.entities.BillItem;
 import com.gitrekt.resort.model.entities.Booking;
 import com.gitrekt.resort.model.entities.Room;
-import com.gitrekt.resort.model.entities.RoomCategory;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -59,8 +58,10 @@ public class BookingService {
      * @param booking The booking object to persist to the data store.
      */
     public void createBooking(Booking booking) {
+        BillService billService = new BillService();
         try {
             entityManager.getTransaction().begin();
+            billService.generateBillForBooking(booking);
             entityManager.persist(booking);
             sendBookingConfirmationEmail(booking);
             entityManager.getTransaction().commit();
@@ -136,7 +137,6 @@ public class BookingService {
         if(booking.isCanceled()) {
             return;
         }
-
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(booking);
@@ -152,7 +152,6 @@ public class BookingService {
             entityManager.getTransaction().rollback();
             // TODO: Handle
         }
-
     }
 
     /**
@@ -320,30 +319,12 @@ public class BookingService {
                 }
             }
             if(!found) {
-                Double price = getCurrentPrice(r.getRoomCategory());
+                Double price = roomService.getCurrentRoomPrice(r.getRoomCategory());
                 RoomSearchResult result = new RoomSearchResult(price, r.getRoomCategory(), 1);
                 results.add(result);
             }
         }
         return results;
-    }
-
-    /**
-     * This method should be used instead of the getPrice() method in roomCategory.
-     *
-     * This should probably be handled in a better way, but it all comes down to the amount of
-     * design time available in the end, and that is a resource we are critically short on at the
-     * moment.
-     *
-     * @param roomCategory The category of room to determine the price for.
-     *
-     * @return The room price after pricing adjustments are taken into account.
-     */
-    public Double getCurrentPrice(RoomCategory roomCategory) {
-        Double basePrice = roomCategory.getBasePrice();
-        Double currentPrice = basePrice;
-        // TODO: Factor in capacity and other things
-        return currentPrice;
     }
 
 }
