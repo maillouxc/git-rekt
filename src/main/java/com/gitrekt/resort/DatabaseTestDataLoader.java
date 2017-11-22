@@ -1,9 +1,7 @@
-
 package com.gitrekt.resort;
 
 import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.UsState;
-import com.gitrekt.resort.model.entities.Bill;
 import com.gitrekt.resort.model.entities.Booking;
 import com.gitrekt.resort.model.entities.Employee;
 import com.gitrekt.resort.model.entities.Guest;
@@ -22,24 +20,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
- * This class is responsible for preparing the database with test data for the
- * program to operate on.
+ * This class is responsible for preparing the database with test data for the program demo.
  *
- * It's a temporary solution and pretty lame, but it's the fastest way to solve
- * our problem and keep from hindering further progress. If time permits, we
- * will try to migrate to a more permanent solution like a stored SQL script,
- * but there isn't really a reason to do that right now.
- *
- * This class is just meant to be a quick and dirty solution to the problem.
- *
- * It's also not finished. It doesn't create half of the data we need yet.
+ * It's a temporary solution and pretty lame, but it's the fastest way to solve our problem and
+ * keep from hindering further progress. If time permits, we will try to migrate to a more
+ * permanent solution like a stored SQL script, but there isn't a reason to do that right now.
  */
 public class DatabaseTestDataLoader {
 
     public static void initializeTestData() {
-
         // Populate database with data on all of the rooms available
-
         RoomCategory basic = new RoomCategory(
             "Basic",
             "This room is as basic as you are. Includes complimentary bedbugs "
@@ -143,10 +133,10 @@ public class DatabaseTestDataLoader {
         entityManager.persist(package4);
 
         // Generate test guest data
-        Guest g1 = new Guest("Chris", "Mailldfghoux", "mailloux.cl@gmail.com", "239-242-4256", new MailingAddress("525 fake way", null, "33969", UsState.FLORIDA, "United States"));
-        Guest g2 = new Guest("Chrsfgmis", "Mailloux", "mailsfghux.cl@gmail.com", "239-242-4256", new MailingAddress("525 fake way", null, "33969", UsState.FLORIDA, "United States"));
-        Guest g3 = new Guest("Chris", "Mailldfghoux", "maillsfghsfghsoux.cl@gmail.com", "239-242-4256", new MailingAddress("525 fake way", null, "33969", UsState.FLORIDA, "United States"));
-        Guest g4 = new Guest("Chrawetis", "Mailloux", "maillojytfkdfux.cl@gmail.com", "239-242-4256", new MailingAddress("525 fake way", null, "33969", UsState.FLORIDA, "United States"));
+        Guest g1 = new Guest("Chris", "Mailloux", "mailloux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
+        Guest g2 = new Guest("Chrsfgmis", "Mailloux", "mailsfghux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
+        Guest g3 = new Guest("Chris", "Mailldfghoux", "maillsfghsfghsoux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
+        Guest g4 = new Guest("Chrawetis", "Mailloux", "maillojytfkdfux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
 
         entityManager.persist(g1);
         entityManager.persist(g2);
@@ -186,7 +176,7 @@ public class DatabaseTestDataLoader {
     private static void createTestBookingData() {
         EntityManager entityManager = HibernateUtil.getEntityManager();
 
-        Guest g1 = new Guest("Chris", "Mailldfghoux", "maillasdgoux.cl@gmail.com", "239-242-4256", new MailingAddress("525 fake way", null, "33969", UsState.FLORIDA, "United States"));
+        Guest g1 = new Guest("Chris", "Mailloux", "maillasdgoux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
         entityManager.persist(g1);
 
         RoomService r = new RoomService();
@@ -200,7 +190,7 @@ public class DatabaseTestDataLoader {
 
         PackageService packageService = new PackageService();
         List<Package> allPackages = packageService.getAllPackages();
-        Booking b1 = new Booking(g1, d1, d2, new Bill(), "you suck", allPackages, testRooms);
+        Booking b1 = new Booking(g1, d1, d2, "you suck", allPackages, testRooms);
 
         entityManager.getTransaction().begin();
         entityManager.persist(b1);

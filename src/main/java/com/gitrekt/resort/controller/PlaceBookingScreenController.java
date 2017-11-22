@@ -1,14 +1,29 @@
 package com.gitrekt.resort.controller;
 
 import com.gitrekt.resort.model.UsState;
+import com.gitrekt.resort.model.entities.Booking;
+import com.gitrekt.resort.model.entities.Guest;
 import com.gitrekt.resort.model.entities.MailingAddress;
+import com.gitrekt.resort.model.entities.Package;
+import com.gitrekt.resort.model.entities.Room;
+import com.gitrekt.resort.model.entities.RoomCategory;
+import com.gitrekt.resort.model.services.BookingService;
+import com.gitrekt.resort.model.services.GuestService;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -60,10 +75,35 @@ public class PlaceBookingScreenController implements Initializable {
 
     private ObservableList<String> states;
 
+    private Map<RoomCategory, Integer> roomsInfo;
+
+    private Map<Package, Integer> packagesInfo;
+
+    private LocalDate checkInDate;
+
+    private LocalDate checkOutDate;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initializeStatePicker();
         initializeCountryPicker();
+    }
+
+    /**
+     * Call this method to initialize the information needed to place the booking.
+     *
+     * @param roomsInfo The map of the list of room categories and the quantity of each category
+     * to book.
+     *
+     * @param packagesInfo The info on the selected packages for the booking.
+     */
+    public void initializeData(Map<RoomCategory, Integer> roomsInfo,
+            Map<Package, Integer> packagesInfo, LocalDate checkInDate, LocalDate checkOutDate) {
+
+        this.roomsInfo = roomsInfo;
+        this.packagesInfo = packagesInfo;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
     }
 
     /**
@@ -78,6 +118,7 @@ public class PlaceBookingScreenController implements Initializable {
     private void onFinishButtonClicked() {
         boolean validInput = validateInput();
         if(validInput) {
+            // Gather the form data
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
             String email = emailField.getText();
@@ -88,20 +129,43 @@ public class PlaceBookingScreenController implements Initializable {
             String postalCode = postalCodeField.getText();
             String specialInstructions = specialInstructionsBox.getText();
 
+            // Mailing address shouold not include a state if the guest doesn't live in the US
+            MailingAddress mailingAddress;
             if(country.equals("United States")) {
-                UsState state = UsState.valueOf(statePicker.getValue());
-                MailingAddress mailingAddress = new MailingAddress(
-                    addressLine1, addressLine2, postalCode, state, country
+                UsState state = UsState.parse(statePicker.getValue());
+                mailingAddress = new MailingAddress(
+                    addressLine1, addressLine2, city, postalCode, state, country
                 );
             } else {
-                MailingAddress mailingAddress = new MailingAddress(
-                    addressLine1, addressLine2, postalCode, null, country
+                mailingAddress = new MailingAddress(
+                    addressLine1, addressLine2, city, postalCode, null, country
                 );
             }
 
-            // TODO: Determine if guest exists, if so, amend/use existing.
-            // TODO: Create booking
-            // TODO: Add packages.
+            // Gather the needed data to create the booking
+            BookingService bookingService = new BookingService();
+            Date checkin = Date.from(
+                checkInDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+            );
+            Date checkout = Date.from(
+                checkOutDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+            );
+            List<Package> packagesToBook = getListOfPackagesToBook();
+            List<Room> roomsToBook;
+            try {
+                roomsToBook = getListOfRoomsToBook(checkin, checkout);
+            } catch (IllegalStateException e) {
+                showNoMoreRoomsInCategoryErrorDialog();
+                return;
+            }
+            Guest guest = findOrCreateGuest(firstName, lastName, email, mailingAddress);
+
+            Booking booking = new Booking(
+                guest, checkin, checkout, specialInstructions, packagesToBook, roomsToBook
+            );
+
+            bookingService.createBooking(booking);
+            displayBookingNumberAndReturnHome();
         }
     }
 
@@ -179,5 +243,84 @@ public class PlaceBookingScreenController implements Initializable {
         // TODO Finish validation
         // TODO UI cues
         // TODO trim input
+    }
+
+    private Guest findOrCreateGuest(String firstName, String lastName, String email,
+            MailingAddress mailingAddress) {
+
+        GuestService guestService = new GuestService();
+        Guest guest = guestService.getGuestByEmailAddress(email);
+        if(guest != null) {
+            return guest;
+        } else {
+            guest = new Guest(firstName, lastName, email, mailingAddress);
+            guestService.createNewGuest(guest);
+            return guestService.getGuestByEmailAddress(email);
+        }
+    }
+
+    private List<Room> getListOfRoomsToBook(Date checkin, Date checkout) {
+        BookingService bookingService = new BookingService();
+        List<Room> availableRooms = bookingService.getAvailableRoomsBetweenDates(checkin, checkout);
+        List<Room> roomsToBook = new ArrayList<>();
+        for(Map.Entry<RoomCategory, Integer> roomInfo : roomsInfo.entrySet()) {
+            RoomCategory desiredCategory = roomInfo.getKey();
+            int desiredQty = roomInfo.getValue();
+            while(desiredQty > 0) {
+                boolean available = false;
+                for(Room r : availableRooms) {
+                    if(r.getRoomCategory().equals(desiredCategory)) {
+                        available = true;
+                        roomsToBook.add(r);
+                        desiredQty--;
+                        break;
+                    }
+                }
+                if(!available) {
+                    throw new IllegalStateException(
+                        "No more rooms available in desired category"
+                    );
+                }
+            }
+        }
+        return roomsToBook;
+    }
+
+    private List<Package> getListOfPackagesToBook() {
+        List<Package> packagesToBook = new ArrayList<>();
+        // Because packages objects don't support a quantity booked, we need to do this.
+        for(Map.Entry<Package, Integer> packageInfo : packagesInfo.entrySet()) {
+            Package p = packageInfo.getKey();
+            int qty = packageInfo.getValue();
+            for(int i = 0; i < qty; i++) {
+                packagesToBook.add(p);
+            }
+        }
+        return packagesToBook;
+    }
+
+    private void showNoMoreRoomsInCategoryErrorDialog() {
+        Alert errorDialog = new Alert(Alert.AlertType.ERROR);
+            errorDialog.setTitle("Error");
+            errorDialog.setHeaderText("Error Placing Booking");
+            errorDialog.setContentText("We were unable to place your booking because there"
+                    + " were not enough rooms of the type you requested available. "
+                    + "This can happen if somebody else booked the rooms you were trying to"
+                    + " before you completed your booking."
+                    + "\n Please return to the previous screen and try again.");
+            errorDialog.showAndWait();
+    }
+
+    private void displayBookingNumberAndReturnHome() {
+        Alert bookingSuccessDialog = new Alert(AlertType.INFORMATION);
+        bookingSuccessDialog.setHeaderText("Booking Complete");
+        bookingSuccessDialog.setContentText(
+            "Your booking has been successfully placed. Please check your email to receive your"
+                + " booking number."
+        );
+        bookingSuccessDialog.showAndWait();
+
+        // Once the user has closed the dialog...
+        ScreenManager.getInstance().switchToScreen("/fxml/HomeScreen.fxml");
     }
 }

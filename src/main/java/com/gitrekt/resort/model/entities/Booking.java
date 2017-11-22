@@ -54,17 +54,16 @@ public class Booking {
         // REQUIRED BY HIBERNATE
     }
 
-    public Booking(Guest guest, Date checkInDate, Date checkOutDate, Bill bill,
-            String specialInstructions, List<Package> packages,
-            List<Room> bookedRooms) {
+    public Booking(Guest guest, Date checkInDate, Date checkOutDate, String specialInstructions,
+            List<Package> packages, List<Room> bookedRooms) {
 
         this.guest = guest;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
-        this.bill = bill;
         this.specialInstructions = specialInstructions;
         this.packages = packages;
         this.bookedRooms = bookedRooms;
+        this.bill = new Bill();
     }
 
     public Date getCheckInDate() {
