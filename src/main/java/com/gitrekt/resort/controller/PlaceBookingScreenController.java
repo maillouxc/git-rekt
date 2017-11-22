@@ -1,6 +1,7 @@
 package com.gitrekt.resort.controller;
 
 import com.gitrekt.resort.model.UsState;
+import com.gitrekt.resort.model.entities.MailingAddress;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -75,12 +76,37 @@ public class PlaceBookingScreenController implements Initializable {
 
     @FXML
     private void onFinishButtonClicked() {
-        // TODO
+        boolean validInput = validateInput();
+        if(validInput) {
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+            String email = emailField.getText();
+            String addressLine1 = addressLine1Field.getText();
+            String addressLine2 = addressLine2Field.getText();
+            String city = cityField.getText();
+            String country = countryPicker.getValue();
+            String postalCode = postalCodeField.getText();
+            String specialInstructions = specialInstructionsBox.getText();
+
+            if(country.equals("United States")) {
+                UsState state = UsState.valueOf(statePicker.getValue());
+                MailingAddress mailingAddress = new MailingAddress(
+                    addressLine1, addressLine2, postalCode, state, country
+                );
+            } else {
+                MailingAddress mailingAddress = new MailingAddress(
+                    addressLine1, addressLine2, postalCode, null, country
+                );
+            }
+
+            // TODO: Determine if guest exists, if so, amend/use existing.
+            // TODO: Create booking
+            // TODO: Add packages.
+        }
     }
 
     public void initializeCountryPicker() {
         countries = FXCollections.observableArrayList();
-
         Locale[] locales = Locale.getAvailableLocales();
         for (Locale locale : locales) {
             String name = locale.getDisplayCountry();
@@ -110,5 +136,10 @@ public class PlaceBookingScreenController implements Initializable {
         statePicker.setItems(states);
         statePicker.setVisible(false);
         statePickerLabel.setVisible(false);
+    }
+
+    private boolean validateInput() {
+        return true;
+        // TODO
     }
 }
