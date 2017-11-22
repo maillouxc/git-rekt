@@ -1,5 +1,6 @@
 package com.gitrekt.resort.model.entities;
 
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -60,10 +61,6 @@ public class Guest {
         return emailAddress;
     }
 
-    public void setEmailAddress(String emailingAddress) {
-        this.emailAddress = emailingAddress;
-    }
-
     public MailingAddress getMailingAddress() {
         return mailingAddress;
     }
@@ -85,22 +82,32 @@ public class Guest {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.emailAddress);
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object obj) {
-        Guest obj2 = (Guest) obj;
-        if(obj == null){
-            return false;
-        }
-        else if(this.firstName.equals(obj2.firstName)){
-            return false;
-        }
-        else if(this.lastName.equals(obj2.lastName)){
-            return false;
-        }
-        else if(this.emailAddress.equals(obj2.emailAddress)){
-            return false;
-        }
-        else{
+        if (this == obj) {
             return true;
         }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Guest other = (Guest) obj;
+        if (!Objects.equals(this.emailAddress, other.emailAddress)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
+
 }

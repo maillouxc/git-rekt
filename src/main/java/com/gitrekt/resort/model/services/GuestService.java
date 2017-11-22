@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -29,7 +30,7 @@ public class GuestService {
         return guest;
     }
 
-    public Guest getGuestByEmailAddress(String emailAddress) {
+    public Guest getGuestByEmailAddress(String emailAddress) throws NoResultException {
         EntityManager entityManager = HibernateUtil.getEntityManager();
         String query = "FROM Guest WHERE emailAddress = :emailAddress";
         Query q = entityManager.createQuery(query);
