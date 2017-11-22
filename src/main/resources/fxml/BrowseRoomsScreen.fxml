@@ -91,7 +91,7 @@
             </Tab>
             <Tab closable="false" text="Select Packages">
                <content>
-                  <ListView fx:id="availablePackagesListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
+                  <ListView fx:id="packagesListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
                </content>
             </Tab>
          </tabs>
