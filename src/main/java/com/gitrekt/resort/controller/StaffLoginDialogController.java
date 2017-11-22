@@ -83,7 +83,6 @@ public class StaffLoginDialogController implements Initializable {
                 errorLabel.setVisible(true);
                 break;
         }
-        employeeService.cleanup();
     }
 
     /**

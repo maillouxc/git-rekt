@@ -190,7 +190,6 @@ public class StaffAccountsScreenController implements Initializable {
     private void fetchTableData() {
         EmployeeService employeeService = new EmployeeService();
         staffAccountsList.addAll(employeeService.getAllEmployees());
-        employeeService.cleanup();
     }
 
 }
