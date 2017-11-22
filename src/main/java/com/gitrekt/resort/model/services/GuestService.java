@@ -88,15 +88,16 @@ public class GuestService {
             entityManager.close();
         }
     }
-    
+
     public List<Guest> getDailyGuestRegistry(){
+        EntityManager entityManager = HibernateUtil.getEntityManager();
         LocalDate today = LocalDate.now();
         Date date = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
         BookingService b = new BookingService();
         List<Guest> guests = new ArrayList();
         for (Booking booking : b.getBookingsBetweenDates(date, date)){
             guests.add(booking.getGuest());
-        }        
+        }
         String queryString = "FROM Guest WHERE isCheckedIn = true";
         Query query = entityManager.createQuery(queryString);
         List<Guest> checkedInGuests = query.getResultList();
@@ -105,6 +106,7 @@ public class GuestService {
                 guests.add(g);
             }
         }
+        entityManager.close();
         return guests;
     }
 }
