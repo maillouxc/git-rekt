@@ -87,8 +87,7 @@ public class GuestService {
         List<Guest> guests = new ArrayList();
         for (Booking booking : b.getBookingsBetweenDates(date, date)){
             guests.add(booking.getGuest());
-        }
-        
+        }        
         String queryString = "FROM Guest WHERE isCheckedIn = true";
         Query query = entityManager.createQuery(queryString);
         List<Guest> checkedInGuests = query.getResultList();
@@ -97,8 +96,6 @@ public class GuestService {
                 guests.add(g);
             }
         }
-        
         return guests;
-        
     }
 }
