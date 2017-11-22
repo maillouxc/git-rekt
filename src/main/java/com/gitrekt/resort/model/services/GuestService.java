@@ -1,36 +1,16 @@
 package com.gitrekt.resort.model.services;
 
 import com.gitrekt.resort.hibernate.HibernateUtil;
-import com.gitrekt.resort.model.entities.Booking;
 import com.gitrekt.resort.model.entities.Guest;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 public class GuestService {
-
-//    private final EntityManager entityManager;
-//
-//    public GuestService() {
-//        this.entityManager = HibernateUtil.getEntityManager();
-//    }
-//
-//    /**
-//     * Takes care of closing the Hibernate entityManager for the class.
-//     *
-//     * @throws Throwable
-//     */
-//    @Override
-//    public void finalize() throws Throwable {
-//        super.finalize();
-//        this.entityManager.close();
-//    }
 
     public List<Guest> getCurrentlyCheckedInGuests() {
         EntityManager entityManager = HibernateUtil.getEntityManager();
@@ -42,14 +22,14 @@ public class GuestService {
         return results;
     }
 
-    public Guest getGuestById(Long id) throws EntityNotFoundException {
+    public Guest getGuestById(Long id) {
         EntityManager entityManager = HibernateUtil.getEntityManager();
         Guest guest = entityManager.getReference(Guest.class, id);
         entityManager.close();
         return guest;
     }
 
-    public Guest getGuestByEmailAddress(String emailAddress) throws EntityNotFoundException {
+    public Guest getGuestByEmailAddress(String emailAddress) {
         EntityManager entityManager = HibernateUtil.getEntityManager();
         String query = "FROM Guest WHERE emailAddress = :emailAddress";
         Query q = entityManager.createQuery(query);
@@ -89,23 +69,21 @@ public class GuestService {
         }
     }
 
+    /**
+     * @return The lists of guests that are on the registry for the given day. This includes both
+     * guests who have bookings covering today, and guests who are supposed to be, but are not yet
+     * checked out.
+     */
     public List<Guest> getDailyGuestRegistry(){
         EntityManager entityManager = HibernateUtil.getEntityManager();
         LocalDate today = LocalDate.now();
         Date date = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        BookingService b = new BookingService();
-        List<Guest> guests = new ArrayList();
-        for (Booking booking : b.getBookingsBetweenDates(date, date)){
-            guests.add(booking.getGuest());
-        }
-        String queryString = "FROM Guest WHERE isCheckedIn = true";
+        // I'm pretty sure we could use left join here but I'm not exactly brushed up on SQL right
+        // now so this works.
+        String queryString = "SELECT guest FROM Booking AS b WHERE b.guest.isCheckedIn = true"
+                + " or trunc(sysdate) BETWEEN b.checkInDate and b.checkOutDate";
         Query query = entityManager.createQuery(queryString);
-        List<Guest> checkedInGuests = query.getResultList();
-        for(Guest g : checkedInGuests) {
-            if(!guests.contains(g)) {
-                guests.add(g);
-            }
-        }
+        List<Guest> guests = query.getResultList();
         entityManager.close();
         return guests;
     }

@@ -116,20 +116,4 @@ public class Booking {
         return this.id;
     }
 
-
-//    /**
-//     * This method will not work if the bill is not currently free of charges.
-//     *
-//     * This safety feature prevents overwriting a customer bill. This method is intended to be only
-//     * for a one time initialization of a bill.
-//     *
-//     * @param bill The bill to initialize.
-//     */
-//    public void setBill(Bill bill) {
-//        if(this.bill.getCharges().size() > 0) {
-//            throw new IllegalStateException("Cannot call setBill on a non-empty bill.");
-//        }
-//        this.bill = bill;
-//    }
-
 }

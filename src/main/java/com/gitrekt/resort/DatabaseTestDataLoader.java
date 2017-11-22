@@ -136,7 +136,7 @@ public class DatabaseTestDataLoader {
         Package package2 = new Package("Basement tour", 10.00);
         Package package3 = new Package("Drug cartel abduction experience", 650.00);
         Package package4 = new Package("Surfing with sharks", 580.99);
-        
+
         entityManager.persist(package1);
         entityManager.persist(package2);
         entityManager.persist(package3);
@@ -164,7 +164,6 @@ public class DatabaseTestDataLoader {
 
         entityManager.persist(e1);
         entityManager.persist(e2);
-        // Ignore the variable name changes here, it's from a copy and paste.
         entityManager.persist(e3);
         entityManager.persist(e4);
         entityManager.persist(e5);
@@ -172,8 +171,6 @@ public class DatabaseTestDataLoader {
         entityManager.persist(e7);
 
         entityManager.getTransaction().commit();
-
-        // Don't forget to close the entityManager when done with it
         entityManager.close();
 
         // Load test feedback data
@@ -204,11 +201,9 @@ public class DatabaseTestDataLoader {
         PackageService packageService = new PackageService();
         List<Package> allPackages = packageService.getAllPackages();
         Booking b1 = new Booking(g1, d1, d2, new Bill(), "you suck", allPackages, testRooms);
-        Booking b2 = new Booking(g1, d1, d2, new Bill(), null, null, null);
 
         entityManager.getTransaction().begin();
         entityManager.persist(b1);
-        entityManager.persist(b2);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
