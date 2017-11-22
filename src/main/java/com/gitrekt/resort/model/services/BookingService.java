@@ -104,10 +104,14 @@ public class BookingService {
     public List<Booking> getBookingsBetweenDates(Date startDate, Date endDate) {
         String queryString =
             "FROM Booking WHERE (checkInDate BETWEEN :startDate AND :endDate)"
-                + "OR (checkOutDate BETWEEN :startDate AND :endDate)";
+                + "OR (checkOutDate BETWEEN :startDate AND :endDate)"
+                + "OR (checkInDate < :startDate AND checkOutDate > :endDate) ";
         Query q = entityManager.createQuery(queryString);
         q.setParameter("startDate", startDate);
         q.setParameter("endDate", endDate);
+
+        // TODO: Remove
+
 
         return q.getResultList();
     }
