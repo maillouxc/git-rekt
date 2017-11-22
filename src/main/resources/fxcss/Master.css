@@ -8,6 +8,8 @@
 .root {
     -fx-background-color: linear-gradient( rgb(204, 228, 252), rgb(3, 67, 131));
     -fx-font-family: "Sans Serif";
+    -fx-pref-width: 1000;
+    -fx-pref-height: 800;
 }
 
 .screenHeader {
@@ -43,4 +45,19 @@
 .bookingStatusLabel {
     -fx-font-weight: bold;
     -fx-text-fill: red;
+}
+
+#loginDialog {
+    -fx-pref-width: 400;
+    -fx-pref-height: 200;
+}
+
+#resetEmployeePasswordDialog {
+    -fx-pref-width: 500;
+    -fx-pref-height: 420;
+}
+
+#createStaffAccountDialog {
+    -fx-pref-width: 550;
+    -fx-pref-height: 530;
 }
