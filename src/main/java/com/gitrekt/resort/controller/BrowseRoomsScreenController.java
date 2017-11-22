@@ -92,7 +92,12 @@ public class BrowseRoomsScreenController implements Initializable, PackageListCo
         availablePackages.setAll(allPackages);
         packagesListView.setItems(availablePackages);
         packagesListView.setCellFactory(
-            param -> new PackageListItem(this)
+            param -> new PackageListItem(this) {
+            {
+                // Don't touch. Magic.
+                prefWidthProperty().bind(packagesListView.widthProperty());
+            }
+            }
         );
     }
 
