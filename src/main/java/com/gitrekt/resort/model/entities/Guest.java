@@ -1,10 +1,10 @@
 package com.gitrekt.resort.model.entities;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -19,13 +19,13 @@ public class Guest {
     private String lastName;
 
     private String emailAddress;
-    
+
     private String phoneNumber;
 
     @OneToOne (cascade = CascadeType.ALL)
     private MailingAddress mailingAddress;
-    
-    private boolean isCheckedIn = true;
+
+    private boolean isCheckedIn = false;
 
     /**
      * DO NOT CALL THIS CONSTRUCTOR. IT IS ONLY HERE FOR HIBERNATE.
@@ -34,8 +34,7 @@ public class Guest {
         // REQUIRED BY HIBERNATE
     }
 
-    public Guest(String firstName, String lastName,
-            String emailAddress, String phoneNumber,
+    public Guest(String firstName, String lastName, String emailAddress, String phoneNumber,
             MailingAddress mailingAddress) {
         this.emailAddress = emailAddress;
         this.firstName = firstName;
@@ -91,11 +90,11 @@ public class Guest {
     public boolean isCheckedIn() {
         return isCheckedIn;
     }
-    
+
     public Long getId(){
         return id;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         Guest obj2 = (Guest) obj;
@@ -105,17 +104,17 @@ public class Guest {
         else if(this.firstName.equals(obj2.firstName)){
             return false;
         }
-         else if(this.lastName.equals(obj2.lastName)){
-             return false; 
+        else if(this.lastName.equals(obj2.lastName)){
+            return false;
         }
-         else if(this.emailAddress.equals(obj2.emailAddress)){
-             return false;
+        else if(this.emailAddress.equals(obj2.emailAddress)){
+            return false;
         }
-         else if(this.phoneNumber.equals(obj2.phoneNumber)){
-             return false;
+        else if(this.phoneNumber.equals(obj2.phoneNumber)){
+            return false;
         }
-         else{
-             return true;
-         }
-    }  
+        else{
+            return true;
+        }
+    }
 }
