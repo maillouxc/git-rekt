@@ -1,7 +1,12 @@
 package com.gitrekt.resort.model.services;
 
 import com.gitrekt.resort.hibernate.HibernateUtil;
+import com.gitrekt.resort.model.entities.Booking;
 import com.gitrekt.resort.model.entities.Guest;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -82,5 +87,26 @@ public class GuestService {
         } finally {
             entityManager.close();
         }
+    }
+
+    public List<Guest> getDailyGuestRegistry(){
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        LocalDate today = LocalDate.now();
+        Date date = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        BookingService b = new BookingService();
+        List<Guest> guests = new ArrayList();
+        for (Booking booking : b.getBookingsBetweenDates(date, date)){
+            guests.add(booking.getGuest());
+        }
+        String queryString = "FROM Guest WHERE isCheckedIn = true";
+        Query query = entityManager.createQuery(queryString);
+        List<Guest> checkedInGuests = query.getResultList();
+        for(Guest g : checkedInGuests) {
+            if(!guests.contains(g)) {
+                guests.add(g);
+            }
+        }
+        entityManager.close();
+        return guests;
     }
 }
