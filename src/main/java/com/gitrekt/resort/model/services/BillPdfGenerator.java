@@ -80,6 +80,11 @@ public class BillPdfGenerator {
         contentStream.newLine();
         contentStream.showText(billTotalLine);
 
+        // Display important bill information
+        contentStream.newLine();
+        contentStream.newLine();
+        contentStream.showText("WARNING: Failure to pay bill may result in broken legs.");
+
         contentStream.endText();
         contentStream.close();
 
