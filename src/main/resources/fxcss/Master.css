@@ -6,10 +6,11 @@
  */
 
 .root {
-    -fx-background-color: powderblue;
+    -fx-background-color: rgb(230, 242, 255);
     -fx-font-family: "Sans Serif";
     -fx-pref-width: 1000;
     -fx-pref-height: 800;
+    -fx-font-size: 14px;
 }
 
 .screenHeader {
@@ -21,6 +22,7 @@
     -fx-text-fill: white;
     -fx-font-family: "Sans Serif";
     -fx-font-weight: bold;
+    -fx-font-size: 15px;
     -fx-background-color: linear-gradient(rgba(3, 120, 89, 1), rgba(3, 120, 89, 0.5));
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
