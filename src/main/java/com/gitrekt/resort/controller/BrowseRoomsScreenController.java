@@ -241,7 +241,7 @@ public class BrowseRoomsScreenController implements Initializable, PackageListCo
         Map<RoomCategory, Integer> roomsData = new HashMap<>();
         LocalDate checkInDate = checkInDatePicker.getValue();
         LocalDate checkOutDate = checkOutDatePicker.getValue();
-        roomSearchResults.forEach((r) -> {
+        selectedRooms.forEach((r) -> {
             roomsData.merge(r.getRoomCategory(), 1, Integer::sum);
         });
         controller.initializeData(roomsData, this.packageQtys, checkInDate, checkOutDate);
