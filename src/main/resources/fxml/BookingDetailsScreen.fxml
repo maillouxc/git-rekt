@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BookingDetailsScreenController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BookingDetailsScreenController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="5.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="600.0" stylesheets="@../fxcss/Master.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
@@ -105,7 +105,7 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button fx:id="cancelBookingButton" mnemonicParsing="false" onAction="#onCancelBookingButtonClicked" prefWidth="120.0" text="Cancel Booking" />
+                  <Button fx:id="cancelBookingButton" mnemonicParsing="false" onAction="#onCancelBookingButtonClicked" prefHeight="31.0" prefWidth="146.0" text="Cancel Booking" />
                   <Button fx:id="viewBillButton" mnemonicParsing="false" onAction="#onViewBillButtonClicked" prefWidth="120.0" text="View Bill" />
                </children>
                <VBox.margin>
