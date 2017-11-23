@@ -14,16 +14,18 @@ public class MailingAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String addressLine1;
-    
+
     private String addressLine2;
-    
+
     private String postalCode;
-    
+
     @Enumerated(EnumType.STRING)
     private UsState state;
-    
+
+    private String city;
+
     private String country;
 
     /**
@@ -33,14 +35,15 @@ public class MailingAddress {
     MailingAddress() {
         // REQUIRED BY HIBERNATE
     }
-    
-    public MailingAddress(String addressLine1, String addressLine2,
-            String postalCode,UsState state, String country) {
+
+    public MailingAddress(String addressLine1, String addressLine2, String city, String postalCode,
+            UsState state, String country) {
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.postalCode = postalCode;
         this.state = state;
         this.country = country;
+        this.city = city;
     }
 
     public String getAddressLine1() {
@@ -54,13 +57,17 @@ public class MailingAddress {
     public String getPostalCode() {
         return postalCode;
     }
-    
+
     public String getCountry() {
         return country;
     }
-    
+
     public UsState getState() {
         return state;
     }
-    
+
+    public String getCity() {
+        return city;
+    }
+
 }
