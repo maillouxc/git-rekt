@@ -48,7 +48,7 @@ public class StaffHomeScreenController implements Initializable {
     }
 
     public void onEditPricesButtonClicked() {
-        // TODO
+        ScreenManager.getInstance().switchToScreen("/fxml/EditPricesScreen.fxml");
     }
 
     public void onManageStaffAccountsButtonClicked() {
