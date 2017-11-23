@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -41,6 +42,7 @@ public class HomeScreenController implements Initializable {
         );
         Scene staffLoginDialog = new Scene(staffLoginDialogRoot);
 
+        staffLoginDialogStage.getIcons().add(new Image("images/Logo.png"));
         staffLoginDialogStage.setScene(staffLoginDialog);
         staffLoginDialogStage.initModality(Modality.APPLICATION_MODAL);
         staffLoginDialogStage.initOwner(staffModeButton.getScene().getWindow());
