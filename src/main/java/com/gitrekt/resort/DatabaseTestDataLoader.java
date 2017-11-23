@@ -10,6 +10,7 @@ import com.gitrekt.resort.model.entities.MailingAddress;
 import com.gitrekt.resort.model.entities.Package;
 import com.gitrekt.resort.model.entities.Room;
 import com.gitrekt.resort.model.entities.RoomCategory;
+import com.gitrekt.resort.model.services.BookingService;
 import com.gitrekt.resort.model.services.GuestFeedbackService;
 import com.gitrekt.resort.model.services.PackageService;
 import com.gitrekt.resort.model.services.RoomService;
@@ -191,6 +192,7 @@ public class DatabaseTestDataLoader {
         PackageService packageService = new PackageService();
         List<Package> allPackages = packageService.getAllPackages();
         Booking b1 = new Booking(g1, d1, d2, "you suck", allPackages, testRooms);
+        BookingService bookingService = new BookingService();
 
         entityManager.getTransaction().begin();
         entityManager.persist(b1);
