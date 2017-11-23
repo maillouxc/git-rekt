@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BrowseRoomsListItemController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BrowseRoomsListItemController">
    <children>
       <HBox fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1000.0" stylesheets="@../fxcss/Master.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,9 +23,9 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </ImageView>
-            <VBox alignment="TOP_CENTER" stylesheets="@../fxcss/Master.css">
+            <VBox alignment="TOP_CENTER" maxWidth="-Infinity" stylesheets="@../fxcss/Master.css">
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" left="5.0" right="100.0" top="5.0" />
                </padding>
                <children>
                   <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="1.7976931348623157E308">
@@ -70,6 +69,9 @@
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
+                     <padding>
+                        <Insets right="200.0" />
+                     </padding>
                   </HBox>
                   <Label fx:id="roomDescriptionLabel" minHeight="-Infinity" text="Feel at home in this room featuring twin beds, refrigerator and coffeemaker. Unwind with your favorite shows on the 32-inch TV and stay connected with our WiFi (complimentary to Honors Members). Work in comfort at the mahogany desk with ergonomic chair and reinvigorate yourself in the marble bathroom featuring Peter Thomas Roth amenities." wrapText="true">
                      <VBox.margin>
@@ -88,4 +90,7 @@
       </HBox>
       <Button fx:id="addToBookingButton" mnemonicParsing="false" onAction="#onAddToBookingButtonClicked" text="Add to booking" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
+   <padding>
+      <Insets right="70.0" />
+   </padding>
 </AnchorPane>
