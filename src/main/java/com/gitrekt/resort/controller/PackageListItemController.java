@@ -1,35 +1,40 @@
 package com.gitrekt.resort.controller;
 
+import com.gitrekt.resort.model.entities.Package;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class PackageListItemController implements Initializable {
 
-   @FXML
+    @FXML
     private Node root;
 
     @FXML
-    private Label packageTitle;
+    private Label packageNameLabel;
 
     @FXML
     private Label packageDescription;
 
     @FXML
-    private Label totalPrice;
+    private Label packagePriceLabel;
 
     @FXML
     private ImageView packageImage;
 
     @FXML
-    private Label pricePerPerson;
+    private Spinner<Integer> qtySpinner;
 
-    private PackageScreenController parentController;
+    private PackageListController listController;
 
+    private Package packageData;
 
     public PackageListItemController() {
         // Intentionally blank
@@ -37,7 +42,12 @@ public class PackageListItemController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Intentionally blank
+        qtySpinner.setValueFactory(new IntegerSpinnerValueFactory(0, 100, 0));
+        qtySpinner.valueProperty().addListener(
+            (obs, oldValue, newValue) -> {
+                listController.updatePackageQty(this.packageData, newValue);
+            }
+        );
     }
 
     /**
@@ -47,16 +57,18 @@ public class PackageListItemController implements Initializable {
         return root;
     }
 
-    /**
-     * Assigns a reference the the controller of the class containing the list that this item is
-     * displayed in.
-     *
-     * This is needed to be able to handle the buttons in the list item easily.
-     *
-     * @param parentController
-     */
-    public void setParentController(PackageScreenController parentController) {
-        this.parentController = parentController;
+    public void setListController(PackageListController listController) {
+        this.listController = listController;
+    }
+
+    public void setData(Package p) {
+        this.packageData = p;
+
+        packageNameLabel.setText(p.getName());
+        String packagePrice = String.format("$%.2f", p.getPricePerPerson());
+        packagePriceLabel.setText(packagePrice + " per person");
+        packageDescription.setText(p.getDescription());
+        packageImage.setImage(new Image(p.getImagePath()));
     }
 
 }

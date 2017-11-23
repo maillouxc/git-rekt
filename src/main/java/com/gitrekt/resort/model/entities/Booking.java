@@ -54,17 +54,16 @@ public class Booking {
         // REQUIRED BY HIBERNATE
     }
 
-    public Booking(Guest guest, Date checkInDate, Date checkOutDate, Bill bill,
-            String specialInstructions, List<Package> packages,
-            List<Room> bookedRooms) {
+    public Booking(Guest guest, Date checkInDate, Date checkOutDate, String specialInstructions,
+            List<Package> packages, List<Room> bookedRooms) {
 
         this.guest = guest;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
-        this.bill = bill;
         this.specialInstructions = specialInstructions;
         this.packages = packages;
         this.bookedRooms = bookedRooms;
+        this.bill = new Bill();
     }
 
     public Date getCheckInDate() {
@@ -115,21 +114,5 @@ public class Booking {
     public Long getId() {
         return this.id;
     }
-
-
-//    /**
-//     * This method will not work if the bill is not currently free of charges.
-//     *
-//     * This safety feature prevents overwriting a customer bill. This method is intended to be only
-//     * for a one time initialization of a bill.
-//     *
-//     * @param bill The bill to initialize.
-//     */
-//    public void setBill(Bill bill) {
-//        if(this.bill.getCharges().size() > 0) {
-//            throw new IllegalStateException("Cannot call setBill on a non-empty bill.");
-//        }
-//        this.bill = bill;
-//    }
 
 }

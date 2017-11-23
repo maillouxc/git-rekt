@@ -1,10 +1,11 @@
 package com.gitrekt.resort.model.entities;
 
+import java.util.Objects;
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -19,13 +20,11 @@ public class Guest {
     private String lastName;
 
     private String emailAddress;
-    
-    private String phoneNumber;
 
     @OneToOne (cascade = CascadeType.ALL)
     private MailingAddress mailingAddress;
-    
-    private boolean isCheckedIn = true;
+
+    private boolean isCheckedIn = false;
 
     /**
      * DO NOT CALL THIS CONSTRUCTOR. IT IS ONLY HERE FOR HIBERNATE.
@@ -34,13 +33,11 @@ public class Guest {
         // REQUIRED BY HIBERNATE
     }
 
-    public Guest(String firstName, String lastName,
-            String emailAddress, String phoneNumber,
+    public Guest(String firstName, String lastName, String emailAddress,
             MailingAddress mailingAddress) {
         this.emailAddress = emailAddress;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
         this.mailingAddress = mailingAddress;
     }
 
@@ -64,24 +61,12 @@ public class Guest {
         return emailAddress;
     }
 
-    public void setEmailAddress(String emailingAddress) {
-        this.emailAddress = emailingAddress;
-    }
-
     public MailingAddress getMailingAddress() {
         return mailingAddress;
     }
 
     public void setMailingAddress(MailingAddress mailingAddress) {
         this.mailingAddress = mailingAddress;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNUmber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public void setCheckedIn(boolean checkedIn) {
@@ -91,31 +76,38 @@ public class Guest {
     public boolean isCheckedIn() {
         return isCheckedIn;
     }
-    
+
     public Long getId(){
         return id;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.emailAddress);
+        return hash;
+    }
+
     @Override
     public boolean equals(Object obj) {
-        Guest obj2 = (Guest) obj;
-        if(obj == null){
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        else if(this.firstName.equals(obj2.firstName)){
+        if (getClass() != obj.getClass()) {
             return false;
         }
-         else if(this.lastName.equals(obj2.lastName)){
-             return false; 
+        final Guest other = (Guest) obj;
+        if (!Objects.equals(this.emailAddress, other.emailAddress)) {
+            return false;
         }
-         else if(this.emailAddress.equals(obj2.emailAddress)){
-             return false;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
         }
-         else if(this.phoneNumber.equals(obj2.phoneNumber)){
-             return false;
-        }
-         else{
-             return true;
-         }
-    }  
+        return true;
+    }
+
 }
