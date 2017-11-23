@@ -35,7 +35,7 @@ public class BillService {
     public void printBillForBooking(Booking booking)
             throws IOException, PrinterException {
 
-        BillPdfGenerator pdfGenerator = new BillPdfGenerator(booking.getBill());
+        BillPdfGenerator pdfGenerator = new BillPdfGenerator(booking);
         try (PDDocument pdf = pdfGenerator.getBillAsPdf()) {
             PrinterJob job = PrinterJob.getPrinterJob();
             job.setPrintService(choosePrinter());
@@ -86,8 +86,6 @@ public class BillService {
             BillItem packageBillItem = new BillItem(itemName, costPerPerson, qty);
             billItems.add(packageBillItem);
         }
-
-        // TODO: Price adjust based on resort occupation level.
 
         for(BillItem item : billItems) {
             booking.getBill().addCharge(item);

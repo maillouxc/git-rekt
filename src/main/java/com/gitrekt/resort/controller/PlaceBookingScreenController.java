@@ -266,6 +266,7 @@ public class PlaceBookingScreenController implements Initializable {
         BookingService bookingService = new BookingService();
         List<Room> availableRooms = bookingService.getAvailableRoomsBetweenDates(checkin, checkout);
         List<Room> roomsToBook = new ArrayList<>();
+
         for(Map.Entry<RoomCategory, Integer> roomInfo : roomsInfo.entrySet()) {
             RoomCategory desiredCategory = roomInfo.getKey();
             int desiredQty = roomInfo.getValue();
@@ -275,6 +276,7 @@ public class PlaceBookingScreenController implements Initializable {
                     if(r.getRoomCategory().equals(desiredCategory)) {
                         available = true;
                         roomsToBook.add(r);
+                        availableRooms.remove(r);
                         desiredQty--;
                         break;
                     }
@@ -286,6 +288,7 @@ public class PlaceBookingScreenController implements Initializable {
                 }
             }
         }
+
         return roomsToBook;
     }
 
