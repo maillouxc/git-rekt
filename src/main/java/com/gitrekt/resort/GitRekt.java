@@ -28,8 +28,6 @@ public class GitRekt extends Application {
         Scene mainScene = new Scene(root);
         mainStage.setScene(mainScene);
 
-
-
         Image appLogo = new Image("images/Logo.png");
         mainStage.getIcons().add(appLogo);
         mainStage.setTitle("Git-Rektsort Booking Software");
@@ -40,7 +38,6 @@ public class GitRekt extends Application {
         guestService.getCurrentlyCheckedInGuests();
 
         DatabaseTestDataLoader.initializeTestData();
-
     }
 
     /**

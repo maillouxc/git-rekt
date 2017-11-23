@@ -35,7 +35,7 @@ public class BillService {
     public void printBillForBooking(Booking booking)
             throws IOException, PrinterException {
 
-        BillPdfGenerator pdfGenerator = new BillPdfGenerator(booking.getBill());
+        BillPdfGenerator pdfGenerator = new BillPdfGenerator(booking);
         try (PDDocument pdf = pdfGenerator.getBillAsPdf()) {
             PrinterJob job = PrinterJob.getPrinterJob();
             job.setPrintService(choosePrinter());
