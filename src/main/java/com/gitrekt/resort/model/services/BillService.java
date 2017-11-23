@@ -87,8 +87,6 @@ public class BillService {
             billItems.add(packageBillItem);
         }
 
-        // TODO: Price adjust based on resort occupation level.
-
         for(BillItem item : billItems) {
             booking.getBill().addCharge(item);
         }
