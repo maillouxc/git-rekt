@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -138,7 +139,7 @@ public class StaffAccountsScreenController implements Initializable {
         );
         Parent dialogRoot = loader.load();
         Scene resetPasswordDialog = new Scene(dialogRoot);
-
+        dialogStage.getIcons().add(new Image("images/Logo.png"));
         dialogStage.setScene(resetPasswordDialog);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.initOwner(resetEmployeePasswordButton.getScene().getWindow());
@@ -166,6 +167,7 @@ public class StaffAccountsScreenController implements Initializable {
             getClass().getResource("/fxml/CreateStaffAccountDialog.fxml")
         );
         Scene createStaffAccountDialog = new Scene(dialogRoot);
+        dialogStage.getIcons().add(new Image("images/Logo.png"));
         dialogStage.setScene(createStaffAccountDialog);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.initOwner(addNewEmployeeButton.getScene().getWindow());
@@ -190,7 +192,6 @@ public class StaffAccountsScreenController implements Initializable {
     private void fetchTableData() {
         EmployeeService employeeService = new EmployeeService();
         staffAccountsList.addAll(employeeService.getAllEmployees());
-        employeeService.cleanup();
     }
 
 }

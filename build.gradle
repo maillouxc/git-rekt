@@ -1,14 +1,10 @@
 plugins {
-    // Standard java plugin for gradle.
     id 'java'
-    // Needed to use attribute mainClassName. Pretty standard.
     id 'application'
-    // Add the gradle build-scan plugin to let us use a fancy UI to view build
-    // results and information in a web browser.
     id 'com.gradle.build-scan' version '1.9'
 }
 
-version = '0.7'
+version = '0.8'
 
 // This is the coolest way I have ever not read the terms of service.
 // To view the build scan when you build the project, open the command prompt
@@ -22,6 +18,8 @@ buildScan {
 }
 
 // I'm aware that this doesn't work, it just isn't a priority right now.
+// The only problem with it is that I don't USE the build number I generate here
+// anywhere.
 task incrementBuildNumber (dependsOn: build) {
     doLast {
         if(System.getenv('CI')) {
