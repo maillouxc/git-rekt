@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,10 +35,10 @@ public class Booking {
 
     private String specialInstructions;
 
-    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<Package> packages;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<Room> bookedRooms;
 
     private boolean isCanceled = false;
@@ -54,17 +54,16 @@ public class Booking {
         // REQUIRED BY HIBERNATE
     }
 
-    public Booking(Guest guest, Date checkInDate, Date checkOutDate, Bill bill,
-            String specialInstructions, List<Package> packages,
-            List<Room> bookedRooms) {
+    public Booking(Guest guest, Date checkInDate, Date checkOutDate, String specialInstructions,
+            List<Package> packages, List<Room> bookedRooms) {
 
         this.guest = guest;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
-        this.bill = bill;
         this.specialInstructions = specialInstructions;
         this.packages = packages;
         this.bookedRooms = bookedRooms;
+        this.bill = new Bill();
     }
 
     public Date getCheckInDate() {

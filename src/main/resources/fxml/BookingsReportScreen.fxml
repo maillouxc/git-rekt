@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BookingsReportScreenController">
+<AnchorPane stylesheets="@../fxcss/Master.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gitrekt.resort.controller.BookingsReportScreenController">
    <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -35,9 +35,9 @@
                   </Label>
                   <HBox alignment="CENTER" spacing="15.0">
                      <children>
-                        <Button fx:id="previousMonthButton" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onPreviousMonthButtonClicked" prefWidth="110.0" text="Previous Month" />
+                        <Button fx:id="previousMonthButton" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onPreviousMonthButtonClicked" prefHeight="31.0" prefWidth="142.0" text="Previous Month" />
                         <Separator orientation="VERTICAL" />
-                        <Button fx:id="nextMonthButton" mnemonicParsing="false" onAction="#onNextMonthButtonClicked" prefWidth="110.0" text="Next Month" />
+                        <Button fx:id="nextMonthButton" mnemonicParsing="false" onAction="#onNextMonthButtonClicked" prefHeight="31.0" prefWidth="142.0" text="Next Month" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

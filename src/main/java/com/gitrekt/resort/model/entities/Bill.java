@@ -12,20 +12,24 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Bill {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BillItem> charges;
-    
+
     public Bill() {
         this.charges = new ArrayList<>();
     }
-    
+
     public List<BillItem> getCharges() {
         return charges;
+    }
+
+    public void addCharge(BillItem item) {
+        charges.add(item);
     }
 
     public double getTotal() {

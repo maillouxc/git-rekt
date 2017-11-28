@@ -1,8 +1,12 @@
 package com.gitrekt.resort.controller;
 
 import com.gitrekt.resort.model.RoomSearchResult;
+import com.gitrekt.resort.model.entities.Package;
+import com.gitrekt.resort.model.entities.RoomCategory;
 import com.gitrekt.resort.model.services.BookingService;
+import com.gitrekt.resort.model.services.PackageService;
 import com.gitrekt.resort.view.BrowseRoomsListItem;
+import com.gitrekt.resort.view.PackageListItem;
 import com.gitrekt.resort.view.SelectedRoomListItem;
 import java.net.URL;
 import java.time.Instant;
@@ -10,6 +14,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,13 +33,16 @@ import javafx.util.Callback;
 /**
  * FXML Controller class for the browse rooms screen.
  */
-public class BrowseRoomsScreenController implements Initializable {
+public class BrowseRoomsScreenController implements Initializable, PackageListController {
 
     @FXML
     private ListView<RoomSearchResult> roomsListView;
 
     @FXML
     private ListView<RoomSearchResult> selectedRoomsListView;
+
+    @FXML
+    private ListView<Package> packagesListView;
 
     @FXML
     private DatePicker checkInDatePicker;
@@ -42,7 +52,7 @@ public class BrowseRoomsScreenController implements Initializable {
 
     @FXML
     private Button findAvailableRoomsButton;
-    
+
     @FXML
     private Button addPackageButton;
 
@@ -50,9 +60,14 @@ public class BrowseRoomsScreenController implements Initializable {
 
     private final ObservableList<RoomSearchResult> selectedRooms;
 
+    private final ObservableList<Package> availablePackages;
+
+    private final Map<Package, Integer> packageQtys = new HashMap<>();
+
     public BrowseRoomsScreenController() {
         roomSearchResults = FXCollections.observableArrayList();
         selectedRooms = FXCollections.observableArrayList();
+        availablePackages = FXCollections.observableArrayList();
     }
 
     @Override
@@ -70,6 +85,19 @@ public class BrowseRoomsScreenController implements Initializable {
         selectedRoomsListView.setItems(selectedRooms);
         selectedRoomsListView.setPlaceholder(new Label("No rooms selected"));
         initializeDatePickers();
+
+        // Initialize packages list
+        PackageService packageService = new PackageService();
+        List<Package> allPackages = packageService.getAllPackages();
+        availablePackages.setAll(allPackages);
+        packagesListView.setItems(availablePackages);
+        packagesListView.setCellFactory(
+            param -> new PackageListItem(this) {
+            {
+                // Don't touch. Magic.
+                prefWidthProperty().bind(packagesListView.widthProperty());
+            }
+        });
     }
 
     /**
@@ -174,12 +202,12 @@ public class BrowseRoomsScreenController implements Initializable {
     private void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen("/fxml/GuestHomeScreen.fxml");
     }
-  
+
      @FXML
     private void onAddPackageButtonClicked() {
         ScreenManager.getInstance().switchToScreen("/fxml/PackageScreen.fxml");
     }
-    
+
      /**
      * Searches the database for rooms that are available in the given date range.
      */
@@ -204,10 +232,24 @@ public class BrowseRoomsScreenController implements Initializable {
 
     @FXML
     private void onNextButtonClicked() {
-        // TODO replace with the packages screen first - this is temporary
-        if(selectedRooms.size() > 0) {
-            ScreenManager.getInstance().switchToScreen("/fxml/PlaceBookingScreen.fxml");
+        if(selectedRooms.size() <= 0) {
+            return;
         }
+
+        Object temp = ScreenManager.getInstance().switchToScreen("/fxml/PlaceBookingScreen.fxml");
+        PlaceBookingScreenController controller = (PlaceBookingScreenController) temp;
+        Map<RoomCategory, Integer> roomsData = new HashMap<>();
+        LocalDate checkInDate = checkInDatePicker.getValue();
+        LocalDate checkOutDate = checkOutDatePicker.getValue();
+        selectedRooms.forEach((r) -> {
+            roomsData.merge(r.getRoomCategory(), 1, Integer::sum);
+        });
+        controller.initializeData(roomsData, this.packageQtys, checkInDate, checkOutDate);
+    }
+
+    @Override
+    public void updatePackageQty(Package p, int newValue) {
+        packageQtys.merge(p, 1, Integer::sum);
     }
 
 }

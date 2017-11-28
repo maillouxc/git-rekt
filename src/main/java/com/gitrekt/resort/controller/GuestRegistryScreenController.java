@@ -16,9 +16,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 
-/**
- * TODO
- */
 public class GuestRegistryScreenController implements Initializable {
 
     @FXML
@@ -28,21 +25,14 @@ public class GuestRegistryScreenController implements Initializable {
     private Button checkOutButton;
 
     @FXML
-    private Button backButton;
-
-    // TODO: Fix rawtype
-    @FXML
     private TableView<Guest> registryTable;
 
-    // TODO: Fix rawtype
     @FXML
     private TableColumn<Guest, String> guestNameColumn;
 
-    // TODO: Fix rawtype
     @FXML
     private TableColumn<Guest, Boolean> checkedInColumn;
 
-    // TODO: Fix rawtype
     @FXML
     private TableColumn<Guest, Long> bookingNumberColumn;
 
@@ -56,12 +46,12 @@ public class GuestRegistryScreenController implements Initializable {
         guests = FXCollections.observableArrayList();
         registryTable.setItems(guests);
         guestNameColumn.setCellValueFactory(
-                (param) -> {
-                    return new SimpleStringProperty(
-                            String.valueOf(param.getValue().getLastName() + " , "
-                                    + param.getValue().getFirstName())
-                    );
-                }
+            (param) -> {
+                return new SimpleStringProperty(
+                    String.valueOf(param.getValue().getLastName() + " , "
+                        + param.getValue().getFirstName())
+                );
+            }
         );
 
         checkedInColumn.setCellValueFactory((param) -> {
@@ -69,17 +59,17 @@ public class GuestRegistryScreenController implements Initializable {
         });
 
         checkedInColumn.setCellFactory(
-                (param) -> {
-                    return new CheckBoxTableCell<>();
-                }
+            (param) -> {
+                return new CheckBoxTableCell<>();
+            }
         );
 
         bookingNumberColumn.setCellValueFactory(
-                (param) -> {
-                    return new SimpleLongProperty(
-                            param.getValue().getId()
-                    ).asObject();
-                }
+            (param) -> {
+                return new SimpleLongProperty(
+                    param.getValue().getId()
+                ).asObject();
+            }
         );
 
         GuestService guestService = new GuestService();
@@ -87,7 +77,7 @@ public class GuestRegistryScreenController implements Initializable {
     }
 
     /**
-     * ChecksIn the guest
+     * Checks in the selected guest.
      */
     public void onCheckInButtonClicked() {
         Guest selectedGuest = getSelectedGuest();
@@ -98,7 +88,7 @@ public class GuestRegistryScreenController implements Initializable {
     }
 
     /**
-     * CheckOut the guest
+     * Checks out the selected guest.
      */
     public void onCheckOutButtonClicked() {
         Guest selectedGuest = getSelectedGuest();
@@ -106,13 +96,10 @@ public class GuestRegistryScreenController implements Initializable {
         selectedGuest.setCheckedIn(false);
         guestService.updateGuest(selectedGuest);
         registryTable.refresh();
-
     }
 
     public void onBackButtonClicked() {
-        ScreenManager.getInstance().switchToScreen(
-                "/fxml/StaffHomeScreen.fxml"
-        );
+        ScreenManager.getInstance().switchToScreen("/fxml/StaffHomeScreen.fxml");
     }
 
     /**
