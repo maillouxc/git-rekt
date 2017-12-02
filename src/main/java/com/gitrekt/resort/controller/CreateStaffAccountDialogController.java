@@ -116,6 +116,10 @@ public class CreateStaffAccountDialogController implements Initializable {
                 employeeService.createEmployeeAccount(newEmployee);
                 Stage dialogStage = (Stage) cancelButton.getScene().getWindow();
                 dialogStage.close();
+                
+                //Reloads the page to for the added employee
+                ScreenManager.getInstance().switchToScreen("/fxml/StaffAccountsScreen.fxml");
+                
             } catch (PersistenceException e) {
                 // This exception is thrown when the entity already exists
                 // You'd think it would throw EntityAlreadyExistsException
