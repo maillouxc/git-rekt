@@ -33,6 +33,8 @@ public class StaffLoginDialogController implements Initializable {
 
     @FXML
     private Label errorLabel;
+    
+    static Employee loggedInEmployee;
 
     /**
      * Initializes the controller class.
@@ -72,7 +74,7 @@ public class StaffLoginDialogController implements Initializable {
         AuthenticationResult authResult = employeeService.authenticate(id, password);
         switch(authResult) {
             case SUCCESS:
-                Employee loggedInEmployee = employeeService.getEmployeeById(id);
+                loggedInEmployee = employeeService.getEmployeeById(id);
                 if(loggedInEmployee.isManager()) {
                     EmployeeService.isManagerLoggedIn = true;
                 }
