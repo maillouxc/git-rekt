@@ -346,10 +346,10 @@ public class PlaceBookingScreenController implements Initializable {
                 || city.isEmpty()
                 || country.isEmpty()
                 || postalCode.isEmpty()) {
-            requiredFieldsNotEmpty = true;
+            requiredFieldsNotEmpty = false;
         }
 
-        if(requiredFieldsNotEmpty) {
+        if(requiredFieldsNotEmpty==false) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Missing Required Fields");
