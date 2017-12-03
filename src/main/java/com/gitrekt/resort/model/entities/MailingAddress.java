@@ -29,8 +29,7 @@ public class MailingAddress {
     private String country;
 
     /**
-     * DO NOT CALL THIS CONSTRUCTOR. IT EXISTS ONLY BECAUSE IT IS REQUIRED BY
-     * HIBERNATE
+     * DO NOT CALL THIS CONSTRUCTOR. IT EXISTS ONLY BECAUSE IT IS REQUIRED BY HIBERNATE.
      */
     MailingAddress() {
         // REQUIRED BY HIBERNATE
@@ -38,6 +37,7 @@ public class MailingAddress {
 
     public MailingAddress(String addressLine1, String addressLine2, String city, String postalCode,
             UsState state, String country) {
+        
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.postalCode = postalCode;

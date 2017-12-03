@@ -107,9 +107,8 @@ public class Booking {
     }
 
     /**
-     * @return The booking id, which is currently being used as the confirmation
-     * number until a scheme for generating confirmation numbers in the
-     * database can be properly devised.
+     * @return The booking id, which is currently being used as the confirmation number until a
+     * scheme for generating confirmation numbers in the database can be properly devised.
      */
     public Long getId() {
         return this.id;
