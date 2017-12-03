@@ -7,11 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * The type of room, containing properties such as the number of beds, a text description of the
- * room, images of the room, etc.
+ * The type of room, containing properties such as the number of beds, a text
+ * description of the room, images of the room, etc.
  *
- * Because all resort rooms in the same category share the same core set of features, there is no
- * need to tie these properties to the room object itself.
+ * Because all resort rooms in the same category share the same core set of
+ * features, there is no need to tie these properties to the room object itself.
  */
 @Entity
 public class RoomCategory {
@@ -37,7 +37,7 @@ public class RoomCategory {
     }
 
     public RoomCategory(String name, String description,
-        String imagePath, String bedsInfo, Double basePrice) {
+            String imagePath, String bedsInfo, Double basePrice) {
 
         this.name = name;
         this.description = description;
@@ -55,8 +55,8 @@ public class RoomCategory {
     }
 
     /**
-     * The image representing this room category, based on the file path string provided when the
-     * category was created.
+     * The image representing this room category, based on the file path string
+     * provided when the category was created.
      */
     public Image getImage() {
         return new Image(this.imageFilePath);
@@ -69,16 +69,21 @@ public class RoomCategory {
     /**
      * DANGER!
      *
-     * This method only gives you the base price of a room, which is just a part of what goes into
-     * the pricing of a room.
+     * This method only gives you the base price of a room, which is just a part
+     * of what goes into the pricing of a room.
      *
-     * Other factors like resort capacity, etc. affect this price. This method should only be used
-     * to calculate the final price of the room within the appropriate service class.
+     * Other factors like resort capacity, etc. affect this price. This method
+     * should only be used to calculate the final price of the room within the
+     * appropriate service class.
      *
      * @return The base price of the room.
      */
     public Double getBasePrice() {
         return basePrice;
+    }
+
+    public void setBasePrice(double price) {
+        this.basePrice = price;
     }
 
     /**

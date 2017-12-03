@@ -5,6 +5,7 @@ import com.gitrekt.resort.model.entities.Room;
 import com.gitrekt.resort.model.entities.RoomCategory;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -49,6 +50,18 @@ public class RoomService {
         return q.getResultList();
     }
 
+    public void editRoomPrice(RoomCategory room, double price) {
+        room.setBasePrice(price);
+         try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(room);
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException e) {
+            entityManager.getTransaction().rollback();
+            throw e;
+        }
+    }
+    
     public List<RoomCategory> getAllRoomCategories() {
         return entityManager.createQuery("FROM RoomCategory").getResultList();
     }
