@@ -42,7 +42,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
                <children>
-                  <Button fx:id="editPriceButton" mnemonicParsing="false" onAction="#oneditPriceClickedButton" prefWidth="180.0" text="Edit Price" />
+                  <Button fx:id="editPriceButton" mnemonicParsing="false" onAction="#onEditPriceClickedButton" prefWidth="180.0" text="Edit Price" />
                </children>
             </HBox>
          </children>
