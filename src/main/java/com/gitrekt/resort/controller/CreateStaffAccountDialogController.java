@@ -26,9 +26,6 @@ public class CreateStaffAccountDialogController implements Initializable {
     private Button cancelButton;
 
     @FXML
-    private Button confirmButton;
-
-    @FXML
     private TextField firstNameField;
 
     @FXML
@@ -73,12 +70,8 @@ public class CreateStaffAccountDialogController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Assign update listeners for the password fields for validation
-        passwordField.setOnKeyPressed(e ->
-            onPasswordFieldUpdated()
-        );
-        confirmPasswordField.setOnKeyPressed(e ->
-            onConfirmPasswordFieldUpdated()
-        );
+        passwordField.setOnKeyPressed(e -> onPasswordFieldUpdated());
+        confirmPasswordField.setOnKeyPressed(e -> onConfirmPasswordFieldUpdated());
     }
 
     /**
@@ -93,13 +86,14 @@ public class CreateStaffAccountDialogController implements Initializable {
     /**
      * Creates a new account with the data from the form.
      *
-     * Handles cases where the account already exists by display an error, and
-     * validates the input fields at a basic level.
+     * Handles cases where the account already exists by display an error, and validates the input
+     * fields at a basic level.
      */
     @FXML
     private void onConfirmButtonClicked() {
         // Hide any currently showing account creation errors
         staffErrorLabel.setVisible(false);
+
         // Gather data from form
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
@@ -116,13 +110,12 @@ public class CreateStaffAccountDialogController implements Initializable {
                 employeeService.createEmployeeAccount(newEmployee);
                 Stage dialogStage = (Stage) cancelButton.getScene().getWindow();
                 dialogStage.close();
-                
-                //Reloads the page to for the added employee
+
+                //Reloads the page to to show the newly added employee
                 ScreenManager.getInstance().switchToScreen("/fxml/StaffAccountsScreen.fxml");
-                
             } catch (PersistenceException e) {
-                // This exception is thrown when the entity already exists
-                // You'd think it would throw EntityAlreadyExistsException
+                // This exception is thrown when the entity already exists.
+                // You'd think it would throw EntityAlreadyExistsException,
                 // but Hibernate is weird like that
                 onAccountAlreadyExists();
             }
@@ -130,8 +123,7 @@ public class CreateStaffAccountDialogController implements Initializable {
     }
 
     /**
-     * Called when trying to create a new account with an id that already exists
-     * in the database.
+     * Called when trying to create a new account with an id that already exists in the database.
      */
     private void onAccountAlreadyExists() {
         staffErrorLabel.setVisible(true);
@@ -154,17 +146,16 @@ public class CreateStaffAccountDialogController implements Initializable {
 
     /**
      * Performs form validation for the create employee account dialog.
-     * Also updates UI cues to display information related to form validation
-     * errors.
+     *
+     * Also updates UI cues to display information related to form validation errors.
      *
      * Currently only checks that fields are not empty.
-     *
      * Should later be expanded to include checks for incorrect data types.
      *
-     * @return True if the form fields are valid.
+     * @return True if the form fields are isValid.
      */
     private boolean validateStaffAccount() {
-        boolean result = true;
+        boolean isValid = true;
 
         // Gather data from form fields
         String firstName = firstNameField.getText();
@@ -173,27 +164,23 @@ public class CreateStaffAccountDialogController implements Initializable {
 
         //Hide any already showing errors
         staffErrorLabel.setVisible(false);
-        firstNameLabel.getStyleClass().remove("validationErrorText");
-        lastNameLabel.getStyleClass().remove("validationErrorText");
-        employeeIdLabel.getStyleClass().remove("validationErrorText");
 
         // Ensure fields are not empty - show error if they are
         if(firstName.isEmpty()
                 || lastName.isEmpty()
                 || String.valueOf(employeeId).isEmpty()) {
             staffErrorLabel.setVisible(true);
-            staffErrorLabel.setText("Fields cannot be empty");
-            result = false;
+            staffErrorLabel.setText("Required fields are empty");
+            isValid = false;
         }
 
-        return result;
+        return isValid;
     }
 
 
     /**
-     * In addition to determining whether the passwords are valid, this method
-     * also handles the UI cues that let the user know what is wrong with their
-     * password.
+     * In addition to determining whether the passwords are valid, this method also handles the
+     * UI cues that let the user know what is wrong with their password.
      *
      * @return True if the passwords entered are valid
      */

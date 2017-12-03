@@ -36,7 +36,7 @@
                         </Label>
                         <HBox alignment="CENTER_LEFT">
                            <children>
-                              <Label text="General Information:" />
+                              <Label styleClass="subheader" text="General Information:" />
                            </children>
                            <VBox.margin>
                               <Insets left="5.0" right="5.0" top="5.0" />
@@ -44,7 +44,7 @@
                         </HBox>
                         <Separator prefWidth="200.0">
                            <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Separator>
                         <GridPane alignment="CENTER" hgap="10.0" vgap="5.0">
@@ -74,7 +74,7 @@
                         </GridPane>
                         <HBox alignment="CENTER_LEFT">
                            <children>
-                              <Label text="Billing Address Information:">
+                              <Label styleClass="subheader" text="Billing Address Information:">
                                  <HBox.margin>
                                     <Insets left="5.0" right="5.0" top="15.0" />
                                  </HBox.margin>
@@ -83,7 +83,7 @@
                         </HBox>
                         <Separator prefWidth="200.0">
                            <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Separator>
                         <GridPane hgap="10.0" vgap="5.0">
@@ -118,7 +118,7 @@
                         </GridPane>
                         <HBox alignment="CENTER_LEFT">
                            <children>
-                              <Label text="Other Information:">
+                              <Label styleClass="subheader" text="Other Information:">
                                  <HBox.margin>
                                     <Insets left="5.0" right="5.0" top="15.0" />
                                  </HBox.margin>
@@ -127,7 +127,7 @@
                         </HBox>
                         <Separator prefWidth="200.0">
                            <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Separator>
                         <VBox>
@@ -150,7 +150,10 @@
                               </TextArea>
                            </children>
                         </VBox>
-                        <Separator prefWidth="200.0" />
+                        <Separator prefWidth="200.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin></Separator>
                         <HBox alignment="TOP_CENTER" prefWidth="200.0" spacing="20.0">
                            <children>
                               <Button fx:id="finishButton" mnemonicParsing="false" onAction="#onFinishButtonClicked" prefWidth="75.0" text="Finish" />
