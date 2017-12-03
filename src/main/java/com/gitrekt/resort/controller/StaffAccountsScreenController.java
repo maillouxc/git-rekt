@@ -43,13 +43,13 @@ public class StaffAccountsScreenController implements Initializable {
     private TableView<Employee> staffAccountsTableView;
 
     @FXML
-    private TableColumn<Employee,String> employeeNameColumn;
+    private TableColumn<Employee, String> employeeNameColumn;
 
     @FXML
-    private TableColumn<Employee,Boolean> isManagerColumn;
+    private TableColumn<Employee, Boolean> isManagerColumn;
 
     @FXML
-    private TableColumn<Employee,String> employeeIdColumn;
+    private TableColumn<Employee, String> employeeIdColumn;
 
     private ObservableList<Employee> staffAccountsList;
 
@@ -63,13 +63,13 @@ public class StaffAccountsScreenController implements Initializable {
 
         employeeIdColumn.setCellValueFactory((param) -> {
             return new SimpleStringProperty(
-                String.valueOf(param.getValue().getId())
+                    String.valueOf(param.getValue().getId())
             );
         });
 
         employeeNameColumn.setCellValueFactory((param) -> {
             return new SimpleStringProperty(
-                param.getValue().getLastName() + ", " + param.getValue().getFirstName()
+                    param.getValue().getLastName() + ", " + param.getValue().getFirstName()
             );
         });
 
@@ -79,13 +79,13 @@ public class StaffAccountsScreenController implements Initializable {
 
         // Display the boolean column using checkboxes instead of strings
         isManagerColumn.setCellFactory(
-            (param) -> {
-                return new CheckBoxTableCell<>();
-            }
+                (param) -> {
+                    return new CheckBoxTableCell<>();
+                }
         );
 
         staffAccountsTableView.setPlaceholder(
-            new Label("We fired everyone")
+                new Label("We fired everyone")
         );
 
         fetchTableData();
@@ -104,25 +104,33 @@ public class StaffAccountsScreenController implements Initializable {
      */
     @FXML
     private void onRemoveEmployeeButtonClicked() {
+        Alert alert;
         Employee selectedEmployee = getSelectedEmployee();
         EmployeeService employeeService = new EmployeeService();
+        if (selectedEmployee.getId().equals(StaffLoginDialogController.loggedInEmployee.getId())) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Remove Employee Confirmation");
+            alert.setHeaderText("Can't Delete This Account");
+            alert.showAndWait();
+        } else {
+            alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Remove Employee Confirmation");
+            alert.setHeaderText("Warning");
+            alert.setContentText("Do you wish to remove selected employee?");
 
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Remove Employee Confirmation");
-        alert.setHeaderText("Warning");
-        alert.setContentText("Do you wish to remove selected employee?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                employeeService.deleteEmployee(selectedEmployee);
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK){
-            employeeService.deleteEmployee(selectedEmployee);
+                // TODO REMOVE TEST CODE
+                List<Employee> employees = employeeService.getAllEmployees();
+                for (Employee employ : employees) {
+                    System.out.println("After delete we found: " + employ.getId());
+                }
 
-            // TODO REMOVE TEST CODE
-            List<Employee> employees = employeeService.getAllEmployees();
-            for(Employee employ : employees) {
-                System.out.println("After delete we found: " + employ.getId());
+                staffAccountsList.remove(selectedEmployee);
+
             }
-
-            staffAccountsList.remove(selectedEmployee);
         }
     }
 
@@ -135,7 +143,7 @@ public class StaffAccountsScreenController implements Initializable {
     private void onResetEmployeePasswordButtonClicked() throws IOException {
         Stage dialogStage = new Stage();
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/fxml/ResetEmployeePasswordDialog.fxml")
+                getClass().getResource("/fxml/ResetEmployeePasswordDialog.fxml")
         );
         Parent dialogRoot = loader.load();
         Scene resetPasswordDialog = new Scene(dialogRoot);
@@ -164,7 +172,7 @@ public class StaffAccountsScreenController implements Initializable {
     private void onAddNewEmployeeButtonClicked() throws IOException {
         Stage dialogStage = new Stage();
         Parent dialogRoot = FXMLLoader.load(
-            getClass().getResource("/fxml/CreateStaffAccountDialog.fxml")
+                getClass().getResource("/fxml/CreateStaffAccountDialog.fxml")
         );
         Scene createStaffAccountDialog = new Scene(dialogRoot);
         dialogStage.getIcons().add(new Image("images/Logo.png"));
