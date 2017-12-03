@@ -33,11 +33,11 @@ public class StaffLoginDialogController implements Initializable {
 
     @FXML
     private Label errorLabel;
-    
+
     static Employee loggedInEmployee;
 
     /**
-     * Initializes the controller class.
+     * Called by JavaFX.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -53,7 +53,7 @@ public class StaffLoginDialogController implements Initializable {
     }
 
     /**
-     * Authenticates the user and takes appropriate action.
+     * Authenticates the user and proceeds to the next screen if authentication is successful.
      *
      * @throws IOException
      */
