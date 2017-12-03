@@ -64,6 +64,8 @@ public class BookingDetailsScreenController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
+     * Mainly just prepares the tables and configures them.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -117,9 +119,9 @@ public class BookingDetailsScreenController implements Initializable {
         this.guestNameLabel.setText(guestNameLastFirst);
         this.checkInDateLabel.setText(booking.getCheckInDate().toString());
         this.checkOutDateLabel.setText(booking.getCheckOutDate().toString());
+
         bookedRooms.addAll(booking.getBookedRooms());
 
-        // Not the most efficient way to do this but it was quick to figure out and it works.
         for(Package p : booking.getPackages()) {
             boolean alreadyPresent = false;
             for(BookedPackagesWrapper w : bookedPackagesList) {
@@ -129,23 +131,22 @@ public class BookingDetailsScreenController implements Initializable {
                 }
             }
             if(!alreadyPresent) {
-                BookedPackagesWrapper newWrapper = new BookedPackagesWrapper(p.getName(), 1);
-                bookedPackagesList.add(newWrapper);
+                BookedPackagesWrapper wrapper = new BookedPackagesWrapper(p.getName(), 1);
+                bookedPackagesList.add(wrapper);
             }
         }
     }
 
     /**
-     * Returns to the previous screen.
+     * Returns to the Guest home screen.
      */
     @FXML
     private void onBackButtonClicked() {
         ScreenManager.getInstance().switchToScreen("/fxml/GuestHomeScreen.fxml");
-
     }
 
     /**
-     * Displays the customer bill for the booking displayed by this screen.
+     * Displays the customer bill screen for the booking displayed by this screen.
      */
     @FXML
     private void onViewBillButtonClicked() {
@@ -167,11 +168,20 @@ public class BookingDetailsScreenController implements Initializable {
         Alert confirmationDialog = new Alert(AlertType.CONFIRMATION);
         confirmationDialog.setTitle("Confirm");
         confirmationDialog.setHeaderText("Confirm Cancel Booking");
-        confirmationDialog.setContentText("You will be assessed a cancellation fee of "
+
+        // Check for the case where there is no fee because of the 24 hr window
+        if(cancellationFee < 0.01) {
+            confirmationDialog.setContentText("You will not be assessed a cancellation fee."
+                    + " - please confirm that you want to cancel this booking."
+                    + " This action cannot be undone.");
+        } else {
+            confirmationDialog.setContentText("You will be assessed a cancellation fee of "
                 + cancellationFeeString
                 + " - please confirm that you want to cancel this booking. "
                 + "This action cannot be undone.");
+        }
 
+        // Show the dialog and get the result
         Optional<ButtonType> result = confirmationDialog.showAndWait();
         if(result.get() == ButtonType.OK) {
             // User chose OK
@@ -183,19 +193,16 @@ public class BookingDetailsScreenController implements Initializable {
 
     /**
      * It might have been better to use a Map here instead of an inner class but in practice it's
-     * simple enough.
+     * simple enough - this simple little wrapper helps us associate a quantity with a package.
      */
     private class BookedPackagesWrapper {
-
         String packageName;
-
         Integer bookedQty;
 
         BookedPackagesWrapper(String packageName, Integer bookedQty) {
             this.packageName = packageName;
             this.bookedQty = bookedQty;
         }
-
     }
 
 }
