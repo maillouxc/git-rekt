@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- * The main application class shell.
+ * The main application class.
  */
 public class GitRekt extends Application {
 
@@ -23,8 +23,7 @@ public class GitRekt extends Application {
         ScreenManager screenManager = ScreenManager.getInstance();
         screenManager.initialize(mainStage);
 
-        Parent root =
-            FXMLLoader.load(getClass().getResource("/fxml/HomeScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/HomeScreen.fxml"));
         Scene mainScene = new Scene(root);
         mainStage.setScene(mainScene);
 

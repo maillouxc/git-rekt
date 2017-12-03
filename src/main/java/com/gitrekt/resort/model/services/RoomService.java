@@ -15,8 +15,7 @@ public class RoomService {
     private final EntityManager entityManager;
 
     /**
-     * Creates an instance of the service class, along with it's associated
-     * Hibernate entityManager.
+     * Creates an instance of the service class, along with it's associated entityManager.
      */
     public RoomService(){
         this.entityManager = HibernateUtil.getEntityManager();
@@ -68,7 +67,7 @@ public class RoomService {
     public Double getCurrentRoomPrice(RoomCategory roomCategory) {
         Double basePrice = roomCategory.getBasePrice();
         Double currentPrice = basePrice;
-        // TODO: Factor in capacity and other things
+        // TODO: Factor resort capacity into pricing
         return currentPrice;
     }
 
