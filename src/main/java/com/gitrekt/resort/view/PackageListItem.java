@@ -16,13 +16,8 @@ public class PackageListItem extends ListCell<Package> {
 
     private final Node view;
 
-    private final PackageListController listController;
-
     public PackageListItem(PackageListController listController) {
         super();
-
-        // Initialize a reference to the parent controller to allow callbacks
-        this.listController = listController;
 
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PackageListItem.fxml"));

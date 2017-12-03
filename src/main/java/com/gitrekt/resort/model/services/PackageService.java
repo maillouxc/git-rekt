@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 /**
- * Responsible retrieval, storage, and business logic related specifically to Package objects.
+ * Responsible for retrieval, storage, and business logic related specifically to Package objects.
  */
 public class PackageService {
 

@@ -82,7 +82,6 @@ public class EmployeeService {
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
-            // TODO: Log rollback or notify user somewhere, possibly in e.
             throw e;
         }
     }
@@ -101,7 +100,6 @@ public class EmployeeService {
             entityManager.getTransaction().commit();
         } catch (PersistenceException ex) {
             entityManager.getTransaction().rollback();
-            // TODO: Log rollback or notify user somewhere, possibly in e.
             throw ex;
         }
     }
@@ -118,7 +116,6 @@ public class EmployeeService {
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
-            // TODO: Log rollback or notify user somewhere, possibly in e.
             throw e;
         }
     }

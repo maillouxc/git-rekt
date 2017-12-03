@@ -22,8 +22,7 @@ public class GuestFeedbackService {
     }
 
     /**
-     * @return All guest feedback reports from the database that are not yet
-     * marked resolved.
+     * @return All guest feedback reports from the database that are not yet marked resolved.
      */
     public List<GuestFeedback> getUnresolvedGuestFeedback() {
         String query = "FROM GuestFeedback WHERE isResolved = :param";
@@ -39,7 +38,6 @@ public class GuestFeedbackService {
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
-            // TODO: Log rollback or notify user somewhere, possibly in e.
             throw e;
         }
     }
@@ -51,7 +49,6 @@ public class GuestFeedbackService {
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
-            // TODO: Log rollback or notify user somewhere, possibly in e.
             throw e;
         }
     }
