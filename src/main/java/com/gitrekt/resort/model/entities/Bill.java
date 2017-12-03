@@ -20,6 +20,9 @@ public class Bill {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BillItem> charges;
 
+    /**
+     * NO ARG CONSTRUCTOR REQUIRED BY HIBERNATE.
+     */
     public Bill() {
         this.charges = new ArrayList<>();
     }

@@ -57,7 +57,6 @@ public class BookingService {
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
-            // TODO: Log rollback or notify user somewhere, possibly in e.
             throw e;
         }
     }
@@ -88,7 +87,6 @@ public class BookingService {
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
-            // TODO: Log rollback or notify user somewhere, possibly in e.
             throw e;
         }
     }
@@ -109,9 +107,6 @@ public class BookingService {
         Query q = entityManager.createQuery(queryString);
         q.setParameter("startDate", startDate);
         q.setParameter("endDate", endDate);
-
-        // TODO: Remove
-
 
         return q.getResultList();
     }
@@ -144,7 +139,7 @@ public class BookingService {
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
-            // TODO: Handle
+            throw e;
         }
     }
 

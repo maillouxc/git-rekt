@@ -22,7 +22,7 @@ public class Package {
     private String description;
 
     /**
-     * DO NOT CALL THIS CONSTRUCTOR. IT IS MEANT FOR USE ONLY BY HIBERNATE
+     * DO NOT CALL THIS CONSTRUCTOR. IT IS MEANT FOR USE ONLY BY HIBERNATE.
      */
     Package() {
         // REQUIRED BY HIBERNATE
