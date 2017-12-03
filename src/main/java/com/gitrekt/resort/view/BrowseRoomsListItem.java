@@ -15,14 +15,9 @@ public class BrowseRoomsListItem extends ListCell<RoomSearchResult> {
     private final FXMLLoader fxmlLoader;
 
     private final Node view;
-    
-    private BrowseRoomsScreenController parentController;
 
     public BrowseRoomsListItem(BrowseRoomsScreenController parentController) {
         super();
-
-        // Initialize a reference to the parent controller to allow callbacks
-        this.parentController = parentController;
 
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/BrowseRoomsListItem.fxml"));
