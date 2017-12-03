@@ -4,7 +4,6 @@ import com.gitrekt.resort.model.entities.Employee;
 import com.gitrekt.resort.model.services.EmployeeService;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -24,11 +23,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class for the "Manage Staff Accounts" screen.
+ * FXML Controller class for the manage staff accounts screen.
  */
 public class StaffAccountsScreenController implements Initializable {
 
@@ -42,18 +42,18 @@ public class StaffAccountsScreenController implements Initializable {
     private TableView<Employee> staffAccountsTableView;
 
     @FXML
-    private TableColumn<Employee,String> employeeNameColumn;
+    private TableColumn<Employee, String> employeeNameColumn;
 
     @FXML
-    private TableColumn<Employee,Boolean> isManagerColumn;
+    private TableColumn<Employee, Boolean> isManagerColumn;
 
     @FXML
-    private TableColumn<Employee,String> employeeIdColumn;
+    private TableColumn<Employee, String> employeeIdColumn;
 
     private ObservableList<Employee> staffAccountsList;
 
     /**
-     * Initializes the controller class.
+     * Called by JavaFX.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,13 +62,13 @@ public class StaffAccountsScreenController implements Initializable {
 
         employeeIdColumn.setCellValueFactory((param) -> {
             return new SimpleStringProperty(
-                String.valueOf(param.getValue().getId())
+                    String.valueOf(param.getValue().getId())
             );
         });
 
         employeeNameColumn.setCellValueFactory((param) -> {
             return new SimpleStringProperty(
-                param.getValue().getLastName() + ", " + param.getValue().getFirstName()
+                    param.getValue().getLastName() + ", " + param.getValue().getFirstName()
             );
         });
 
@@ -78,20 +78,20 @@ public class StaffAccountsScreenController implements Initializable {
 
         // Display the boolean column using checkboxes instead of strings
         isManagerColumn.setCellFactory(
-            (param) -> {
-                return new CheckBoxTableCell<>();
-            }
+                (param) -> {
+                    return new CheckBoxTableCell<>();
+                }
         );
 
         staffAccountsTableView.setPlaceholder(
-            new Label("We fired everyone")
+                new Label("We fired everyone")
         );
 
         fetchTableData();
     }
 
     /**
-     * Returns to the previous screen.
+     * Returns to the staff home screen.
      */
     @FXML
     private void onBackButtonClicked() {
@@ -103,25 +103,25 @@ public class StaffAccountsScreenController implements Initializable {
      */
     @FXML
     private void onRemoveEmployeeButtonClicked() {
+        Alert alert;
         Employee selectedEmployee = getSelectedEmployee();
         EmployeeService employeeService = new EmployeeService();
+        if (selectedEmployee.getId().equals(StaffLoginDialogController.loggedInEmployee.getId())) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Remove Employee Confirmation");
+            alert.setHeaderText("Can't Delete This Account");
+            alert.showAndWait();
+        } else {
+            alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Remove Employee Confirmation");
+            alert.setHeaderText("Warning");
+            alert.setContentText("Do you wish to remove selected employee?");
 
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Remove Employee Confirmation");
-        alert.setHeaderText("Warning");
-        alert.setContentText("Do you wish to remove selected employee?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK){
-            employeeService.deleteEmployee(selectedEmployee);
-
-            // TODO REMOVE TEST CODE
-            List<Employee> employees = employeeService.getAllEmployees();
-            for(Employee employ : employees) {
-                System.out.println("After delete we found: " + employ.getId());
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                employeeService.deleteEmployee(selectedEmployee);
+                staffAccountsList.remove(selectedEmployee);
             }
-
-            staffAccountsList.remove(selectedEmployee);
         }
     }
 
@@ -138,7 +138,7 @@ public class StaffAccountsScreenController implements Initializable {
         );
         Parent dialogRoot = loader.load();
         Scene resetPasswordDialog = new Scene(dialogRoot);
-
+        dialogStage.getIcons().add(new Image("images/Logo.png"));
         dialogStage.setScene(resetPasswordDialog);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.initOwner(resetEmployeePasswordButton.getScene().getWindow());
@@ -166,6 +166,7 @@ public class StaffAccountsScreenController implements Initializable {
             getClass().getResource("/fxml/CreateStaffAccountDialog.fxml")
         );
         Scene createStaffAccountDialog = new Scene(dialogRoot);
+        dialogStage.getIcons().add(new Image("images/Logo.png"));
         dialogStage.setScene(createStaffAccountDialog);
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.initOwner(addNewEmployeeButton.getScene().getWindow());
@@ -179,13 +180,11 @@ public class StaffAccountsScreenController implements Initializable {
      * @return The currently selected employee in the employee table view.
      */
     private Employee getSelectedEmployee() {
-        Employee selectedEmployee = staffAccountsTableView.getSelectionModel().getSelectedItem();
-        return selectedEmployee;
+        return staffAccountsTableView.getSelectionModel().getSelectedItem();
     }
 
     /**
-     * Retrieves the employee data from the database and populates the tableview
-     * with it.
+     * Retrieves the employee data from the database and populates the table view with it.
      */
     private void fetchTableData() {
         EmployeeService employeeService = new EmployeeService();

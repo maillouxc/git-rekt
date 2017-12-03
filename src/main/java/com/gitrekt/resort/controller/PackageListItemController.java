@@ -12,6 +12,9 @@ import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * FXML controller class for the list items displayed on the package booking screen.
+ */
 public class PackageListItemController implements Initializable {
 
     @FXML
@@ -36,13 +39,15 @@ public class PackageListItemController implements Initializable {
 
     private Package packageData;
 
-    public PackageListItemController() {
-        // Intentionally blank
-    }
-
+    /**
+     * Called by JavaFX.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        qtySpinner.setValueFactory(new IntegerSpinnerValueFactory(0, 100, 0));
+        int min = 0;
+        int max = 100;
+        int initialValue = 0;
+        qtySpinner.setValueFactory(new IntegerSpinnerValueFactory(min, max, initialValue));
         qtySpinner.valueProperty().addListener(
             (obs, oldValue, newValue) -> {
                 listController.updatePackageQty(this.packageData, newValue);
@@ -57,10 +62,24 @@ public class PackageListItemController implements Initializable {
         return root;
     }
 
+    /**
+     * This method must be called in order to initialize a reference to the screen controller
+     * for the screen that contains these list items; that is, the book packages screen.
+     *
+     * This is a hacky way to do things, but this reference allows us to communicate between the
+     * components without a nightmare of interfaces and callbacks.
+     *
+     * @param listController The controller for the class containing this list.
+     */
     public void setListController(PackageListController listController) {
         this.listController = listController;
     }
 
+    /**
+     * Initializes the data item for this list item.
+     *
+     * @param p The package data to display in this list item.
+     */
     public void setData(Package p) {
         this.packageData = p;
 

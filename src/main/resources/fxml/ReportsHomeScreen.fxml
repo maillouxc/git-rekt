@@ -12,12 +12,12 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
          <children>
-            <Button fx:id="bookingPercentagesReportButton" mnemonicParsing="false" onAction="#onBookingPercentagesReportButtonClicked" prefHeight="35.0" prefWidth="200.0" text="Booking Percentages Report">
+            <Button fx:id="bookingPercentagesReportButton" mnemonicParsing="false" onAction="#onBookingPercentagesReportButtonClicked" prefHeight="35.0" prefWidth="226.0" text="Booking Percentages Report">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="feedbackReportButton" mnemonicParsing="false" onAction="#onFeedbackReportButtonClicked" prefHeight="35.0" prefWidth="200.0" text="Feedback Report">
+            <Button fx:id="feedbackReportButton" mnemonicParsing="false" onAction="#onFeedbackReportButtonClicked" prefHeight="35.0" prefWidth="225.0" text="Feedback Report">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>

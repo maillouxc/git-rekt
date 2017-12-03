@@ -7,8 +7,7 @@ import org.mindrot.jbcrypt.BCrypt;
 @Entity
 public class Employee {
 
-    // Employee ID is not auto-generated, but rather would already exist in the
-    // business's records.
+    // Employee ID is not auto-generated, but rather would already exist in business records.
     @Id
     private Long employeeId;
 
@@ -19,8 +18,8 @@ public class Employee {
     private String firstName;
 
     private String lastName;
-    
-    private static final int LOG_ROUNDS = 10;
+
+    private static final int LOG_ROUNDS = 10; // Used for password encryption
 
     /**
      * DO NOT CALL THIS CONSTRUCTOR. IT IS INTENDED FOR USE BY HIBERNATE ONLY.
@@ -31,7 +30,9 @@ public class Employee {
 
     public Employee(Long id, String plaintextPassword, boolean isManager,
             String firstName, String lastName) {
+
         encryptPassword(plaintextPassword);
+
         this.isManager = isManager;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -61,13 +62,12 @@ public class Employee {
     public void setManager(boolean isManager) {
         this.isManager = isManager;
     }
-    
+
     public void setPassword(String plaintextPassword){
         encryptPassword(plaintextPassword);
     }
-    
+
     private void encryptPassword(String plaintextPassword) {
-        int numRoundsToHash = 2000;
         String salt = BCrypt.gensalt(LOG_ROUNDS);
         this.hashedPassword = BCrypt.hashpw(plaintextPassword, salt);
     }

@@ -5,6 +5,7 @@ import com.gitrekt.resort.model.entities.Room;
 import com.gitrekt.resort.model.entities.RoomCategory;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -15,8 +16,7 @@ public class RoomService {
     private final EntityManager entityManager;
 
     /**
-     * Creates an instance of the service class, along with it's associated
-     * Hibernate entityManager.
+     * Creates an instance of the service class, along with it's associated entityManager.
      */
     public RoomService(){
         this.entityManager = HibernateUtil.getEntityManager();
@@ -50,6 +50,18 @@ public class RoomService {
         return q.getResultList();
     }
 
+    public void editRoomPrice(RoomCategory room, double price) {
+        room.setBasePrice(price);
+         try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(room);
+            entityManager.getTransaction().commit();
+        } catch (PersistenceException e) {
+            entityManager.getTransaction().rollback();
+            throw e;
+        }
+    }
+    
     public List<RoomCategory> getAllRoomCategories() {
         return entityManager.createQuery("FROM RoomCategory").getResultList();
     }
@@ -68,7 +80,7 @@ public class RoomService {
     public Double getCurrentRoomPrice(RoomCategory roomCategory) {
         Double basePrice = roomCategory.getBasePrice();
         Double currentPrice = basePrice;
-        // TODO: Factor in capacity and other things
+        // TODO: Factor resort capacity into pricing
         return currentPrice;
     }
 

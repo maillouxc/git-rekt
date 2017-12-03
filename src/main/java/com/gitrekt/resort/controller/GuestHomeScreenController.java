@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javax.persistence.EntityNotFoundException;
 
@@ -17,12 +16,12 @@ import javax.persistence.EntityNotFoundException;
  */
 public class GuestHomeScreenController implements Initializable {
 
-    @FXML
-    private Button viewBookingButton;
-
+    /**
+     * Initializes the FXML controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // Intentionally blank.
     }
 
     @FXML
@@ -42,12 +41,16 @@ public class GuestHomeScreenController implements Initializable {
 
     @FXML
     private void onViewBookingButtonClicked() throws IOException {
+        // Show a dialog that allows the user to enter their booking number.
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Find booking");
         dialog.setHeaderText("Enter booking number");
         dialog.setContentText("Please enter your booking number: ");
 
+        // Get the result from the dialog.
         Optional<String> result = dialog.showAndWait();
+
+        // If the result isn't empty, look up the booking number in the DB and show the details
         if(result.isPresent()) {
             Long bookingId = Long.valueOf(result.get());
             BookingService bookingService = new BookingService();
@@ -61,17 +64,9 @@ public class GuestHomeScreenController implements Initializable {
                 BookingDetailsScreenController controller = (BookingDetailsScreenController) temp;
                 controller.intializeBookingData(booking);
             } catch (EntityNotFoundException e) {
-                return;
+                // If the booking isn't found, just let the dialog close.
             }
-            Booking booking = bookingService.getBookingById(bookingId);
-            if(booking != null) {
-                Object temp = ScreenManager.getInstance().switchToScreen(
-                    "/fxml/BookingDetailsScreen.fxml"
-                );
-                BookingDetailsScreenController controller = (BookingDetailsScreenController) temp;
-                controller.intializeBookingData(booking);
-            }
-
         }
     }
+
 }
