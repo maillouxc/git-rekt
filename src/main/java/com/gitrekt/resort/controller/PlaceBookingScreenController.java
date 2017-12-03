@@ -72,7 +72,7 @@ public class PlaceBookingScreenController implements Initializable {
     @FXML
     private Label statePickerLabel;
 
-    private ObservableList<String> countries ;
+    private ObservableList<String> countries;
 
     private ObservableList<String> states;
 
@@ -84,6 +84,9 @@ public class PlaceBookingScreenController implements Initializable {
 
     private LocalDate checkOutDate;
 
+    /**
+     * Called by JavaFX.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initializeStatePicker();
@@ -91,7 +94,7 @@ public class PlaceBookingScreenController implements Initializable {
     }
 
     /**
-     * Call this method to initialize the information needed to place the booking.
+     * Initializes the information needed to place the booking.
      *
      * @param roomsInfo The map of the list of room categories and the quantity of each category
      * to book.
@@ -207,8 +210,9 @@ public class PlaceBookingScreenController implements Initializable {
     /**
      * Initializes the state picker with all US states plus Puerto Rico as choices.
      *
-     * The state picker is set to be hidden initially. The program should unhide the state picker
-     * when it is determined that the user is in the United States.
+     * The state picker is set to be hidden at first;
+     * The program should unhide the state picker when it is determined that the user is in the
+     * United States.
      */
     private void initializeStatePicker() {
         states = FXCollections.observableArrayList();
@@ -224,16 +228,8 @@ public class PlaceBookingScreenController implements Initializable {
         boolean isValid = true; // Form is innocent until proven guilty
 
         // Gather all trimmed input from all fields
-        String firstName = firstNameField.getText().trim();
-        String lastName = lastNameField.getText().trim();
         String email = emailField.getText().trim();
         String confirmedEmail = confirmEmailField.getText().trim();
-        String addressLine1 = addressLine1Field.getText().trim();
-        String addressLine2 = addressLine2Field.getText().trim();
-        String city = cityField.getText().trim();
-        String country = countryPicker.getValue();
-        String postalCode = postalCodeField.getText().trim();
-        String specialInstructions = specialInstructionsBox.getText().trim();
 
         if(!confirmedEmail.equals(email) || email.isEmpty()) {
             isValid = false;
@@ -262,6 +258,9 @@ public class PlaceBookingScreenController implements Initializable {
         return guestService.getGuestByEmailAddress(email);
     }
 
+    /**
+     * Returns the actual list of rooms that are to be booked by the system.
+     */
     private List<Room> getListOfRoomsToBook(Date checkin, Date checkout) {
         BookingService bookingService = new BookingService();
         List<Room> availableRooms = bookingService.getAvailableRoomsBetweenDates(checkin, checkout);
@@ -288,7 +287,6 @@ public class PlaceBookingScreenController implements Initializable {
                 }
             }
         }
-
         return roomsToBook;
     }
 
@@ -334,15 +332,12 @@ public class PlaceBookingScreenController implements Initializable {
         // Gather trimmed form data from all required fields.
         String firstName = firstNameField.getText().trim();
         String lastName = lastNameField.getText().trim();
-        String email = emailField.getText().trim();
-        String confirmedEmail = confirmEmailField.getText().trim();
         String addressLine1 = addressLine1Field.getText().trim();
         String city = cityField.getText().trim();
         String country = countryPicker.getValue();
         String postalCode = postalCodeField.getText().trim();
-        String specialInstructions = specialInstructionsBox.getText().trim();
 
-        boolean requiredFieldsNotEmpty = true;
+        boolean requiredFieldsNotEmpty = true; // Innocent until proven guilty
 
         // Check if required fields are empty
         if(firstName.isEmpty()

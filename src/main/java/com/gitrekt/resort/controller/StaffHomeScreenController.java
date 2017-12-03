@@ -13,12 +13,6 @@ import javafx.scene.control.Button;
 public class StaffHomeScreenController implements Initializable {
 
     @FXML
-    private Button backButton;
-
-    @FXML
-    private Button registryButton;
-
-    @FXML
     private Button viewReportsButton;
 
     @FXML
@@ -28,7 +22,7 @@ public class StaffHomeScreenController implements Initializable {
     private Button manageStaffAccountsButton;
 
     /**
-     * Initializes the controller class.
+     * Called by JavaFX.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -39,23 +33,28 @@ public class StaffHomeScreenController implements Initializable {
         }
     }
 
-    public void onRegistryButtonClicked() {
+    @FXML
+    private void onRegistryButtonClicked() {
         ScreenManager.getInstance().switchToScreen("/fxml/GuestRegistryScreen.fxml");
     }
 
-    public void onViewReportsButtonClicked() {
+    @FXML
+    private void onViewReportsButtonClicked() {
         ScreenManager.getInstance().switchToScreen("/fxml/ReportsHomeScreen.fxml");
     }
 
-    public void onEditPricesButtonClicked() {
+    @FXML
+    private void onEditPricesButtonClicked() {
         ScreenManager.getInstance().switchToScreen("/fxml/EditPricesScreen.fxml");
     }
 
-    public void onManageStaffAccountsButtonClicked() {
+    @FXML
+    private void onManageStaffAccountsButtonClicked() {
         ScreenManager.getInstance().switchToScreen("/fxml/StaffAccountsScreen.fxml");
     }
 
-    public void onBackButtonClicked() {
+    @FXML
+    private void onBackButtonClicked() {
         EmployeeService.isManagerLoggedIn = false;
         ScreenManager.getInstance().switchToScreen("/fxml/HomeScreen.fxml");
     }
