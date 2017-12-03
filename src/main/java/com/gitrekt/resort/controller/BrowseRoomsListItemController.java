@@ -40,6 +40,10 @@ public class BrowseRoomsListItemController implements Initializable {
 
     private RoomSearchResult roomData;
 
+    public BrowseRoomsListItemController() {
+        // Intentionally blank
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Intentionally blank
@@ -55,7 +59,7 @@ public class BrowseRoomsListItemController implements Initializable {
         roomCategoryLabel.setText(roomData.getRoomCategory().getName());
         roomThumbnailView.setImage(roomData.getRoomCategory().getImage());
         bedsInfoLabel.setText(roomData.getRoomCategory().getBedsInfo());
-        // We should handle currency more flexibly and precisely at some point
+        // TODO: We should handle currency more flexibly at some point
         String priceString = "$" + roomData.getRoomPrice() + " / night";
         roomPriceLabel.setText(priceString);
         roomDescriptionLabel.setText(roomData.getRoomCategory().getDescription());
@@ -91,7 +95,7 @@ public class BrowseRoomsListItemController implements Initializable {
 
     @FXML
     private void onRoomThumbnailClicked() {
-        // TODO: Display fullsized image of room.
+        // TODO: Display fullsize image.
     }
 
 }

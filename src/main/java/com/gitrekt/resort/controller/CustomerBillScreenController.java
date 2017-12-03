@@ -48,7 +48,7 @@ public class CustomerBillScreenController implements Initializable {
     private ObservableList<BillItem> billItems;
 
     /**
-     * Initializes the FXML controller class.
+     * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,7 +74,6 @@ public class CustomerBillScreenController implements Initializable {
 
     /**
      * Initializes the view bill screen with the data for the bill to display.
-     *
      * Once this method is called, the proper data is displayed on the screen.
      *
      * @param booking The booking to display the bill for.
@@ -99,9 +98,8 @@ public class CustomerBillScreenController implements Initializable {
     }
 
     /**
-     * Prints the guest bill on a printer.
-     *
-     * The user is first prompted with a print options dialog.
+     * Prints the guest bill on a physical printer. The user is first prompted
+     * with a print options dialog.
      *
      * @throws IOException
      * @throws PrinterException
@@ -113,8 +111,8 @@ public class CustomerBillScreenController implements Initializable {
     }
 
     /**
-     * Initializes the information displayed in the various labels on this screen, such as the
-     * customer name label, the total price label, etc.
+     * Initializes the information displayed in the various labels displayed on
+     * this screen, such as the customer name label, the total price label, etc.
      */
     private void initializeInfoLabels() {
         bookingNumberText.setText(String.valueOf(booking.getId()));

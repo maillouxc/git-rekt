@@ -32,9 +32,6 @@ import javafx.util.Callback;
 
 /**
  * FXML Controller class for the browse rooms screen.
- *
- * This class has a little too much responsibility at the moment, but that can be dealt with at a
- * later time, once we begin to feel any pain associated with it.
  */
 public class BrowseRoomsScreenController implements Initializable, PackageListController {
 
@@ -56,6 +53,9 @@ public class BrowseRoomsScreenController implements Initializable, PackageListCo
     @FXML
     private Button findAvailableRoomsButton;
 
+    @FXML
+    private Button addPackageButton;
+
     private final ObservableList<RoomSearchResult> roomSearchResults;
 
     private final ObservableList<RoomSearchResult> selectedRooms;
@@ -70,12 +70,8 @@ public class BrowseRoomsScreenController implements Initializable, PackageListCo
         availablePackages = FXCollections.observableArrayList();
     }
 
-    /**
-     * Initializes the FXML controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Configure the view for the list of rooms
         roomsListView.setItems(roomSearchResults);
         roomsListView.setCellFactory(
             param -> new BrowseRoomsListItem(this) {
@@ -136,7 +132,7 @@ public class BrowseRoomsScreenController implements Initializable, PackageListCo
      * Ensures that the date pickers only allow selection of dates within the valid booking date
      * range, as defined in the specifications document.
      *
-     * Chief among these rules is that bookings may not be placed more than one year in advance.
+     * Chief among these rules is that bookings may not be placed more than one day in advance.
      */
     private void initializeDatePickers() {
         Callback<DatePicker, DateCell> dayCellFactory =
@@ -192,7 +188,7 @@ public class BrowseRoomsScreenController implements Initializable, PackageListCo
     /**
      * Sorts results list by price, high to low.
      */
-    private void sortResultsByPriceHighToLow() {
+    private void sortResultsByPrice() {
         roomSearchResults.sort(
             (RoomSearchResult r1, RoomSearchResult r2) ->
                 r1.getRoomPrice().compareTo(r2.getRoomPrice())
@@ -207,7 +203,12 @@ public class BrowseRoomsScreenController implements Initializable, PackageListCo
         ScreenManager.getInstance().switchToScreen("/fxml/GuestHomeScreen.fxml");
     }
 
-    /**
+     @FXML
+    private void onAddPackageButtonClicked() {
+        ScreenManager.getInstance().switchToScreen("/fxml/PackageScreen.fxml");
+    }
+
+     /**
      * Searches the database for rooms that are available in the given date range.
      */
     @FXML
@@ -231,7 +232,6 @@ public class BrowseRoomsScreenController implements Initializable, PackageListCo
 
     @FXML
     private void onNextButtonClicked() {
-        // Prevent proceeding when no rooms are selected
         if(selectedRooms.size() <= 0) {
             return;
         }

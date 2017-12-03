@@ -14,7 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * The JavaFX controller class for the overall application home screen.
+ * The JavaFX controller class for the home screen.
  *
  * The home screen is shown when the application first starts, and allows the user to select which
  * mode to use the program in: guest or staff.
@@ -24,9 +24,6 @@ public class HomeScreenController implements Initializable {
     @FXML
     private Button staffModeButton;
 
-    /**
-     * Called by JavaFX
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Intentionally blank.
