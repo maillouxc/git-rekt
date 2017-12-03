@@ -2,7 +2,6 @@ package com.gitrekt.resort;
 
 import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.UsState;
-import com.gitrekt.resort.model.entities.Booking;
 import com.gitrekt.resort.model.entities.Employee;
 import com.gitrekt.resort.model.entities.Guest;
 import com.gitrekt.resort.model.entities.GuestFeedback;
@@ -10,14 +9,7 @@ import com.gitrekt.resort.model.entities.MailingAddress;
 import com.gitrekt.resort.model.entities.Package;
 import com.gitrekt.resort.model.entities.Room;
 import com.gitrekt.resort.model.entities.RoomCategory;
-import com.gitrekt.resort.model.services.BookingService;
 import com.gitrekt.resort.model.services.GuestFeedbackService;
-import com.gitrekt.resort.model.services.PackageService;
-import com.gitrekt.resort.model.services.RoomService;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -40,7 +32,6 @@ public class DatabaseTestDataLoader {
             "Beds not provided",
             100.00
         );
-
         RoomCategory familyBasic = new RoomCategory(
             "Family Basic",
             "With the Family basic room, you can be treated like the dirt you"
@@ -49,7 +40,6 @@ public class DatabaseTestDataLoader {
             "2 Queen, 2 twin",
             125.99
         );
-
         RoomCategory luxury = new RoomCategory(
             "Luxury",
             "Because in 2017 being able to go to a resort at all is a luxury. "
@@ -58,7 +48,6 @@ public class DatabaseTestDataLoader {
             "2 Queen",
             159.99
         );
-
         RoomCategory luxuryFamily = new RoomCategory(
             "Luxury Family",
             "This room is almost bearable. Too bad you have kids and you won't "
@@ -67,7 +56,6 @@ public class DatabaseTestDataLoader {
             "2 Queen, 2 twin",
             179.67
         );
-
         RoomCategory king = new RoomCategory(
             "King",
             "The room that says, \"I'm better than everyone else, and I want"
@@ -81,48 +69,40 @@ public class DatabaseTestDataLoader {
         );
 
         EntityManager entityManager = HibernateUtil.getEntityManager();
-
-        // Put the data in the database
         entityManager.getTransaction().begin();
 
         // 1st floor rooms don't exist
-
         // 2nd floor rooms
         for(int roomNumber = 200; roomNumber < 200+50; roomNumber++) {
             entityManager.persist(new Room(String.valueOf(roomNumber), basic));
         }
-
         // 3rd floor rooms
         for(int roomNumber = 300; roomNumber < 300+50; roomNumber++) {
             Room room = new Room(String.valueOf(roomNumber), basic);
             entityManager.persist(room);
         }
-
         // 4th floor rooms
         for(int roomNumber = 400; roomNumber < 400+40; roomNumber++) {
             Room room = new Room(String.valueOf(roomNumber), familyBasic);
             entityManager.persist(room);
         }
-
         // 5th floor rooms
             for(int roomNumber = 500; roomNumber < 500+30; roomNumber++) {
                 Room room = new Room(String.valueOf(roomNumber), luxury);
                 entityManager.persist(room);
             }
-
         // 6th floor rooms
         for(int roomNumber = 600; roomNumber < 600+20; roomNumber++) {
             Room room = new Room(String.valueOf(roomNumber), luxuryFamily);
             entityManager.persist(room);
         }
-
         // 7th floor rooms
         for(int roomNumber = 700; roomNumber < 700+10; roomNumber++) {
             Room room = new Room(String.valueOf(roomNumber), king);
             entityManager.persist(room);
         }
 
-        // Generate package data.
+        // Generate package data
         Package package1 = new Package("Loch-Ness monster viewing", 3.50, "images/packages/loch_ness_monster.jpg", "We're gonna need about tree fiddy.");
         Package package2 = new Package("Basement tour", 10.00, "images/packages/crappy_basement.jpg", "Experience the thrills of the boiler room on our expertly guided tour.");
         Package package3 = new Package("Drug cartel abduction experience", 650.00, "images/packages/cartel_abduction.jpg", "Ever dreamed of being ransomed by an international drug cartel? Of course you have. Now's your change to live the dreamm, with this package.");
@@ -147,11 +127,11 @@ public class DatabaseTestDataLoader {
         // Load test employee data
         Employee e1 = new Employee(1L, "gitrekt", true, "Chris", "Mailloux");
         Employee e2 = new Employee(2L, "bassface", false, "Chris", "Kael");
-        Employee e3 = new Employee(Long.valueOf(3),"1234", true, "Juan" , "Gomez");
-        Employee e4 = new Employee(Long.valueOf(4),"1234", true, "Juanito" , "Gomez");
-        Employee e5 = new Employee(Long.valueOf(5),"1234", false, "Juana" , "Gomez");
-        Employee e6 = new Employee(Long.valueOf(6),"1234", false, "Juanita" , "Gomez");
-        Employee e7 = new Employee(Long.valueOf(7),"1234", true, "Juanucho" , "Gomez");
+        Employee e3 = new Employee(3L,"1234", true, "Juan" , "Gomez");
+        Employee e4 = new Employee(4L,"1234", true, "Juanito" , "Gomez");
+        Employee e5 = new Employee(5L,"1234", false, "Juana" , "Gomez");
+        Employee e6 = new Employee(6L,"1234", false, "Juanita" , "Gomez");
+        Employee e7 = new Employee(7L,"1234", true, "Juanucho" , "Gomez");
 
         entityManager.persist(e1);
         entityManager.persist(e2);
@@ -166,38 +146,7 @@ public class DatabaseTestDataLoader {
 
         // Load test feedback data
         GuestFeedbackService s = new GuestFeedbackService();
-        s.createNewGuestFeedback(new GuestFeedback("You suck.", "mailloux.cl@gmail.com"));
-        s.createNewGuestFeedback(new GuestFeedback("You suck a lot.", "mailloux.cl@gmail.com"));
-        s.createNewGuestFeedback(new GuestFeedback("You're the worst programmer ever and this simple feature took you all night to implement.", "mailloux.cl@gmail.com"));
         s.createNewGuestFeedback(new GuestFeedback("You're bad and you should feel bad.", "mailloux.cl@gmail.com"));
-
-        createTestBookingData();
-    }
-
-    private static void createTestBookingData() {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
-
-        Guest g1 = new Guest("Chris", "Mailloux", "maillasdgoux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
-        entityManager.persist(g1);
-
-        RoomService r = new RoomService();
-        List<Room> testRooms = r.getAllRoomsInCategory("Basic");
-        System.out.println(testRooms.size() + " Basic rooms added to test booking");
-
-        Calendar testCalendar = new GregorianCalendar();
-        Date d1 = new Date();
-        testCalendar.add(Calendar.DAY_OF_MONTH, 3);
-        Date d2 = testCalendar.getTime();
-
-        PackageService packageService = new PackageService();
-        List<Package> allPackages = packageService.getAllPackages();
-        Booking b1 = new Booking(g1, d1, d2, "you suck", allPackages, testRooms);
-        BookingService bookingService = new BookingService();
-
-        entityManager.getTransaction().begin();
-        entityManager.persist(b1);
-        entityManager.getTransaction().commit();
-        entityManager.close();
     }
 
 }

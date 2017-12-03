@@ -16,8 +16,7 @@ public class Room {
     private RoomCategory roomCategory;
 
     /**
-     * DO NOT CALL THIS CONSTRUCTOR. IT EXISTS ONLY BECAUSE IT IS REQUIRED BY
-     * HIBERNATE.
+     * DO NOT CALL THIS CONSTRUCTOR. IT EXISTS ONLY BECAUSE IT IS REQUIRED BY HIBERNATE.
      */
     Room() {
         // REQUIRED BY HIBERNATE

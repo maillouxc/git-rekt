@@ -48,7 +48,6 @@ public class GuestService {
             entityManager.getTransaction().commit();
         } catch (PersistenceException e) {
             entityManager.getTransaction().rollback();
-            // TODO: Log rollback or notify user somewhere, possibly in e.
             throw e;
         } finally {
             entityManager.close();

@@ -1,7 +1,7 @@
 package com.gitrekt.resort.model;
 
 public enum UsState {
-    
+
     ALABAMA("Alabama", "AL"),
     ALASKA("Alaska", "AK"),
     ARIZONA("Arizona", "AZ"),
@@ -55,9 +55,9 @@ public enum UsState {
     WYOMING("Wyoming", "WY"),
     PUERTO_RICO("Puerto Rico", "PR");
 
-    private String unabbreviated;
+    private final String unabbreviated;
 
-    private String abbreviation;
+    private final String abbreviation;
 
     UsState(String unabbreviated, String abbreviation) {
         this.unabbreviated = unabbreviated;
@@ -67,7 +67,7 @@ public enum UsState {
     public String getUnabbreviated() {
         return this.unabbreviated;
     }
-        
+
     /**
      * @return The abbreviated name of this state, e.g. "NY", or "WY".
      */
@@ -76,19 +76,20 @@ public enum UsState {
     }
 
     /**
-     * Parse string input to enum. Accepts unabbreviated and abbreviated forms.
+     * Parse string input to enum.
+     *
+     * Accepts unabbreviated and abbreviated forms.
      * Case insensitive.
-     * 
+     *
      * @param input String to parse
-     * 
+     *
      * @return The parsed US state, or null on failure.
      */
-
     public static UsState parse(String input) {
         if (null == input) {
             return null;
         }
-        
+
         input = input.trim();
 
         for (UsState state : values()) {
