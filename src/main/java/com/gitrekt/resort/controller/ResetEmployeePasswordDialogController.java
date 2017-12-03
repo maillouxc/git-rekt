@@ -55,8 +55,7 @@ public class ResetEmployeePasswordDialogController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Configure text change listeners for the two fields
-       
+        
     }  
     
     /**
