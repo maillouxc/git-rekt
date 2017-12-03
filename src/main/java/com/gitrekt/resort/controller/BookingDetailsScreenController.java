@@ -69,6 +69,7 @@ public class BookingDetailsScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Prepare the booked rooms table.
         bookedRooms = FXCollections.observableArrayList();
         bookedRoomsTableView.setItems(bookedRooms);
         roomNumberColumn.setCellValueFactory(
@@ -85,7 +86,7 @@ public class BookingDetailsScreenController implements Initializable {
                 );
             }
         );
-
+        // Prepare the booked packages table
         bookedPackagesList = FXCollections.observableArrayList();
         bookedPackagesTableView.setItems(bookedPackagesList);
         packageNameColumn.setCellValueFactory(
@@ -122,6 +123,7 @@ public class BookingDetailsScreenController implements Initializable {
 
         bookedRooms.addAll(booking.getBookedRooms());
 
+        // This isn't the most efficient way to do this, but it works and it's good enough.
         for(Package p : booking.getPackages()) {
             boolean alreadyPresent = false;
             for(BookedPackagesWrapper w : bookedPackagesList) {
