@@ -1,8 +1,7 @@
 package com.gitrekt.resort.controller;
 
-import com.gitrekt.resort.model.services.RoomService;
 import com.gitrekt.resort.model.entities.RoomCategory;
-
+import com.gitrekt.resort.model.services.RoomService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,7 +35,7 @@ public class EditPricesScreenController implements Initializable {
     private TableColumn<RoomCategory,Double> roomPriceColumn;
 
     private ObservableList<RoomCategory> room;
-    
+
     static RoomCategory service;
 
 
@@ -69,7 +68,7 @@ public class EditPricesScreenController implements Initializable {
     }
 
     @FXML
-    private void oneditPriceClickedButton() throws IOException {
+    private void onEditPriceClickedButton() throws IOException {
 
         Stage editPriceDialogStage = new Stage();
         Parent editPriceDialogRoot = FXMLLoader.load(
