@@ -9,8 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -25,19 +23,20 @@ public class LeaveFeedbackScreenController implements Initializable {
 
     @FXML
     private TextField guestEmailTextField;
-    
-    @FXML
-    private Button submitButton;
-    
+
+    /**
+     * Called by JavaFX
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // Intentionally blank.
     }
 
+    /**
+     * Closes the dialog.
+     */
     public void onCancelClicked() {
-        ScreenManager.getInstance().switchToScreen(
-                "/fxml/GuestHomeScreen.fxml"
-        );
+        ScreenManager.getInstance().switchToScreen("/fxml/GuestHomeScreen.fxml");
     }
 
     /**
@@ -46,17 +45,23 @@ public class LeaveFeedbackScreenController implements Initializable {
      * @throws IOException
      */
     public void onSubmitClicked() throws IOException {
-        Stage stage = (Stage) submitButton.getScene().getWindow();
-        if (!feedbackTextArea.getText().equals("") && !guestEmailTextField.getText().equals("")) {
+        if (!feedbackTextArea.getText().isEmpty()
+                && !guestEmailTextField.getText().isEmpty()) {
+
             GuestFeedbackService guestfeedbackservice = new GuestFeedbackService();
-            guestfeedbackservice.createNewGuestFeedback(new GuestFeedback(feedbackTextArea.getText(), guestEmailTextField.getText()));
+            guestfeedbackservice.createNewGuestFeedback(
+                new GuestFeedback(feedbackTextArea.getText(), guestEmailTextField.getText())
+            );
+
+            // Display an alert dialog to confirm the submission.
             Alert a = new Alert(AlertType.INFORMATION);
             a.setTitle("THANK YOU!");
-            a.setHeaderText("Thanks for your feeback");
+            a.setHeaderText("Thanks for your feeback. As promised, we will now ignore it.");
             a.showAndWait();
             if (a.getResult() == ButtonType.OK) {
-                onCancelClicked();
-            }           
+                // User clicked OK
+                onCancelClicked(); // This just closes the dialog, but it's a bit hacky
+            }
         }
     }
 }
