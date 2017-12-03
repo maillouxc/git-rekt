@@ -11,21 +11,21 @@ import javafx.stage.Stage;
  */
 public class ScreenManager {
 
-    private static Stage mainStage;
+    private static Stage mainStage; // This probably doesn't need to be static
 
     private FXMLLoader fxmlLoader;
 
     private static ScreenManager instance;
 
     private ScreenManager() {
-        //fxmlLoader = new FXMLLoader();
+        // Intentionally blank.
     }
 
     /**
      * Returns a reference to the singleton.
      *
-     * Be sure that initialize has been called before attempting to use the
-     * object, else a NPE will be thrown.
+     * Be sure that initialize has been called before attempting to use the object, else a NPE will
+     * be thrown. The best place to call initialize is at the very starting point of the app.
      *
      * @return A reference to the singleton instance.
      */
@@ -37,8 +37,7 @@ public class ScreenManager {
     }
 
     /**
-     * Before the object can be used, it must be provided a reference to the
-     * main stage.
+     * Before the object can be used, it must be provided a reference to the main stage.
      *
      * @param mainStage The main stage of the application.
      */
@@ -63,7 +62,6 @@ public class ScreenManager {
         }
 
         mainStage.getScene().setRoot(newScreenRoot);
-        //mainStage.setMaximized(true);
         return fxmlLoader.getController();
     }
 

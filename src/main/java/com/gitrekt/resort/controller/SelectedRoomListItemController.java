@@ -19,6 +19,9 @@ public class SelectedRoomListItemController implements Initializable {
 
     private RoomSearchResult roomData;
 
+    /**
+     * Called by JavaFX.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Intentionally blank.
