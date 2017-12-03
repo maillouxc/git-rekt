@@ -1,7 +1,6 @@
 package com.gitrekt.resort.controller;
 
 import com.gitrekt.resort.model.services.RoomService;
-import com.gitrekt.resort.model.entities.Room;
 import com.gitrekt.resort.model.entities.RoomCategory;
 
 import java.io.IOException;
@@ -37,12 +36,15 @@ public class EditPricesScreenController implements Initializable {
     private TableColumn<RoomCategory,Double> roomPriceColumn;
 
     private ObservableList<RoomCategory> room;
+    
+    static RoomCategory service;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         room = FXCollections.observableArrayList();
         roomTableView.setItems(room);
+        roomTableView.refresh();
 
         roomNameColumn.setCellValueFactory((param) -> {
             return new SimpleStringProperty(
@@ -73,6 +75,7 @@ public class EditPricesScreenController implements Initializable {
         Parent editPriceDialogRoot = FXMLLoader.load(
                 getClass().getResource("/fxml/EditPriceDialog.fxml")
         );
+        service = roomTableView.getSelectionModel().getSelectedItem();
         Scene editPriceDialog = new Scene(editPriceDialogRoot);
 
         editPriceDialogStage.getIcons().add(new Image("images/Logo.png"));
