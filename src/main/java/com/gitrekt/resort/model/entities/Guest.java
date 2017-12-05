@@ -21,10 +21,12 @@ public class Guest {
 
     private String emailAddress;
 
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private MailingAddress mailingAddress;
 
     private boolean isCheckedIn = false;
+
+    private boolean wasCheckedIn = false;
 
     /**
      * DO NOT CALL THIS CONSTRUCTOR. IT IS ONLY HERE FOR HIBERNATE.
@@ -71,13 +73,20 @@ public class Guest {
 
     public void setCheckedIn(boolean checkedIn) {
         this.isCheckedIn = checkedIn;
+        if (isCheckedIn() == true) {
+            wasCheckedIn = true;
+        }
+    }
+
+    public boolean getWasCheckedIn() {
+        return wasCheckedIn;
     }
 
     public boolean isCheckedIn() {
         return isCheckedIn;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 

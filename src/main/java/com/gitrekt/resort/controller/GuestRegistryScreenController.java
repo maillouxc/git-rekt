@@ -45,12 +45,12 @@ public class GuestRegistryScreenController implements Initializable {
         guests = FXCollections.observableArrayList();
         registryTable.setItems(guests);
         guestNameColumn.setCellValueFactory(
-            (param) -> {
-                return new SimpleStringProperty(
-                    String.valueOf(param.getValue().getLastName() + " , "
-                        + param.getValue().getFirstName())
-                );
-            }
+                (param) -> {
+                    return new SimpleStringProperty(
+                            String.valueOf(param.getValue().getLastName() + " , "
+                                    + param.getValue().getFirstName())
+                    );
+                }
         );
 
         checkedInColumn.setCellValueFactory((param) -> {
@@ -59,17 +59,17 @@ public class GuestRegistryScreenController implements Initializable {
 
         // Use a check box to display booleans rather than a string
         checkedInColumn.setCellFactory(
-            (param) -> {
-                return new CheckBoxTableCell<>();
-            }
+                (param) -> {
+                    return new CheckBoxTableCell<>();
+                }
         );
 
         bookingNumberColumn.setCellValueFactory(
-            (param) -> {
-                return new SimpleLongProperty(
-                    param.getValue().getId()
-                ).asObject();
-            }
+                (param) -> {
+                    return new SimpleLongProperty(
+                            param.getValue().getId()
+                    ).asObject();
+                }
         );
 
         // Load the registry data from the database
@@ -82,10 +82,13 @@ public class GuestRegistryScreenController implements Initializable {
      */
     public void onCheckInButtonClicked() {
         Guest selectedGuest = getSelectedGuest();
-        GuestService guestService = new GuestService();
-        selectedGuest.setCheckedIn(true);
-        guestService.updateGuest(selectedGuest);
-        registryTable.refresh();
+        if (selectedGuest.getWasCheckedIn() == false) {
+            GuestService guestService = new GuestService();
+            selectedGuest.setCheckedIn(true);
+            guestService.updateGuest(selectedGuest);
+            registryTable.refresh();
+        }
+
     }
 
     /**
