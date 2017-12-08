@@ -4,7 +4,9 @@ import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.entities.Guest;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -80,10 +82,11 @@ public class GuestService {
         Date date = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
         // I'm pretty sure we could use left join here but I'm not exactly brushed up on SQL right
         // now so this works.
-        String queryString = "SELECT guest FROM Booking AS b WHERE b.guest.isCheckedIn = true"
+        String queryString = "SELECT guest FROM Booking AS b WHERE b.isCheckedIn"
                 + " or trunc(sysdate) BETWEEN b.checkInDate and b.checkOutDate";
         Query query = entityManager.createQuery(queryString);
         List<Guest> guests = query.getResultList();
+        
         entityManager.close();
         return guests;
     }

@@ -164,6 +164,13 @@ public class BookingDetailsScreenController implements Initializable {
      */
     @FXML
     private void onCancelBookingButtonClicked() {
+        if(booking.isCheckedIn()){
+         Alert confirmationDialog = new Alert(AlertType.ERROR);
+        confirmationDialog.setTitle("Cancellation Error");
+        confirmationDialog.setHeaderText("Can't cancel a checked in booking.");
+         Optional<ButtonType> result = confirmationDialog.showAndWait();
+        }
+        else{
         double cancellationFee = BookingService.calcCancellationFee(this.booking);
         String cancellationFeeString = String.format("$%.2f", cancellationFee);
         // Show confirmation dialog
@@ -190,6 +197,7 @@ public class BookingDetailsScreenController implements Initializable {
             BookingService bookingService = new BookingService();
             bookingService.cancelBooking(this.booking);
             bookingCanceledLabel.setVisible(true);
+        }
         }
     }
 

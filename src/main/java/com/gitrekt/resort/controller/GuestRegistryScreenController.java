@@ -1,8 +1,14 @@
 package com.gitrekt.resort.controller;
 
+import com.gitrekt.resort.model.entities.Booking;
 import com.gitrekt.resort.model.entities.Guest;
+import com.gitrekt.resort.model.services.BookingService;
 import com.gitrekt.resort.model.services.GuestService;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -21,18 +27,18 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 public class GuestRegistryScreenController implements Initializable {
 
     @FXML
-    private TableView<Guest> registryTable;
+    private TableView<Booking> registryTable;
 
     @FXML
-    private TableColumn<Guest, String> guestNameColumn;
+    private TableColumn<Booking, String> guestNameColumn;
 
     @FXML
-    private TableColumn<Guest, Boolean> checkedInColumn;
+    private TableColumn<Booking, Boolean> checkedInColumn;
 
     @FXML
-    private TableColumn<Guest, Long> bookingNumberColumn;
+    private TableColumn<Booking, Long> bookingNumberColumn;
 
-    private ObservableList<Guest> guests;
+    private ObservableList<Booking> bookings;
 
     /**
      * Initializes the FXML controller class.
@@ -42,13 +48,13 @@ public class GuestRegistryScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Prepare to display the data
-        guests = FXCollections.observableArrayList();
-        registryTable.setItems(guests);
+        bookings = FXCollections.observableArrayList();
+        registryTable.setItems(bookings);
         guestNameColumn.setCellValueFactory(
                 (param) -> {
                     return new SimpleStringProperty(
-                            String.valueOf(param.getValue().getLastName() + " , "
-                                    + param.getValue().getFirstName())
+                            String.valueOf(param.getValue().getGuest().getLastName() + " , "
+                                    + param.getValue().getGuest().getFirstName())
                     );
                 }
         );
@@ -73,19 +79,22 @@ public class GuestRegistryScreenController implements Initializable {
         );
 
         // Load the registry data from the database
-        GuestService guestService = new GuestService();
-        guests.addAll(guestService.getDailyGuestRegistry());
+        LocalDate today = LocalDate.now();
+        Date date = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        BookingService bookingtService = new BookingService();
+        bookings.addAll(bookingtService.getBookingsBetweenDates(date,date));
     }
 
     /**
      * Checks in the selected guest.
      */
     public void onCheckInButtonClicked() {
-        Guest selectedGuest = getSelectedGuest();
-        if (selectedGuest.getWasCheckedIn() == false) {
-            GuestService guestService = new GuestService();
-            selectedGuest.setCheckedIn(true);
-            guestService.updateGuest(selectedGuest);
+        Booking selectedBooking = getSelectedBooking();
+        // Instead of getting the selected guest, you need to get the booking number that was selected - 
+        if(!selectedBooking.wasCheckedIn()) {
+            BookingService bookingService = new BookingService();
+            selectedBooking.setIsCheckedIn(true);
+            bookingService.updateBooking(selectedBooking);
             registryTable.refresh();
         }
 
@@ -95,10 +104,10 @@ public class GuestRegistryScreenController implements Initializable {
      * Checks out the selected guest.
      */
     public void onCheckOutButtonClicked() {
-        Guest selectedGuest = getSelectedGuest();
-        GuestService guestService = new GuestService();
-        selectedGuest.setCheckedIn(false);
-        guestService.updateGuest(selectedGuest);
+        Booking selectedBooking = getSelectedBooking();
+        BookingService bookingService = new BookingService();
+        selectedBooking.setIsCheckedIn(true);
+        bookingService.updateBooking(selectedBooking);
         registryTable.refresh();
     }
 
@@ -112,7 +121,7 @@ public class GuestRegistryScreenController implements Initializable {
     /**
      * @return The currently selected guest in the registry table view.
      */
-    private Guest getSelectedGuest() {
+    private Booking getSelectedBooking() {
         return registryTable.getSelectionModel().getSelectedItem();
     }
 }

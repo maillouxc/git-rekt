@@ -43,6 +43,10 @@ public class Booking {
 
     private boolean isCanceled = false;
 
+    private boolean isCheckedIn = false;
+
+    private boolean wasCheckedIn = false;
+
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private Date createdDate;
@@ -107,11 +111,30 @@ public class Booking {
     }
 
     /**
-     * @return The booking id, which is currently being used as the confirmation number until a
-     * scheme for generating confirmation numbers in the database can be properly devised.
+     * @return The booking id, which is currently being used as the confirmation
+     * number until a scheme for generating confirmation numbers in the database
+     * can be properly devised.
      */
     public Long getId() {
         return this.id;
+    }
+
+    public boolean wasCheckedIn() {
+        return wasCheckedIn;
+    }
+
+    public boolean isCheckedIn() {
+        return isCheckedIn;
+    }
+
+    public void setIsCheckedIn(boolean isCheckedIn) {
+        if (isCheckedIn == true && !wasCheckedIn()) {
+            this.isCheckedIn = true;
+            this.wasCheckedIn = true;
+        } else {
+            this.isCheckedIn = false;
+        }
+
     }
 
 }

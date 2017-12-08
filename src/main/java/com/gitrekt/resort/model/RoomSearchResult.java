@@ -1,4 +1,4 @@
-package com.gitrekt.resort.model;
+            package com.gitrekt.resort.model;
 
 import com.gitrekt.resort.model.entities.RoomCategory;
 

@@ -2,6 +2,7 @@ package com.gitrekt.resort;
 
 import com.gitrekt.resort.hibernate.HibernateUtil;
 import com.gitrekt.resort.model.UsState;
+import com.gitrekt.resort.model.entities.Booking;
 import com.gitrekt.resort.model.entities.Employee;
 import com.gitrekt.resort.model.entities.Guest;
 import com.gitrekt.resort.model.entities.GuestFeedback;
@@ -10,6 +11,12 @@ import com.gitrekt.resort.model.entities.Package;
 import com.gitrekt.resort.model.entities.Room;
 import com.gitrekt.resort.model.entities.RoomCategory;
 import com.gitrekt.resort.model.services.GuestFeedbackService;
+import static java.lang.System.currentTimeMillis;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.persistence.EntityManager;
 
 /**
@@ -115,7 +122,9 @@ public class DatabaseTestDataLoader {
 
         // Generate test guest data
         Guest g1 = new Guest("Chris", "Mailloux", "mailloux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
-        Guest g2 = new Guest("Chrsfgmis", "Mailloux", "mailsfghux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
+        Guest g2 = new Guest("Chris", "Mailloux", "mailloux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
+
+        //Guest g2 = new Guest("Chrsfgmis", "Mailloux", "mailsfghux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
         Guest g3 = new Guest("Chris", "Mailldfghoux", "maillsfghsfghsoux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
         Guest g4 = new Guest("Chrawetis", "Mailloux", "maillojytfkdfux.cl@gmail.com", new MailingAddress("525 fake way", null, "Fort Myers", "33969", UsState.FLORIDA, "United States"));
 
@@ -123,7 +132,35 @@ public class DatabaseTestDataLoader {
         entityManager.persist(g2);
         entityManager.persist(g3);
         entityManager.persist(g4);
+        
+        
+        
+         LocalDate otherDay = LocalDate.of(2017, Month.DECEMBER, 8);
+        Date date2 = Date.from(otherDay.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        LocalDate otherDay2 = LocalDate.of(2017, Month.DECEMBER, 15);
+        Date date3 = Date.from(otherDay.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        
+        Booking b1 = new Booking(g1,date2, date3 ,"",new ArrayList<Package>(),new ArrayList<Room>());
+        
+        otherDay = LocalDate.of(2018, Month.JANUARY, 12);
+        date2 = Date.from(otherDay.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        otherDay2 = LocalDate.of(2018, Month.FEBRUARY, 16);
+        date3 = Date.from(otherDay.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        
+        Booking b2 = new Booking(g2,date2,date3,"",new ArrayList<Package>(),new ArrayList<Room>());
+        
+        
+        Booking b3 = new Booking(g3,new Date(2017,12,6), new Date(2017,12,12),"",new ArrayList<Package>(),new ArrayList<Room>());
 
+        entityManager.persist(b1);
+        entityManager.persist(b2);
+        entityManager.persist(b3);
+
+        
+        
+        
+        
+        
         // Load test employee data
         Employee e1 = new Employee(1L, "gitrekt", true, "Chris", "Mailloux");
         Employee e2 = new Employee(2L, "bassface", false, "Chris", "Kael");
