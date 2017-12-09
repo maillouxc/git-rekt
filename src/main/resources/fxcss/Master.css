@@ -72,3 +72,15 @@
     -fx-pref-width: 400;
     -fx-pref-height: 200;
 }
+
+#homeScreenTitle {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2ECC71;
+}
+
+#homeScreenSubtitle {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
