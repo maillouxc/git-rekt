@@ -233,7 +233,7 @@ public class PlaceBookingScreenController implements Initializable {
 
         if(!confirmedEmail.equals(email) || email.isEmpty()) {
             isValid = false;
-            showEmailAddressedDoNotMatchError();
+            showEmailAddressesDoNotMatchError();
         }
         if(!ensureRequiredFieldsNotEmpty()) {
             isValid = false;
