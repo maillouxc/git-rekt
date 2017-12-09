@@ -1,6 +1,11 @@
 # git-rekt
 Group project for FGCU's intro to Software Engineering. A resort management/booking desktop application.
 
+If you are reading this README from a local file, the github repository where it is contained is at
+https://github.com/maillouxc/git-rekt
+
+The file is in markdown format, and may be easier to read there.
+
 BUILD INSTRUCTIONS:
 
 Minimum Java 8 required.
