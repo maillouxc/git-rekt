@@ -338,4 +338,19 @@ public class BookingService {
         return bookedRooms;
     }
 
+    /**
+     * Returns the list of bookings that should be displayed in the daily registry for today's
+     * date.
+     */
+    public List<Booking> getDailyRegistry() {
+        List<Booking> results;
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        String queryString = "FROM Booking WHERE isCheckedIn = true "
+                + "OR trunc(sysdate) BETWEEN checkInDate and checkOutDate";
+        Query q = entityManager.createQuery(queryString);
+        results = q.getResultList();
+        entityManager.close();
+        return results;
+    }
+
 }
