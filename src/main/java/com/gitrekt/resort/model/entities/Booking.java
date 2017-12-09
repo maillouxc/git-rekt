@@ -41,7 +41,11 @@ public class Booking {
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Room> bookedRooms;
 
-    private boolean isCanceled = false;
+    private boolean isCanceled;
+
+    private boolean isCheckedIn;
+
+    private boolean hasBeenCheckedInOnce;
 
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
@@ -64,6 +68,14 @@ public class Booking {
         this.packages = packages;
         this.bookedRooms = bookedRooms;
         this.bill = new Bill();
+    }
+
+    /**
+     * @return The booking id, which is currently being used as the confirmation number until a
+     * scheme for generating confirmation numbers in the database can be properly devised.
+     */
+    public Long getId() {
+        return this.id;
     }
 
     public Date getCheckInDate() {
@@ -106,12 +118,24 @@ public class Booking {
         return guest;
     }
 
-    /**
-     * @return The booking id, which is currently being used as the confirmation number until a
-     * scheme for generating confirmation numbers in the database can be properly devised.
-     */
-    public Long getId() {
-        return this.id;
+    public void setCheckedIn(boolean checkedIn) {
+        if(checkedIn) {
+            if(hasBeenCheckedInOnce) {
+                throw new IllegalStateException("Cannot check in more than once");
+            }
+            this.isCheckedIn = true;
+            hasBeenCheckedInOnce = true;
+        } else {
+            this.isCheckedIn = false;
+        }
+    }
+
+    public boolean isCheckedIn() {
+        return isCheckedIn;
+    }
+
+    public boolean hasBeenCheckedInOnce() {
+        return hasBeenCheckedInOnce;
     }
 
 }

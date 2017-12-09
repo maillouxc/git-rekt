@@ -55,8 +55,8 @@ public class LeaveFeedbackScreenController implements Initializable {
 
             // Display an alert dialog to confirm the submission.
             Alert a = new Alert(AlertType.INFORMATION);
-            a.setTitle("THANK YOU!");
-            a.setHeaderText("Thanks for your feeback. As promised, we will now ignore it.");
+            a.setTitle("Thanks!");
+            a.setHeaderText("Thanks for your feedback. As promised, we will now ignore it.");
             a.showAndWait();
             if (a.getResult() == ButtonType.OK) {
                 // User clicked OK

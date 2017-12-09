@@ -1,7 +1,7 @@
 package com.gitrekt.resort.controller;
 
-import com.gitrekt.resort.model.entities.Guest;
-import com.gitrekt.resort.model.services.GuestService;
+import com.gitrekt.resort.model.entities.Booking;
+import com.gitrekt.resort.model.services.BookingService;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -11,28 +11,35 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 
 /**
  * The FXML controller class for the guest registry screen.
+ *
+ * NOTE: Even though this screen is intended to give information about guests, you'll find that
+ * most of the things in this class refer to bookings. This is because a guest can have more than
+ * one booking at a time; we want to be able to handle this behavior without complicated duplicate
+ * handling logic, so we chose to display the bookings and treat them as though they were guests.
  */
 public class GuestRegistryScreenController implements Initializable {
 
     @FXML
-    private TableView<Guest> registryTable;
+    private TableView<Booking> registryTable;
 
     @FXML
-    private TableColumn<Guest, String> guestNameColumn;
+    private TableColumn<Booking, String> guestNameColumn;
 
     @FXML
-    private TableColumn<Guest, Boolean> checkedInColumn;
+    private TableColumn<Booking, Boolean> checkedInColumn;
 
     @FXML
-    private TableColumn<Guest, Long> bookingNumberColumn;
+    private TableColumn<Booking, Long> bookingNumberColumn;
 
-    private ObservableList<Guest> guests;
+    private ObservableList<Booking> bookings;
 
     /**
      * Initializes the FXML controller class.
@@ -42,13 +49,13 @@ public class GuestRegistryScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Prepare to display the data
-        guests = FXCollections.observableArrayList();
-        registryTable.setItems(guests);
+        bookings = FXCollections.observableArrayList();
+        registryTable.setItems(bookings);
         guestNameColumn.setCellValueFactory(
             (param) -> {
                 return new SimpleStringProperty(
-                    String.valueOf(param.getValue().getLastName() + " , "
-                        + param.getValue().getFirstName())
+                    String.valueOf(param.getValue().getGuest().getLastName() + " , "
+                        + param.getValue().getGuest().getFirstName())
                 );
             }
         );
@@ -73,29 +80,41 @@ public class GuestRegistryScreenController implements Initializable {
         );
 
         // Load the registry data from the database
-        GuestService guestService = new GuestService();
-        guests.addAll(guestService.getDailyGuestRegistry());
+        BookingService bookingService = new BookingService();
+        bookings.addAll(bookingService.getDailyRegistry());
     }
 
     /**
-     * Checks in the selected guest.
+     * Checks in the selected guest/booking.
      */
     public void onCheckInButtonClicked() {
-        Guest selectedGuest = getSelectedGuest();
-        GuestService guestService = new GuestService();
-        selectedGuest.setCheckedIn(true);
-        guestService.updateGuest(selectedGuest);
+        Booking selectedBooking = getSelectedBooking();
+        BookingService bookingService = new BookingService();
+        try {
+            selectedBooking.setCheckedIn(true);
+        } catch (IllegalStateException e) {
+            displayBookingHasAlreadyBeenCheckedInError();
+        }
+        bookingService.updateBooking(selectedBooking);
         registryTable.refresh();
     }
 
+    private void displayBookingHasAlreadyBeenCheckedInError() {
+        Alert errorDialog = new Alert(AlertType.ERROR);
+        errorDialog.setTitle("Error");
+        errorDialog.setHeaderText("Cannot check in the selected booking");
+        errorDialog.setContentText("This booking has already been checked in previously");
+        errorDialog.showAndWait();
+    }
+
     /**
-     * Checks out the selected guest.
+     * Checks out the selected guest/booking.
      */
     public void onCheckOutButtonClicked() {
-        Guest selectedGuest = getSelectedGuest();
-        GuestService guestService = new GuestService();
-        selectedGuest.setCheckedIn(false);
-        guestService.updateGuest(selectedGuest);
+        Booking selectedBooking = getSelectedBooking();
+        BookingService bookingService = new BookingService();
+        selectedBooking.setCheckedIn(false);
+        bookingService.updateBooking(selectedBooking);
         registryTable.refresh();
     }
 
@@ -107,9 +126,9 @@ public class GuestRegistryScreenController implements Initializable {
     }
 
     /**
-     * @return The currently selected guest in the registry table view.
+     * @return The currently selected guest/booking in the registry table view.
      */
-    private Guest getSelectedGuest() {
+    private Booking getSelectedBooking() {
         return registryTable.getSelectionModel().getSelectedItem();
     }
 }
