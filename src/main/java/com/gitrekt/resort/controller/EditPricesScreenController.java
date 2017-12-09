@@ -32,7 +32,7 @@ public class EditPricesScreenController implements Initializable {
     @FXML
     private TableColumn<RoomCategory,String> roomDescriptionColumn;
     @FXML
-    private TableColumn<RoomCategory,Double> roomPriceColumn;
+    private TableColumn<RoomCategory,String> roomPriceColumn;
 
     private ObservableList<RoomCategory> room;
 
@@ -58,9 +58,9 @@ public class EditPricesScreenController implements Initializable {
         });
 
         roomPriceColumn.setCellValueFactory((param) ->{
-            return new SimpleDoubleProperty(
-                    param.getValue().getBasePrice()
-            ).asObject();
+            return new SimpleStringProperty(
+                    String.format("$%.2f", param.getValue().getBasePrice()
+            ));
         } );
 
         loadData();
