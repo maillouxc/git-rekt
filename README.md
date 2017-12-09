@@ -11,7 +11,7 @@ Minimum Java 8 required.
 
 3. Using the file explorer, navigate to build/libs and run the generated jar file.
 
-(You could also use the command "gradlew run" but this requires keeping the cmd prompt open)
+(You could also use the command `gradlew run` but this requires keeping the cmd prompt open)
 
 The project site with more information and links to the other deliverables (including the user manual) is located at 
 https://sites.google.com/view/git-rekt-resort/the-team
