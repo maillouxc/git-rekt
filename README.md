@@ -7,7 +7,7 @@ Minimum Java 8 required.
 
 1. Using the command prompt, navigate to the root directory of the project.
 
-2. Run the command `gradlew build` (This may take a minute)
+2. Run the command `gradlew build` (`./gradlew build` if using mac/linux or any bash shell) (This may take a minute)
 
 3. Using the file explorer, navigate to build/libs and run the generated jar file.
 
