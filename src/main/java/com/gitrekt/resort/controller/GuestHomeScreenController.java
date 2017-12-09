@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 import javax.persistence.EntityNotFoundException;
 
@@ -64,9 +66,16 @@ public class GuestHomeScreenController implements Initializable {
                 BookingDetailsScreenController controller = (BookingDetailsScreenController) temp;
                 controller.intializeBookingData(booking);
             } catch (EntityNotFoundException e) {
-                // If the booking isn't found, just let the dialog close.
+                showBookingNotFoundError();
             }
         }
+    }
+
+    private void showBookingNotFoundError() {
+        Alert error = new Alert(AlertType.ERROR);
+        error.setTitle("Error");
+        error.setContentText("No booking was found with the given booking number.");
+        error.showAndWait();
     }
 
 }

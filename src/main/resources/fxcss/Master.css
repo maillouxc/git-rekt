@@ -15,14 +15,14 @@
 
 .screenHeader {
     -fx-font-weight: bold;
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
 }
 
 .button {
     -fx-text-fill: white;
     -fx-font-family: "Sans Serif";
     -fx-font-weight: bold;
-    -fx-font-size: 15px;
+    -fx-font-size: 14px;
     -fx-background-color: linear-gradient(rgba(3, 120, 89, 1), rgba(3, 120, 89, 0.5));
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
@@ -48,6 +48,11 @@
     -fx-font-weight: bold;
 }
 
+.menuScreenHeader {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
 .bookingStatusLabel {
     -fx-font-weight: bold;
     -fx-text-fill: red;
@@ -59,11 +64,28 @@
 }
 
 #resetEmployeePasswordDialog {
-    -fx-pref-width: 500;
+    -fx-pref-width: 550;
     -fx-pref-height: 420;
 }
 
 #createStaffAccountDialog {
     -fx-pref-width: 550;
     -fx-pref-height: 530;
+}
+
+#changePriceDialog {
+    -fx-pref-width: 400;
+    -fx-pref-height: 200;
+}
+
+#homeScreenTitle {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2ECC71;
+}
+
+#homeScreenSubtitle {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
 }
