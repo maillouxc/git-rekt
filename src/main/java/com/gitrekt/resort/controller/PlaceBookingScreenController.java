@@ -233,6 +233,7 @@ public class PlaceBookingScreenController implements Initializable {
 
         if(!confirmedEmail.equals(email) || email.isEmpty()) {
             isValid = false;
+            showEmailAddressedDoNotMatchError();
         }
         if(!ensureRequiredFieldsNotEmpty()) {
             isValid = false;
@@ -358,5 +359,12 @@ public class PlaceBookingScreenController implements Initializable {
         }
 
         return requiredFieldsNotEmpty;
+    }
+
+    private void showEmailAddressesDoNotMatchError() {
+        Alert error = new Alert(AlertType.ERROR);
+        error.setTitle("Error");
+        error.setContentText("Email addresses do not match.");
+        error.showAndWait();
     }
 }
