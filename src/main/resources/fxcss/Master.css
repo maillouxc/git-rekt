@@ -67,3 +67,8 @@
     -fx-pref-width: 550;
     -fx-pref-height: 530;
 }
+
+#changePriceDialog {
+    -fx-pref-width: 400;
+    -fx-pref-height: 200;
+}
