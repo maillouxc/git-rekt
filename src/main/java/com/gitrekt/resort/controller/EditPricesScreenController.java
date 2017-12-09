@@ -69,7 +69,7 @@ public class EditPricesScreenController implements Initializable {
 
     @FXML
     private void onEditPriceClickedButton() throws IOException {
-
+        if(service != null){
         Stage editPriceDialogStage = new Stage();
         Parent editPriceDialogRoot = FXMLLoader.load(
                 getClass().getResource("/fxml/EditPriceDialog.fxml")
@@ -85,7 +85,7 @@ public class EditPricesScreenController implements Initializable {
         editPriceDialogStage.setTitle("Edit Price");
         editPriceDialogStage.centerOnScreen();
         editPriceDialogStage.show();
-
+        }
     }
 
     @FXML
