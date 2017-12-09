@@ -17,3 +17,5 @@ The project site with more information and links to the other deliverables (incl
 https://sites.google.com/view/git-rekt-resort/the-team
 
 Any bugs found can be submitted to the github issues tracker.
+
+Note that the software has some quirks; details are available on the project website and in the user manual.
