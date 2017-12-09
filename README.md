@@ -6,7 +6,7 @@ https://github.com/maillouxc/git-rekt
 
 The file is in markdown format, and may be easier to read there.
 
-## BUILD INSTRUCTIONS:
+## Build Instructions:
 
 Minimum Java 8 required.
 
