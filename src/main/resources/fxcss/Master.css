@@ -48,6 +48,11 @@
     -fx-font-weight: bold;
 }
 
+.menuScreenHeader {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
 .bookingStatusLabel {
     -fx-font-weight: bold;
     -fx-text-fill: red;
