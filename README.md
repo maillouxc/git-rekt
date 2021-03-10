@@ -26,3 +26,10 @@ Any bugs found can be submitted to the github issues tracker.
 Note that the software has some quirks; details are available on the project website and in the user manual.
 
 You can also download a fully built JAR file on the "releases" page of the repository and just run that.
+
+Team Members:
+- Chris Mailloux
+- Devon Jerothe
+- Edgar Meruvia
+- Jeffrey Fleurent
+- Juan Gomez
