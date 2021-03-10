@@ -131,7 +131,7 @@ public class DatabaseTestDataLoader {
         Employee e4 = new Employee(4L,"1234", true, "Juanito" , "Gomez");
         Employee e5 = new Employee(5L,"1234", false, "Juana" , "Gomez");
         Employee e6 = new Employee(6L,"1234", false, "Juanita" , "Gomez");
-        Employee e7 = new Employee(7L,"1234", true, "Juanucho" , "Gomez");
+        Employee e7 = new Employee(7L,"1234", true, "Juancho" , "Gomez");
 
         entityManager.persist(e1);
         entityManager.persist(e2);
